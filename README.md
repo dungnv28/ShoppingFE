@@ -1,2 +1,1 @@
-# ShoppingFE
-ShoppingFE Angular JS
+
