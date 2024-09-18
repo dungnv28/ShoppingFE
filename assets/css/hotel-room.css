@@ -1,0 +1,48 @@
+.btn-sliver {
+    background-color: rgb(206, 206, 206);
+    color: white;
+}
+
+.btn-sliver:hover {
+    background-color: rgb(181, 181, 181);
+    color: white;
+    border: 1px solid rgb(181, 181, 181);
+}
+
+.border-sliver {
+    border-color: white !important;
+}
+
+.text-sliver {
+    color: rgb(206, 206, 206) !important;
+}
+
+.btn-purple {
+    background-color: purple;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: rgb(70, 0, 70);
+    color: white;
+    border: 1px solid rgb(70, 0, 70);
+}
+
+.border-purple {
+    border-color: purple !important;
+}
+
+.text-purple {
+    color: purple !important;
+}
+
+.btn-hotel {
+    background-color: #2A3042;
+    color: white;
+}
+
+.btn-hotel:hover {
+    background-color: #1e2330;
+    color: white;
+    border: 1px solid #2A3042;
+}

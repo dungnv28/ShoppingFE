@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Shopping Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="icon" href="assets/images/site-web.png" sizes="32x32">
+    <link rel="icon" href="assets/images/site-web.png" sizes="192x192">
+
+    <!-- Bootstrap Css -->
+    <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <!-- <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- App Css-->
+    <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    
+    <link href="https://cdn.datatables.net/datetime/1.4.0/css/dataTables.dateTime.min.css" rel="stylesheet">
+    <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css">
+
+    <link href="assets/css/booking.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/hotel-room.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-sidebar="dark" data-layout-mode="light" ng-app="myApp">
+    
+    <div style="font-size: 16px;" ng-view></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="assets/node_modules/file-saver/dist/xlsx.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
+    <script src="assets/libs/jquery/jquery.min.js"></script>
+    <script src="assets/node_modules/file-saver/dist/FileSaver.js"></script>
+    <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/libs/node-waves/waves.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- apexcharts -->
+    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- dashboard blog init -->
+    <script src="assets/js/pages/dashboard-blog.init.js"></script>
+
+    <!-- form wizard init -->
+    <script src="assets/js/pages/form-wizard.init.js"></script>
+
+    <!-- jquery step -->
+    <script src="assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- Buttons examples -->
+    <script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="assets/libs/jszip/jszip.min.js"></script>
+    <script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
+    <script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+        
+    <!-- Responsive examples -->
+    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Required select2 js -->
+    <script src="assets/libs/select2/js/select2.min.js"></script>
+    <script src="assets/libs/parsleyjs/parsley.min.js"></script>
+    <script src="assets/js/pages/form-validation.init.js"></script>
+
+    <!-- Required bootstrap datepicker js -->
+    <script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Required webcam js -->
+    <script src="assets/js/webcamjs/webcam.min.js"></script>
+
+    <!-- Required html5-qrcode -->
+    <script src="assets/js/html5-qrcode/html5-qrcode.min.js"></script>
+
+    <!-- Required html5-qrcode -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+
+    <script src="assets/js/app.js"></script>
+
+    <script src="main.js"></script>
+    <script src="router.js"></script>
+    <script src="views/dashboard.js"></script>
+    <script src="views/account/accountCtrl.js"></script>
+    <script src="views/customers/customerCtrl.js"></script>
+    <script src="views/payment/paymentCtrl.js"></script>
+    <script src="views/service/serviceCtrl.js"></script>
+    <script src="views/service-type/service-typeCtrl.js"></script>
+    <script src="views/supply/supplyCtrl.js"></script>
+    <script src="views/room/roomCtrl.js"></script>
+    <script src="views/roomType/roomTypeCtrl.js"></script>
+    <script src="views/hotel-room/hotelRoomCtrl.js"></script>
+    <script src="views/booking/bookingCtrl.js"></script>
+    <script src="views/checkin/checkinCtrl.js"></script>
+    <script src="views/checkout/checkoutCtrl.js"></script>
+    <script src="views/promotion/promotion.js"></script>
+    <script src="views/invoice/invoiceCtrl.js"></script>
+    <script src="views/setting/settingCtrl.js"></script>
+    <script src="views/authenticate/loginCtrl.js"></script>
+    <script src="views/securityConfig/authConfig.js"></script>
+    <script src="views/securityConfig/tokenConfig.js"></script>
+    <script src="views/securityConfig/filterConfig.js"></script>
+    <script src="views/statistical/statisCtrl.js"></script>
+
+</body>
+
+</html>

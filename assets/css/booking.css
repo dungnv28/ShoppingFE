@@ -1,0 +1,255 @@
+/* Style for the circles around the numbers */
+.circle {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #212529;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Style for the active tab */
+.active-tab {
+    background-color: #212529;
+    color: #fff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Style for the active circle */
+.active-tab .circle {
+    background-color: #fff;
+    color: #212529;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.room-type-detail {
+    text-decoration: none;
+    color: #212529;
+}
+
+.room-type-detail:hover {
+    color: red;
+    cursor: pointer;
+}
+
+/* Style for the pill-shaped background */
+.tab-pill {
+    border: 1px solid #6c757d;
+    padding: 5px 10px;
+    /* border-radius: 20px; */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.booking-header {
+    border: 1px solid #6c757d;
+}
+
+.confirmed {
+    background-color: #198754;
+    color: white;
+}
+
+.pending :hover {
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+}
+
+.customer :hover {
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+}
+
+.booking :hover {
+    cursor: pointer;
+    background-color: #0d6efd;
+    color: white;
+}
+
+.confirmed :hover {
+    cursor: pointer;
+    background-color: #198754;
+    color: white;
+}
+
+.confirmed-div i {
+    font-size: 25px;
+}
+
+.loader {
+    background: #000;
+    background: radial-gradient(#222, #000);
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+    opacity: 0.5;
+    z-index: 9999;
+}
+
+.loader-inner {
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+
+.loader-line-wrap {
+    animation:
+        spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite;
+    box-sizing: border-box;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    width: 100px;
+}
+
+.loader-line {
+    border: 4px solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+
+.loader-line-wrap:nth-child(1) {
+    animation-delay: -50ms;
+}
+
+.loader-line-wrap:nth-child(2) {
+    animation-delay: -100ms;
+}
+
+.loader-line-wrap:nth-child(3) {
+    animation-delay: -150ms;
+}
+
+.loader-line-wrap:nth-child(4) {
+    animation-delay: -200ms;
+}
+
+.loader-line-wrap:nth-child(5) {
+    animation-delay: -250ms;
+}
+
+.loader-line-wrap:nth-child(1) .loader-line {
+    border-color: hsl(0, 80%, 60%);
+    height: 90px;
+    width: 90px;
+    top: 7px;
+}
+
+.loader-line-wrap:nth-child(2) .loader-line {
+    border-color: hsl(60, 80%, 60%);
+    height: 76px;
+    width: 76px;
+    top: 14px;
+}
+
+.loader-line-wrap:nth-child(3) .loader-line {
+    border-color: hsl(120, 80%, 60%);
+    height: 62px;
+    width: 62px;
+    top: 21px;
+}
+
+.loader-line-wrap:nth-child(4) .loader-line {
+    border-color: hsl(180, 80%, 60%);
+    height: 48px;
+    width: 48px;
+    top: 28px;
+}
+
+.loader-line-wrap:nth-child(5) .loader-line {
+    border-color: hsl(240, 80%, 60%);
+    height: 34px;
+    width: 34px;
+    top: 35px;
+}
+
+@keyframes spin {
+
+    0%,
+    15% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.load-bar {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+    height: 6px;
+    background-color: #fdba2c;
+}
+
+.bar {
+    content: "";
+    display: inline;
+    position: absolute;
+    width: 0;
+    height: 100%;
+    left: 50%;
+    text-align: center;
+}
+
+.bar:nth-child(1) {
+    background-color: #da4733;
+    animation: loading 3s linear infinite;
+}
+
+.bar:nth-child(2) {
+    background-color: #3b78e7;
+    animation: loading 3s linear 1s infinite;
+}
+
+.bar:nth-child(3) {
+    background-color: #fdba2c;
+    animation: loading 3s linear 2s infinite;
+}
+
+@keyframes loading {
+    from {
+        left: 50%;
+        width: 0;
+        z-index: 100;
+    }
+
+    33.3333% {
+        left: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    to {
+        left: 0;
+        width: 100%;
+    }
+
+
+}
