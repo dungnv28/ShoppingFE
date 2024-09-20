@@ -6,6 +6,10 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/dashboard.html",
       controller: "dashboard",
     })
+    .when("/cart", {
+      templateUrl: "/views/cart/cart.html",
+      controller: "cart",
+    })
     //Authenticate
     .when("/login", {
       templateUrl: "/views/authenticate/login.html",

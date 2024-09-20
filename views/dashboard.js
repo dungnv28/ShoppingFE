@@ -8,6 +8,7 @@ app.controller("dashboard", function ($scope, $http, $location, $filter) {
         $http.get("http://localhost:8000/api/admin/products").then(resp => {
             $scope.products = resp.data;
             $scope.filterPro =resp.data;
+            console.log($scope.products);
         }).catch(error => {
             console.log("Error", error);
         })
