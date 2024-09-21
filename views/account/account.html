@@ -1,0 +1,149 @@
+<app-layout name="">
+    <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                  TẠO TÀI KHOẢN
+              </h5>
+              <div class="card-body">
+                  <div class="mb-3">
+                      <a href="/#!/accounts" class="btn btn-primary w-md waves-effect waves-light">
+                          <i class="mdi mdi-format-list-bulleted"></i> Tài khoản
+                      </a>
+                  </div>
+                  <form>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="username" class="form-label">Tên đăng nhập</label>
+                                  <input ng-model="account.username" type="text" class="form-control" id="username">
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="fullName" class="form-label">Họ và tên</label>
+                                  <input ng-model="account.fullName" type="text" class="form-control" id="fullName">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="password" class="form-label">Mật khẩu</label>
+                                  <div class="input-group">
+                                      <input ng-model="account.password" type="password" class="form-control" id="password">
+                                      <button ng-click="handlerShowPassword()" class="btn btn-light" type="button">
+                                          <i ng-show="!isShowPassword" class="mdi mdi-eye-outline"></i>
+                                          <i ng-show="isShowPassword" class="mdi mdi-eye-off-outline"></i>
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                                  <div class="input-group">
+                                      <input ng-model="account.confirmPassword" type="password" class="form-control" id="confirmPassword">
+                                      <button ng-click="handlerShowConfirmPassword()" class="btn btn-light" type="button">
+                                          <i ng-show="!isShowConfirmPassword" class="mdi mdi-eye-outline"></i>
+                                          <i ng-show="isShowConfirmPassword" class="mdi mdi-eye-off-outline"></i>
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="phoneNumber" class="form-label">SĐT</label>
+                                  <input ng-model="account.phoneNumber" type="text" class="form-control" id="phoneNumber">
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="email" class="form-label">Email</label>
+                                  <input ng-model="account.email" type="text" class="form-control" id="email">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-6">
+                              <label for="formrow-status-input">Trạng thái</label>
+                              <div class="d-flex">
+                                  <div class="square-switch">
+                                      <input type="checkbox" id="formrow-status-input" switch="bool" ng-model="account.status">
+                                      <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div>
+                          <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
+                          <button type="reset" class="btn btn-danger w-md waves-effect waves-light">Làm mới</button>
+                      </div>
+                  </form>
+              </div>
+              <!-- end card body -->
+          </div>
+          <!-- end card -->
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                    TÀI KHOẢN
+                </h5>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="/#!/accounts/create" class="btn btn-primary w-md waves-effect waves-light me-1">
+                            <i class="mdi mdi-plus"></i> Tạo tài khoản
+                        </a>
+                        <a href="/#!/accounts/role" class="btn btn-primary w-md waves-effect waves-light">
+                            <i class="mdi mdi-format-list-bulleted"></i> Phân quyền
+                        </a>
+                    </div>
+                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
+                        id="search-datatable-accounts">
+                    <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
+
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên đăng nhập</th>
+                                <th>Họ và tên</th>
+                                <th>Email</th>
+                                <th>Trạng thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in accounts">
+                                <td>
+                                    <b>{{$index + 1}}</b>
+                                </td>
+                                <td>{{item.username}}</td>
+                                <td>{{item.fullName}}</td>
+                                <td>{{item.email}}</td>
+                                <td><span class="badge badge-pill " ng-class="item.status ? 'bg-success' : 'bg-danger'">{{item.status ? 'Đang hoạt động' : 'Ngừng hoạt động'}}</span></td>
+                                <td>
+                                    <a href="/#!/accounts/update/{{item.username}}" class="btn btn-outline-secondary btn-sm edit" title="Chỉnh sửa">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a ng-show="item.status" ng-click="handlerDeactivateAccount(item)" class="btn btn-outline-danger btn-sm edit" title="Ngừng hoạt động">
+                                        <i class="mdi mdi-cancel"></i>
+                                    </a>
+                                    <a ng-show="!item.status" ng-click="handlerActivateAccount(item)" class="btn btn-outline-success btn-sm edit" title="Đang hoạt động">
+                                        <i class="mdi mdi-check"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+  </app-layout>
+  

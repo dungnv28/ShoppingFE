@@ -64,7 +64,7 @@
         <div class="dropdown d-inline-block">
           <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{nameUser}}</span>
+            <span class="d-none d-xl-inline-block ms-1" key="t-henry"><i class="bi bi-person-fill"></i> {{nameUser}}</span>
             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
           </button>
           <div class="dropdown-menu dropdown-menu-end">
@@ -106,7 +106,18 @@
               <span>Sản Phẩm</span>
             </a>
           </li>
-          
+          <li>
+            <a ng-href="/#!/account" class="waves-effect">
+              <i class="bi bi-file-earmark-person"></i>
+              <span>Tài Khoản</span>
+            </a>
+          </li>
+          <li>
+            <a ng-href="/#!/order" class="waves-effect">
+              <i class="bi bi-boxes"></i>
+              <span>Quản Lý Đơn Đặt</span>
+            </a>
+          </li>
         </ul>
       </div>
       <!-- Sidebar -->
