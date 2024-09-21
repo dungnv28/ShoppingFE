@@ -10,6 +10,14 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/cart/cart.html",
       controller: "cart",
     })
+    .when("/product", {
+      templateUrl: "/views/product/product.html",
+      controller: "product",
+    })
+    .when("/category", {
+      templateUrl: "/views/category/category.html",
+      controller: "category",
+    })
     //Authenticate
     .when("/login", {
       templateUrl: "/views/authenticate/login.html",

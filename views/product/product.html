@@ -1,0 +1,307 @@
+<app-layout name="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-4">
+                            <h4>TẠO SẢN PHẨM</h4>
+                        </div>
+                        
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <a href="/#!/room" class="btn btn-primary waves-effect waves-light me-2"><i class="fas fa-list-ul me-2"></i>Danh sách phòng</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Create room -->
+                    <form enctype = "multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-2 mb-3">
+                                <label for="formrow-floor-input" class="form-label">Tầng</label>
+                                <select ng-model="form.floor.id" id="formrow-floor-select" class="form-select" ng-change="setCodeRoom(form.floor.id)">
+                                    <option  ng-repeat= "floor in floors" ng-value = "floor.id" ng-show ="floor.status">{{floor.code}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <label for="formrow-floor-input" class="form-label" style="color: white;">Tầng</label>
+                                <a class="btn btn-outline-primary waves-effect waves-light w-100" data-bs-toggle="modal" data-bs-target="#viewFloor">
+                                    <i class="mdi mdi-plus me-1"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="formrow-roomNumber-input" class="form-label">Room number</label>
+                                <div class="input-group">
+                                    <input ng-model="form.code" type="text" class="form-control" id="formrow-roomNumber-select" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="formrow-roomType-select" class="form-label">Loại phòng</label>
+                                <select ng-model="form.roomType.id" id="formrow-roomType-select" class="form-select">
+                                    <option ng-repeat= "room in roomTypes" ng-value = "room.id">{{room.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-3 text-sm-center">
+                                <label for="formrow-status-input">Trạng thái</label>
+                                <div >
+                                    <input type="checkbox" id="formrow-status-input" switch="bool" ng-model="form.status"/>
+                                    <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 mt-auto d-grid">
+                                <a class="btn btn-outline-primary waves-effect waves-light w-100" data-bs-toggle="modal" data-bs-target="#chooseBed">
+                                    <i class="bx bxs-bed mx-auto font-size-15 me-3"></i>Chọn giường
+                                </a>
+                            </div> 
+                        </div>
+                        <div class="row mb-3">
+                            <label for="formrow-description-input">Mô tả</label>
+                            <textarea ng-model="form.description" id="formrow-description-input" class="form-control" rows="3"
+                                placeholder="Nhập mô tả"></textarea>
+                        </div>
+                        <div>
+                            <button ng-click="create()" class="btn btn-success waves-effect waves-light mb-2">Thêm</button>
+                            <button ng-click="reset()" class="btn btn-danger waves-effect waves-light mb-2">Làm mới</button>
+                        </div>
+                        <!-- Modal floor-->
+                        <div class="modal fade" id="viewFloor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewFloorLabel">Danh sách tầng</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <div class="text-sm-end">
+                                            <button class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#createFloor" ng-click="setCodeFloor()">
+                                                <i class="mdi mdi-plus me-1"></i>Thêm tầng
+                                            </button>
+                                        </div>
+                                        <div class="table-reponsive">
+                                            <table class="table table-hover align-middle mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Tầng</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>#</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="item in floors">
+                                                        <td>{{item.code}}</td>
+                                                        <td>{{item.status ? 'Hoạt động' : 'Ngừng hoạt động'}}</td>
+                                                        <td>
+                                                            <input class="form-check-input" type="checkbox" ng-model="item.status" ng-click="statusFloorChange(item)">
+                                                        </td>
+                                                    </tr>  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End modal floor -->
+
+                        <!-- Modal create floor-->
+                        <div class="modal fade" id="createFloor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="viewFloorLabel">Thêm tầng</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="formrow-name-input" class="form-label">Tầng</label>
+                                                <input ng-model="formFloor.code" type="text" class="form-control" id="formrow-nameFloor-input" disabled>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formrow-statusFloor-input" class="form-label">Trạng thái</label>
+                                                <div >
+                                                    <input type="checkbox" id="formrow-statusFloor-input" switch="bool" ng-model="formFloor.status"/>
+                                                    <label for="formrow-statusFloor-input" data-on-label="On" data-off-label="Off"></label>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button ng-click="createFloor()" class="btn btn-success waves-effect waves-light mb-2" data-bs-dismiss="modal">Thêm</button>
+                                                <button ng-click="resetFormFloor()" class="btn btn-danger waves-effect waves-light mb-2">Làm mới</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End modal create floor -->
+
+                        <!-- Modal bed-->
+                        <div class="modal fade" id="chooseBed" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="chooseBedLabel">Danh sách giường</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body ">
+                                        <div class="table-reponsive">
+                                            <table class="table table-hover align-middle mb-0">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Tên</th>
+                                                        <th>Số người lớn tối đa</th>
+                                                        <th>Số trẻ em tối đa</th>
+                                                        <th>Mô tả</th>
+                                                        <th>Số lượng</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="bedType in bedTypes">
+                                                        <td style="width: 20px;" class="align-middle">
+                                                            <div class="form-check form-check-success font-size-16">
+                                                                <input class="form-check-input" type="checkbox" ng-model="bedType.checked" ng-change="bedTypeChanged(bedType)">
+                                                            </div>
+                                                        </td>
+                                                        <td>{{bedType.name}}</td>
+                                                        <td>{{bedType.maxAdults}}</td>
+                                                        <td>{{bedType.maxChilds}}</td>
+                                                        <td>{{bedType.description}}</td>
+                                                        <td>
+                                                            <input type="number" class="form-control" ng-model="bedType.count" ng-disabled="true" ng-change="bedTypeChanged(bedType)">
+                                                        </td>
+                                                    </tr>  
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End modal bed -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------------ table --------------------- -->
+    <div class="row" data-sidebar="dark" data-layout-mode="light">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header bg-transparent border-bottom text-uppercase">DANH SÁCH SẢN PHẨM</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="text-sm-end d-flex justify-content-end mb-2">
+                            <div>
+                                <a href="/#!/room/create" class="btn btn-primary waves-effect waves-light mb-2 me-2"><i class="mdi mdi-plus me-1"></i>Thêm phòng</a>
+                            </div>
+                            <div>
+                                <a href="/#!/room-type" class="btn btn-primary waves-effect waves-light mb-2 me-2"><i class="dripicons-view-list me-2"></i>Loại phòng</a>
+                            </div>
+                            <div>
+                                <a href="/#!/supply" class="btn btn-primary waves-effect waves-light mb-2 me-2"><i class="dripicons-view-list me-2"></i>Vật tư</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="search" class="form-control" placeholder="Tìm kiếm" id="search-datatable-rooms">
+                    </div>
+
+                    <!-- table content -->
+                    <table id="datatable-rooms" class="table table-hover table-reponsive">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Số phòng</th>
+                                <th>Tầng</th>
+                                <th>Loại phòng</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                                <th>Giường phòng</th>
+                                <th>Mô tả</th>
+                                <th style="text-align: center;">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat = "room in rooms">
+                                <td>{{room.code}}</td>
+                                <td>{{room.floor.code}}</td>
+                                <td>{{room.roomType.name}}</td>
+                                <td>{{room.roomType.price | currency: '' : 0}} đ</td>
+                                <td>
+                                    <span ng-if="room.status == 0" class="badge badge-pill badge-soft-success font-size-12">Trống</span>
+                                    <span ng-if="room.status == 1" class="badge badge-pill badge-soft-dark font-size-12">Không hoạt động</span>
+                                    <span ng-if="room.status == 2" class="badge badge-pill badge-soft-danger font-size-12">Đang ở</span>
+                                    <span ng-if="room.status == 3" class="badge badge-pill badge-soft-purple font-size-12">Đang đặt</span>
+                                    <span ng-if="room.status == 4" class="badge badge-pill badge-soft-warning font-size-12">Chờ nhận phòng</span>
+                                    <span ng-if="room.status == 5" class="badge badge-pill badge-soft-warning font-size-12">Quá hạn</span>
+                                    <span ng-if="room.status == 6" class="badge badge-pill badge-soft-secondary font-size-12">Đang dọn dẹp</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary text-secondary" title="Giường phòng" data-bs-toggle="modal" data-bs-target="#viewBedRoom" ng-click="loadBedRoom(room.bedRooms)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                                <td>{{room.description}}</td>
+                                <td class="align-middle">
+                                    <a class="btn btn-outline-secondary edit" ng-click="edit(room)" href="/#!/room/update/{{room.id}}" title="Sửa">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    
+                
+                    <!-- Model view bed room -->
+                    <div class="modal fade" id="viewBedRoom" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="viewBedRoomLabel">Giường trong phòng</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-reponsive">
+                                        <table class="table table-hover align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Tên</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Mô tả</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in bedRoom">
+                                                    <td>{{item.bedType.name}}</td>
+                                                    <td>{{item.quantityBed}}</td>
+                                                    <td>{{item.bedType.description}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End model bed room -->
+                </div>
+            </div>
+        </div>
+    </div>
+</app-layout>
