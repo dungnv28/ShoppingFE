@@ -21,7 +21,7 @@ app.controller("dashboard", function ($scope, $http, $location, $filter) {
     }
 
     $scope.filterProducts = function(id) { /// hàm lọc theo category
-        $scope.filterPro = $scope.products.filter(product => product.categoryId == id);
+        $scope.filterPro = $scope.products.filter(product => product.category.id == id);
     }
 
 
