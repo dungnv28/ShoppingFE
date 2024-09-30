@@ -11,7 +11,7 @@
                   <p class="text-muted mb-0"> Place On <span class="fw-bold text-body">12,March 2019</span> </p>
                 </div>
                 <div>
-                  <h6 class="mb-0"> <a href="#">View Details</a> </h6>
+                  <h6 class="mb-0"> <a data-bs-toggle="modal" data-bs-target="#viewProduct" href="#">View Details</a> </h6>
                 </div>
               </div>
             </div>
@@ -91,5 +91,29 @@
     </div>
     
   </section>
-  
+  <!-- -------modal------- -->
+  <div class="modal fade" id="viewProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewBedRoomLabel">Chi tiết đơn hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="carouselExample" class="carousel slide">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="{{viewPro.urlimage}}" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          {{viewPro.description}}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
 </app-layout>

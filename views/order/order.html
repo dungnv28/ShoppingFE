@@ -1,1 +1,40 @@
-<app-layout name=""></app-layout>
+<app-layout name="">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                    QUẢN LÝ ĐẶT HÀNG
+                </h5>
+                <div class="card-body">
+                  
+                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
+                        id="search-datatable-accounts">
+                    <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
+
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tổng Tiền</th>
+                                <th>Khách Hàng</th>
+                                <th>Ngày Đặt Hàng</th>
+                                <th>Trạng thái</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in accounts">
+                                <td>
+                                    <b>{{$index + 1}}</b>
+                                </td>
+                                <td>{{item.username}}</td>
+                                <td>{{item.username}}</td>
+                                <td>{{item.fullName}}</td>
+                                <td>{{item.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-layout>
