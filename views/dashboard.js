@@ -1,7 +1,10 @@
-app.controller("dashboard", function ($scope, $http, $location, $filter) {
+app.controller("dashboard", function ($scope, $http,authService,$location) {
     $scope.products = [];
-    $scope.viewPro = {}
+    $scope.viewPro = {};
+    $scope.cartProduct = {}
     $scope.filterPro = []
+    $scope.account = {};
+
     $scope.initialize = function () {
         $scope.isLoading = true;
         // Load data rooms
@@ -23,6 +26,30 @@ app.controller("dashboard", function ($scope, $http, $location, $filter) {
     $scope.filterProducts = function(id) { /// hàm lọc theo category
         $scope.filterPro = $scope.products.filter(product => product.category.id == id);
     }
+
+   
+    $scope.addToCart = function (pro) {
+        if (authService.getToken()) {
+            $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername()).then(resp => {
+                $scope.account = resp.data;
+                console.log($scope.account);
+
+                // Sau khi đã lấy được thông tin tài khoản, thêm sản phẩm vào giỏ hàng
+                $scope.cartProduct.product = pro;
+                $scope.cartProduct.account = $scope.account;
+                $scope.cartProduct.amount = 1;
+                $http.post("http://localhost:8000/api/client/carts", $scope.cartProduct).then(resp => {
+                    console.log("Product added to cart successfully.");
+                }).catch(error => {
+                    console.log("Error", error);
+                });
+            }).catch(error => {
+                console.log("Error", error);
+            });
+        } else {
+            $location.path('/login');
+        }
+    };
 
 
     $scope.initialize();
