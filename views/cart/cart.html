@@ -23,7 +23,7 @@
                                             </div>
                                             <div class="col-md-3 col-lg-3 col-xl-3">
                                                 <h6 class="text-muted">{{it.product.name}}</h6>
-                                                <h6 class="mb-0">{{it.product.description}}</h6>
+                                                <!-- <h6 class="mb-0">{{it.product.description}}</h6> -->
                                             </div>
 
                                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
@@ -33,7 +33,7 @@
                                                     <i class="fas fa-minus"></i>
                                                 </button>
 
-                                                <input id="form1" min="0" name="quantity" value="1" type="number"
+                                                <input id="form1" min="0" name="quantity" value="{{it.amount}}" type="number"
                                                     class="form-control form-control-sm" />
 
                                                 <button data-mdb-button-init data-mdb-ripple-init
@@ -70,8 +70,8 @@
                                         <hr class="my-4">
 
                                         <div class="d-flex justify-content-between mb-4">
-                                            <h5 class="text-uppercase">items 3</h5>
-                                            <h5>€ 132.00</h5>
+                                            <h5 class="text-uppercase">items {{carts.length}}</h5>
+                                            <h5>€ {{getTotalPrice()}}</h5>
                                         </div>
 
                                         <h5 class="text-uppercase mb-3">Mã Giảm Giá</h5>
@@ -88,7 +88,7 @@
 
                                         <div class="d-flex justify-content-between mb-5">
                                             <h5 class="text-uppercase">Tổng Tiền</h5>
-                                            <h5>€ 137.00</h5>
+                                            <h5>€ {{getTotalPrice()}}</h5>
                                         </div>
 
                                         <button type="button" data-mdb-button-init data-mdb-ripple-init data-bs-toggle="modal" data-bs-target="#checkout"

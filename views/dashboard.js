@@ -7,7 +7,7 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
 
     $scope.initialize = function () {
         $scope.isLoading = true;
-        // Load data rooms
+        // Load data products
         $http.get("http://localhost:8000/api/admin/products").then(resp => {
             $scope.products = resp.data;
             $scope.filterPro =resp.data;
@@ -32,14 +32,10 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
         if (authService.getToken()) {
             $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername()).then(resp => {
                 $scope.account = resp.data;
-                console.log($scope.account);
-
-                // Sau khi đã lấy được thông tin tài khoản, thêm sản phẩm vào giỏ hàng
                 $scope.cartProduct.product = pro;
                 $scope.cartProduct.account = $scope.account;
                 $scope.cartProduct.amount = 1;
                 $http.post("http://localhost:8000/api/client/carts", $scope.cartProduct).then(resp => {
-                    console.log("Product added to cart successfully.");
                 }).catch(error => {
                     console.log("Error", error);
                 });
