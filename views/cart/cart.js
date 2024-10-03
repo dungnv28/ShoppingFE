@@ -17,21 +17,19 @@ app.controller("cart", function ($scope, $http, $location, authService) {
         }
     }
 
-
-    // Hàm để chọn hoặc bỏ chọn (checkbox) một giỏ hàng
-    $scope.toggleCartSelection = function (cart) {
-        const index = $scope.selectedCarts.indexOf(cart);
-
-        if (index > -1) {
-            // Nếu giỏ hàng đã tồn tại trong danh sách thì loại bỏ nó (uncheck)
-            $scope.selectedCarts.splice(index, 1);
-        } else {
-            // Nếu giỏ hàng chưa có trong danh sách thì thêm vào (checkbox)
-            $scope.selectedCarts.push(cart);
+    $scope.deleteCart = function(cartId) {
+        if (confirm("Bạn có chắc chắn muốn xóa giỏ hàng này?")) {
+            $http.delete("http://localhost:8000/api/client/carts/" + cartId)
+                .then(resp => {
+                    $scope.carts = $scope.carts.filter(cart => cart.id !== cartId);
+                    console.log("Xóa giỏ hàng thành công!");
+                })
+                .catch(error => {
+                    console.log("Error", error);
+                });
         }
-
-        console.log("Selected Carts:", $scope.selectedCarts);
     };
+
 
     $scope.getTotalPrice = function() {
         return $scope.carts.reduce((sum, cart) => {
