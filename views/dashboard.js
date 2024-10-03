@@ -39,6 +39,7 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
                 }).catch(error => {
                     console.log("Error", error);
                 });
+                alert("Thêm sản phẩm thành công!")
             }).catch(error => {
                 console.log("Error", error);
             });

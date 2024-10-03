@@ -18,7 +18,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
     }
 
     $scope.deleteCart = function(cartId) {
-        if (confirm("Bạn có chắc chắn muốn xóa giỏ hàng này?")) {
+        if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
             $http.delete("http://localhost:8000/api/client/carts/" + cartId)
                 .then(resp => {
                     $scope.carts = $scope.carts.filter(cart => cart.id !== cartId);
