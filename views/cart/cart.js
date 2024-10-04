@@ -1,4 +1,5 @@
 app.controller("cart", function ($scope, $http, $location, authService) {
+    $scope.loading = false;
     $scope.carts = []
     $scope.account = {};
     $scope.initialize = function () {
@@ -37,6 +38,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
     };
 
     $scope.closeModal = function() {
+        $scope.loading = true
         $('#checkout').modal('hide');
     };
       
