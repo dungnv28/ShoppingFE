@@ -168,35 +168,13 @@
                       <div class="col-md-5 col-lg-4 col-xl-4 offset-lg-1 offset-xl-2">
                         <h4><span class="fw-bold">Tổng Tiền Thanh Toán</span></h4>
                         <div class="p-3 bg-body-tertiary" style="max-height: 600px; overflow-y: auto;">
-                          <ul class="list-unstyled">
+                          <ul ng-repeat="it in carts" class="list-unstyled">
                             <li class="d-flex justify-content-between mt-2">
-                              <span>contracted Price</span> <span>$186.86</span>
+                              <span>{{it.product.name}}</span> <span>$ {{it.product.price}}</span>
                             </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Amount Deductible</span> <span>$0.0</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Coinsurance(0%)</span> <span>+ $0.0</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Copayment </span> <span>+ 40.00</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>contracted Price</span> <span>$186.86</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Amount Deductible</span> <span>$0.0</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Coinsurance(0%)</span> <span>+ $0.0</span>
-                            </li>
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>Copayment </span> <span>+ 40.00</span>
-                            </li>
-                            
                           </ul>
                         </div>
-                        <h3><span>Total </span> <span class="text-success">$85.00</span></h3>
+                        <h3><span>Total </span> <span class="text-success">${{getTotalPrice()}}</span></h3>
                       </div>
                       
                     </div>

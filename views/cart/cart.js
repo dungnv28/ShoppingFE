@@ -1,6 +1,5 @@
 app.controller("cart", function ($scope, $http, $location, authService) {
     $scope.carts = []
-    $scope.selectedCarts = [];
     $scope.account = {};
     $scope.initialize = function () {
         if (authService.getToken()) {
