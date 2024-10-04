@@ -30,23 +30,42 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
    
     $scope.addToCart = function (pro) {
         if (authService.getToken()) {
-            $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername()).then(resp => {
-                $scope.account = resp.data;
-                $scope.cartProduct.product = pro;
-                $scope.cartProduct.account = $scope.account;
-                $scope.cartProduct.amount = 1;
-                $http.post("http://localhost:8000/api/client/carts", $scope.cartProduct).then(resp => {
-                }).catch(error => {
+            // Lấy thông tin tài khoản
+            $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername())
+                .then(resp => {
+                    $scope.account = resp.data;
+    
+                    // Lấy danh sách sản phẩm trong giỏ hàng của tài khoản
+                    return $http.get("http://localhost:8000/api/client/carts/getbyaccount/" + $scope.account.id);
+                })
+                .then(resp => {
+                    const carts = resp.data; // Danh sách giỏ hàng
+                    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+                    const productExists = carts.some(cart => cart.product.id === pro.id);
+                    
+                    if (productExists) {
+                        alert("Sản phẩm đã có trong giỏ hàng!");
+                        return; // Không thêm sản phẩm nữa
+                    }
+    
+                    // Nếu sản phẩm chưa có, thêm sản phẩm vào giỏ hàng
+                    $scope.cartProduct.product = pro;
+                    $scope.cartProduct.account = $scope.account;
+                    $scope.cartProduct.amount = 1;
+                    alert("Thêm sản phẩm thành công!"); // Chỉ hiển thị thông báo khi thêm thành công
+                    return $http.post("http://localhost:8000/api/client/carts", $scope.cartProduct);
+                })
+                .then(resp => {
+                    
+                })
+                .catch(error => {
                     console.log("Error", error);
                 });
-                alert("Thêm sản phẩm thành công!")
-            }).catch(error => {
-                console.log("Error", error);
-            });
         } else {
             $location.path('/login');
         }
     };
+    
 
 
     $scope.initialize();
