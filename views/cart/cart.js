@@ -36,5 +36,10 @@ app.controller("cart", function ($scope, $http, $location, authService) {
         }, 0);
     };
 
+    $scope.closeModal = function() {
+        $('#checkout').modal('hide');
+    };
+      
+
     $scope.initialize();
 });
