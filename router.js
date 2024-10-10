@@ -12,7 +12,7 @@ app.config(function ($routeProvider, $httpProvider) {
     })
     .when("/orderhistory", {
       templateUrl: "/views/orderhistory/orderhistory.html",
-      controller: "cart",
+      controller: "orderhistory",
     })
     .when("/product", {
       templateUrl: "/views/product/product.html",
