@@ -53,21 +53,21 @@
   
                           <thead>
                               <tr>
-                                  <th>Id</th>
+                                  <th>STT</th>
                                   <th>Tổng Tiền</th>
-                                  <th>Ngày Đặt Hàng</th>
+                                  <th>Code</th>
                                   <th>Trạng thái</th>
                                   <th></th>
                               </tr>
                           </thead>
                           <tbody>
-                              <tr ng-repeat="item in accounts">
+                              <tr ng-repeat="item in orders">
                                   <td>
                                       <b>{{$index + 1}}</b>
                                   </td>
-                                  <td>{{item.username}}</td>
-                                  <td>{{item.fullName}}</td>
-                                  <td>{{item.email}}</td>
+                                  <td>$ {{item.amount}}</td>
+                                  <td>{{item.code}}</td>
+                                  <td>{{item.status}}</td>
                               </tr>
                           </tbody>
                       </table>
