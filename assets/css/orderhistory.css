@@ -91,3 +91,11 @@
 .btn-group-vertical>.btn-group:not(:first-child) {
 margin-top: 0;
 }
+
+.collapse-enter-active, .collapse-leave-active {
+    transition: height 0.5s ease;
+}
+.collapse-enter, .collapse-leave-to {
+    height: 0;
+}
+
