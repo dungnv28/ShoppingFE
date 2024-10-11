@@ -16,6 +16,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
         } else {
             $location.path('/login');
         }
+        // console.log($scope.generateCode(authService.getUsername()))
     }
 
     $scope.deleteCart = function (cartId) {
@@ -45,6 +46,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
         $scope.order.amount = $scope.getTotalPrice();
         $scope.order.status = 0;
         $scope.order.account = $scope.account;
+        $scope.order.code = $scope.generateCode(authService.getUsername()); //code ở dạng auto gen phía back-end
         $http.post("http://localhost:8000/api/client/orders", $scope.order)
             .then(resp => {
                 console.log("Đơn hàng đã được tạo thành công!", resp.data);
@@ -80,6 +82,13 @@ app.controller("cart", function ($scope, $http, $location, authService) {
             .catch(error => {
                 console.log("Lỗi khi xóa giỏ hàng", error);
             });
+    };
+
+    $scope.generateCode = function(username) {
+        var timestamp = Date.now(); 
+        var randomString = Math.random().toString(36).substring(2, 8);
+        var generatedCode = randomString + timestamp + "_" + username;
+        return generatedCode;
     };
 
 
