@@ -16,7 +16,7 @@
           <div class="flex-fill">
             <h5 class="bold">Headphones Bose 35 II</h5>
             <p class="text-muted"> Qt: 1 item</p>
-            <h4 class="mb-3"> $ 299 <span class="small text-muted"> via (COD) </span></h4>
+            <h4 class="mb-3"> $ {{viewOrder.amount}} <span class="small text-muted"> via (COD) </span></h4>
             <p class="text-muted">Trạng Thái Đơn Hàng: <span class="text-body">Chờ Xác Nhận</span></p>
           </div>
           <div>
@@ -60,7 +60,7 @@
                               <td>{{item.code}}</td>
                               <td><b>$ {{item.amount}}</b></td>
                               <td>{{item.status}}</td>
-                              <td style="width: 65px;"><button type="button" class="btn btn-warning">View <i class="bi bi-eye-fill"></i></button></td>
+                              <td style="width: 65px;"><button ng-click ="viewSingleOrder(item)" type="button" class="btn btn-warning">View <i class="bi bi-eye-fill"></i></button></td>
                           </tr>
                       </tbody>
                   </table>
