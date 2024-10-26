@@ -8,6 +8,7 @@ app.controller("orderhistory", function ($scope, $http, $location, $filter) {
             $scope.orders = resp.data;
             $scope.viewSingleOrder($scope.orders[0]);
             $scope.viewOrderDetail($scope.orders[0].id);
+
         }).catch(error => {
             console.log("Error", error);
         })
