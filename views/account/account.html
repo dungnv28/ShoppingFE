@@ -6,11 +6,6 @@
                   TẠO TÀI KHOẢN
               </h5>
               <div class="card-body">
-                  <div class="mb-3">
-                      <a href="/#!/accounts" class="btn btn-primary w-md waves-effect waves-light">
-                          <i class="mdi mdi-format-list-bulleted"></i> Tài khoản
-                      </a>
-                  </div>
                   <form>
                       <div class="row">
                           <div class="col-md-6">
@@ -66,20 +61,8 @@
                               </div>
                           </div>
                       </div>
-                      <div class="row">
-                          <div class="col-6">
-                              <label for="formrow-status-input">Trạng thái</label>
-                              <div class="d-flex">
-                                  <div class="square-switch">
-                                      <input type="checkbox" id="formrow-status-input" switch="bool" ng-model="account.status">
-                                      <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
                       <div>
                           <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
-                          <button type="reset" class="btn btn-danger w-md waves-effect waves-light">Làm mới</button>
                       </div>
                   </form>
               </div>
@@ -98,7 +81,7 @@
                 <div class="card-body">
                   
                     <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
-                        id="search-datatable-accounts">
+                    ng-model="searchTerm" id="search-datatable-accounts">
                     <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
 
                         <thead>
@@ -108,28 +91,18 @@
                                 <th>Họ và tên</th>
                                 <th>Email</th>
                                 <th>Trạng thái</th>
-                                <th></th>
+                                <th>Quyền</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in accounts">
-                                <td>
-                                    <b>{{$index + 1}}</b>
-                                </td>
+                            <tr ng-repeat="item in accounts | filter:searchTerm">
+                                <td>{{$index + 1}}</td>
                                 <td>{{item.username}}</td>
                                 <td>{{item.fullName}}</td>
                                 <td>{{item.email}}</td>
                                 <td><span class="badge badge-pill " ng-class="item.status ? 'bg-success' : 'bg-danger'">{{item.status ? 'Đang hoạt động' : 'Ngừng hoạt động'}}</span></td>
                                 <td>
-                                    <a href="/#!/accounts/update/{{item.username}}" class="btn btn-outline-secondary btn-sm edit" title="Chỉnh sửa">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <a ng-show="item.status" ng-click="handlerDeactivateAccount(item)" class="btn btn-outline-danger btn-sm edit" title="Ngừng hoạt động">
-                                        <i class="mdi mdi-cancel"></i>
-                                    </a>
-                                    <a ng-show="!item.status" ng-click="handlerActivateAccount(item)" class="btn btn-outline-success btn-sm edit" title="Đang hoạt động">
-                                        <i class="mdi mdi-check"></i>
-                                    </a>
+                                  
                                 </td>
                             </tr>
                         </tbody>
