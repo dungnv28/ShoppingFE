@@ -73,11 +73,9 @@
                   LỊCH SỬ ĐẶT HÀNG
               </h5>
               <div class="card-body">
-                
                   <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
-                      id="search-datatable-accounts">
+                      ng-model="searchTerm" id="search-datatable-accounts">
                   <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
-
                       <thead>
                           <tr>
                               <th>STT</th>
@@ -87,11 +85,13 @@
                           </tr>
                       </thead>
                       <tbody>
-                          <tr ng-repeat="item in orders">
+                          <tr ng-repeat="item in orders | filter:searchTerm">
                               <td style="width: 45px;">{{$index + 1}}</td>
                               <td>{{item.code}}</td>
                               <td><b>$ {{item.amount}}</b></td>
-                              <td style="width: 65px;"><button ng-click ="viewSingleOrder(item)" type="button" class="btn btn-success">Xem <i class="bi bi-eye-fill"></i></button></td>
+                              <td style="width: 65px;">
+                                  <button ng-click="viewSingleOrder(item)" type="button" class="btn btn-success">Xem <i class="bi bi-eye-fill"></i></button>
+                              </td>
                           </tr>
                       </tbody>
                   </table>
@@ -99,5 +99,6 @@
           </div>
       </div>
   </div>
+  
   </section>
 </app-layout>
