@@ -4,14 +4,42 @@
       <div class="card-header p-4">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <p class="text-muted mb-0"> Order Date <span class="fw-bold text-body">12,March 2019</span> </p>
+            <p class="text-muted mb-0"> Ngày Đặt: <span class="fw-bold text-body">{{orderDate}}</span> </p>
           </div>
           <div>
             <h6 class="mb-0"> <a class="btn btn-warning" ng-click="isCollapsed = !isCollapsed">Chi Tiết</a> </h6>
           </div>
         </div>
       </div>
-      <!-- Collapsible content -->
+  
+      <div class="card-body p-4">
+        <div class="d-flex flex-row mb-4 pb-2">
+          <div class="flex-fill">
+            <h5 class="bold">{{orderDetails[0].product.name}}</h5>
+            <p class="text-muted"> Qt: {{orderDetails.length}} item</p>
+            <h4 class="mb-3"> $ {{viewOrder.amount}} <span class="small text-muted"> via (COD) </span></h4>
+            <p class="text-muted">Trạng Thái Đơn Hàng: <span class="text-body">{{ viewOrder.status === 0 ? 'Chờ Xác Nhận' : viewOrder.status === 1 ? 'Đang Giao Hàng' : 'Giao Thành Công' }}
+            </span></p>
+          </div>
+          <div>
+            <img class="align-self-center img-fluid"
+              src="{{orderDetails[0].product.urlimage}}" width="250" style="max-height: 250px; object-fit: contain;">
+          </div>
+        </div>
+        <ul id="progressbar-1" class="mx-0 mt-0 mb-5 px-0 pt-0 pb-4">
+          <li class="step0" ng-class="{'active': viewOrder.status >= 0}" id="step1">
+              <span>PLACED</span>
+          </li>
+          <li class="step0" ng-class="{'active': viewOrder.status >= 1}" id="step2">
+              <span>SHIPPED</span>
+          </li>
+          <li class="step0" ng-class="{'active': viewOrder.status >= 2}" id="step3">
+              <span>DELIVERED</span>
+          </li>
+      </ul>
+      
+      </div>
+          <!-- Collapsible content -->
   <div ng-class="{'collapse show': !isCollapsed, 'collapse': isCollapsed}" id="collapseExample">
     <div class="card card-body">
       <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
@@ -33,27 +61,6 @@
     </table>
     </div>
 </div>
-      <div class="card-body p-4">
-        <div class="d-flex flex-row mb-4 pb-2">
-          <div class="flex-fill">
-            <h5 class="bold">Headphones Bose 35 II</h5>
-            <p class="text-muted"> Qt: 1 item</p>
-            <h4 class="mb-3"> $ {{viewOrder.amount}} <span class="small text-muted"> via (COD) </span></h4>
-            <p class="text-muted">Trạng Thái Đơn Hàng: <span class="text-body">Chờ Xác Nhận</span></p>
-          </div>
-          <div>
-            <img class="align-self-center img-fluid"
-              src="{{orderDetails[0].product.urlimage}}" width="250" style="max-height: 250px; object-fit: contain;">
-          </div>
-        </div>
-        <ul id="progressbar-1" class="mx-0 mt-0 mb-5 px-0 pt-0 pb-4">
-          <li class="step0 active" id="step1"><span
-              style="margin-left: 22px; margin-top: 12px;">PLACED</span></li>
-          <li class="step0 active text-center" id="step2"><span>SHIPPED</span></li>
-          <li class="step0 text-muted text-end" id="step3"><span
-              style="margin-right: 22px;">DELIVERED</span></li>
-        </ul>
-      </div>
     </div>
 
 

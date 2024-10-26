@@ -99,3 +99,21 @@ margin-top: 0;
     height: 0;
 }
 
+#progressbar-1 {
+    list-style-type: none; /* Bỏ dấu đầu dòng */
+    padding: 0;
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: space-between; /* Phân bổ đều không gian */
+}
+
+.step0 {
+    flex: 1; /* Mỗi bước chiếm cùng một phần không gian */
+    text-align: center; /* Căn giữa nội dung */
+}
+
+.step0 span {
+    display: inline-block; /* Cho phép span căn giữa */
+    padding: 0 10px; /* Thêm padding nếu cần */
+    margin: 0; /* Đảm bảo không có margin gây lệch */
+}
+
