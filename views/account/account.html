@@ -91,19 +91,27 @@
                                 <th>Họ và tên</th>
                                 <th>Email</th>
                                 <th>Trạng thái</th>
-                                <th>Quyền</th>
+                                <th>Quyền Admin</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in accounts | filter:searchTerm">
+                            <tr ng-repeat="item in accounts | filter:searchTerm" ng-init="findRoleByAccountId(item.id)">
                                 <td>{{$index + 1}}</td>
                                 <td>{{item.username}}</td>
                                 <td>{{item.fullName}}</td>
                                 <td>{{item.email}}</td>
                                 <td><span class="badge badge-pill " ng-class="item.status ? 'bg-success' : 'bg-danger'">{{item.status ? 'Đang hoạt động' : 'Ngừng hoạt động'}}</span></td>
                                 <td>
-                                  {{userRole[0].code}}
+                                    <!-- Checkbox được chọn nếu tài khoản có quyền ADMIN -->
+                                    <input type="checkbox" 
+                                           ng-checked="userRoles[item.id] && (userRoles[item.id] | filter: { code: 'ADMIN' }).length > 0" 
+                                           ng-click="adminGranted(item.id)"> <!-- Gọi hàm để thêm hoặc xóa quyền ADMIN -->
+                                    <span ng-class="{'text-success': userRoles[item.id] && (userRoles[item.id] | filter: { code: 'ADMIN' }).length > 0}">
+                                        Granted
+                                    </span>
                                 </td>
+                                
+                                
                             </tr>
                         </tbody>
                     </table>
