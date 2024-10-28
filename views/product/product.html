@@ -49,10 +49,11 @@
                             </div>
                           </div>
                           <div class="col-md-6">
-                            <label for="formrow-status-input">Trạng thái</label>
-                            <div >
-                                <input type="checkbox" id="formrow-status-input" switch="bool" ng-model="product.status" />
-                                <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
+                            <div class="mb-3">
+                                <label for="formrow-roomType-select" class="form-label">Loại hàng</label>
+                                <select ng-model="product.category.id" id="formrow-roomType-select" class="form-select">
+                                    <option ng-repeat= "item in categories" ng-value = "item.id">{{item.name}}</option>
+                                </select>
                             </div>
                           </div>
                       </div>
