@@ -105,7 +105,7 @@
                                     <!-- Checkbox được chọn nếu tài khoản có quyền ADMIN -->
                                     <input type="checkbox" 
                                            ng-checked="userRoles[item.id] && (userRoles[item.id] | filter: { code: 'ADMIN' }).length > 0" 
-                                           ng-click="adminGranted(item.id)"> <!-- Gọi hàm để thêm hoặc xóa quyền ADMIN -->
+                                           ng-click="adminGranted(item.id)"> 
                                     <span ng-class="{'text-success': userRoles[item.id] && (userRoles[item.id] | filter: { code: 'ADMIN' }).length > 0}">
                                         Granted
                                     </span>
