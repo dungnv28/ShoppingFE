@@ -27,22 +27,14 @@
                                   <label for="password" class="form-label">Mật khẩu</label>
                                   <div class="input-group">
                                       <input ng-model="account.password" type="password" class="form-control" id="password">
-                                      <button ng-click="handlerShowPassword()" class="btn btn-light" type="button">
-                                          <i ng-show="!isShowPassword" class="mdi mdi-eye-outline"></i>
-                                          <i ng-show="isShowPassword" class="mdi mdi-eye-off-outline"></i>
-                                      </button>
                                   </div>
                               </div>
                           </div>
                           <div class="col-md-6">
                               <div class="mb-3">
-                                  <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                                <label for="email" class="form-label">Email</label>
                                   <div class="input-group">
-                                      <input ng-model="account.confirmPassword" type="password" class="form-control" id="confirmPassword">
-                                      <button ng-click="handlerShowConfirmPassword()" class="btn btn-light" type="button">
-                                          <i ng-show="!isShowConfirmPassword" class="mdi mdi-eye-outline"></i>
-                                          <i ng-show="isShowConfirmPassword" class="mdi mdi-eye-off-outline"></i>
-                                      </button>
+                                    <input ng-model="account.email" type="text" class="form-control" id="email">
                                   </div>
                               </div>
                           </div>
@@ -56,8 +48,8 @@
                           </div>
                           <div class="col-md-6">
                               <div class="mb-3">
-                                  <label for="email" class="form-label">Email</label>
-                                  <input ng-model="account.email" type="text" class="form-control" id="email">
+                                  <label for="email" class="form-label">Địa Chỉ</label>
+                                  <input ng-model="account.address" type="text" class="form-control" id="address">
                               </div>
                           </div>
                       </div>

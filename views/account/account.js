@@ -2,6 +2,7 @@ app.controller("account", function ($scope, $http, $location, $filter) {
     $scope.searchTerm = '';
     $scope.accounts = [];
     $scope.userRoles = [];
+    $scope.account = {};
    
     $scope.initialize = function () {
         $http.get("http://localhost:8000/api/client/accounts").then(resp => {
@@ -51,7 +52,14 @@ app.controller("account", function ($scope, $http, $location, $filter) {
         }
     };
     
-    
+    $scope.create = function () {
+        $scope.account.status = true;
+        $http.post("http://localhost:8000/api/client/accounts",$scope.account).then(resp => {
+            alert("Thêm tài khoản thành công!")
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    };
     
     $scope.initialize();
 
