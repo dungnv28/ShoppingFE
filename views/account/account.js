@@ -56,31 +56,19 @@ app.controller("account", function ($scope, $http, $location, $filter) {
         $scope.account = acc;
     };
 
-    $scope.usernameIsPresent = function (username) {
-        return $http.get("http://localhost:8000/api/client/accounts/" + username)
-            .then(resp => {
-                return true; 
-            })
-            .catch(error => {
-                console.log("Error", error);
-                return false; 
-            });
-    };
-    
     $scope.create = function () {
         $scope.account.status = true;
-        if($scope.usernameIsPresent($scope.account.username)){
-            alert("Tài khoản đã tồn tại!")
-            return;
-        }
         $http.post("http://localhost:8000/api/client/accounts",$scope.account).then(resp => {
             alert("Thêm tài khoản thành công!")
+            $scope.accounts.push(resp.data);
+            $scope.account = {};
         }).catch(error => {
             console.log("Error", error);
         });
     };
 
     $scope.update = function () {
+        $scope.account.status = true;
         $http.put("http://localhost:8000/api/client/accounts",$scope.account).then(resp => {
             alert("Update tài khoản thành công!")
         }).catch(error => {
