@@ -55,6 +55,7 @@
                       </div>
                       <div>
                           <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
+                          <button ng-click="update()" class="btn btn-warning w-md waves-effect waves-light">Cập nhật</button>
                       </div>
                   </form>
               </div>
@@ -83,7 +84,8 @@
                                 <th>Họ và tên</th>
                                 <th>Email</th>
                                 <th>Trạng thái</th>
-                                <th>Quyền Admin</th>
+                                <th style="width: 150px;">Quyền Admin</th>
+                                <th style="width: 15px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -102,6 +104,7 @@
                                         Granted
                                     </span>
                                 </td>
+                                <td> <button class="btn btn-warning" ng-click="views(item)">View</button></td>
                                 
                                 
                             </tr>
