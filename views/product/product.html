@@ -1,130 +1,109 @@
 <app-layout name="">
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-sm-4">
-                            <h4>TẠO SẢN PHẨM</h4>
-                        </div>
-                    </div>
-                    <!-- Form Create room -->
-                    <form enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-2 mb-3">
-                                <label for="formrow-floor-input" class="form-label">Loại Hàng</label>
-                                <select id="formrow-floor-select" class="form-select"
-                                    ng-change="setCodeRoom(form.floor.id)">
-                                    <option ng-repeat="cate in categories" ng-value="cate.id">{{cate.name}}</option>
-                                </select>
-                            </div>
-                            <!-- <div class="col-md-1 mb-3">
-                                <label for="formrow-floor-input" class="form-label" style="color: white;">Tầng</label>
-                                <a class="btn btn-outline-primary waves-effect waves-light w-100" data-bs-toggle="modal"
-                                    data-bs-target="#viewFloor">
-                                    Xem Loại Hàng
-                                </a>
-                            </div> -->
-                            <div class="col-md-2 mb-3">
-                                <label for="formrow-roomNumber-input" class="form-label">Tên Sản Phẩm</label>
+      <div class="col-12">
+          <div class="card">
+              <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                  TẠO SẢN PHẨM
+              </h5>
+              <div class="card-body">
+                  <form>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="username" class="form-label">Tên sản phẩm</label>
+                                  <input ng-model="product.name" type="text" class="form-control" id="username">
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="fullName" class="form-label">Giá</label>
+                                  <input ng-model="product.price" type="text" class="form-control" id="fullName">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="mb-3">
+                                  <label for="password" class="form-label">Mô tả</label>
+                                  <div class="input-group">
+                                      <input ng-model="product.description" type="text" class="form-control" id="password">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Số lượng</label>
                                 <div class="input-group">
-                                    <input ng-model="form.code" type="text" class="form-control"
-                                        id="formrow-roomNumber-select" >
+                                    <input ng-model="product.quantity" type="text" class="form-control" id="password">
                                 </div>
                             </div>
-                            <div class="col-md-2 mb-3">
-                                <label for="formrow-roomNumber-input" class="form-label">Giá</label>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Đường dẫn ảnh</label>
                                 <div class="input-group">
-                                    <input ng-model="form.code" type="text" class="form-control"
-                                        id="formrow-roomNumber-select" >
+                                    <input ng-model="product.urlimage" type="text" class="form-control" id="password">
                                 </div>
                             </div>
-                            <div class="col-md-2 mb-3">
-                                <label for="formrow-roomNumber-input" class="form-label">Số Lượng</label>
-                                <div class="input-group">
-                                    <input ng-model="form.code" type="text" class="form-control"
-                                        id="formrow-roomNumber-select" >
-                                </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label for="formrow-status-input">Trạng thái</label>
+                            <div >
+                                <input type="checkbox" id="formrow-status-input" switch="bool" ng-model="product.status" />
+                                <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
                             </div>
-                            <div class="col-md-2 mb-3 text-sm-center">
-                                <label for="formrow-status-input">Trạng thái</label>
-                                <div>
-                                    <input type="checkbox" id="formrow-status-input" switch="bool"
-                                        ng-model="form.status" />
-                                    <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
-                                </div>
-                            </div>
-                            <div class="col-md-2 mb-3">
-                                <label for="formrow-roomNumber-input" class="form-label">Urlimage   </label>
-                                <div class="input-group">
-                                    <input ng-model="form.code" type="text" class="form-control"
-                                        id="formrow-roomNumber-select" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="formrow-description-input">Mô tả</label>
-                            <textarea ng-model="form.description" id="formrow-description-input" class="form-control"
-                                rows="3" placeholder="Nhập mô tả"></textarea>
-                        </div>
-                        <div>
-                            <button ng-click="create()"
-                                class="btn btn-success waves-effect waves-light mb-2">Thêm</button>
-                            <button ng-click="reset()" class="btn btn-danger waves-effect waves-light mb-2">Làm
-                                mới</button>
-                        </div>
-                        <!-- Modal floor-->
-                       
-                        <!-- End modal floor -->
-
-                        <!-- Modal create floor-->
-                        <!-- End modal create floor -->
-
-                        <!-- End modal bed -->
-                    </form>
-                </div>
-            </div>
-        </div>
+                          </div>
+                      </div>
+                      <div>
+                          <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
+                          <button ng-click="update()" class="btn btn-warning w-md waves-effect waves-light">Cập nhật</button>
+                      </div>
+                  </form>
+              </div>
+              <!-- end card body -->
+          </div>
+          <!-- end card -->
+      </div>
     </div>
 
-
-    <!-- ------------------ table --------------------- -->
-    <div class="row" data-sidebar="dark" data-layout-mode="light">
+    <div class="row">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header bg-transparent border-bottom text-uppercase">DANH SÁCH SẢN PHẨM</h5>
+                <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                    DANH SÁCH SẢN PHẨM
+                </h5>
                 <div class="card-body">
-                    <div>
-                        <input type="search" class="form-control" placeholder="Tìm kiếm" id="search-datatable-rooms">
-                    </div>
+                  
+                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
+                    ng-model="searchTerm" id="search-datatable-accounts">
+                    <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
 
-                    <!-- table content -->
-                    <table id="datatable-rooms" class="table table-hover table-reponsive">
-                        <thead class="table-light">
+                        <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>STT</th>
+                                <th style="width: 100px;">Hình ảnh</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Đơn giá</th>
+                                <th style="width: 125px;">Đơn giá</th>
                                 <th>Số lượng</th>
-                                <th>Trạng thái</th>
-                                <th>Loại hàng</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="room in rooms">
-                                <td>{{room.code}}</td>
-                                <td>{{room.floor.code}}</td>
-                                <td>{{room.roomType.name}}</td>
-                                <td>{{room.roomType.price | currency: '' : 0}} đ</td>
-                                <td>{{room.description}}</td>
-                                <td>{{room.description}}</td>
+                            <tr ng-repeat="item in products | filter:searchTerm">
+                                <td>{{$index + 1}}</td>
+                                <td><img src="{{item.urlimage}}" alt="Product Image" width="50" style="max-height: 50px; object-fit: contain;"></td>
+                                <td>{{item.name}}</td>
+                                <td>$ {{item.price}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td><button class="btn btn-warning" ng-click="views(item)">View</button></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- Model view bed room -->
-                    <!-- End model bed room -->
                 </div>
             </div>
         </div>
     </div>
-</app-layout>
+  </app-layout>
+  
