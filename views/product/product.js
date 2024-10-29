@@ -18,32 +18,37 @@ app.controller("product", function ($scope, $http, $location, $filter) {
         })
     }
 
-
     
     $scope.views = function (pro) {
         $scope.product = pro;
     };
 
-    // $scope.create = function () {
-    //     $scope.account.status = true;
-    //     $http.post("http://localhost:8000/api/client/accounts",$scope.account).then(resp => {
-    //         alert("Thêm tài khoản thành công!")
-    //         $scope.accounts.push(resp.data);
-    //         $scope.account = {};
-    //     }).catch(error => {
-    //         console.log("Error", error);
-    //     });
-    // };
+    $scope.create = function () {
+        $scope.product.status = true;
+        $scope.product.categoryId = $scope.product.category.id
+        $http.post("http://localhost:8000/api/admin/products",$scope.product).then(resp => {
+            alert("Thêm sản phẩm thành công!")
+            $scope.products.push(resp.data);
+            $scope.product = {};
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    };
 
-    // $scope.update = function () {
-    //     $scope.account.status = true;
-    //     $http.put("http://localhost:8000/api/client/accounts",$scope.account).then(resp => {
-    //         alert("Update tài khoản thành công!")
-    //     }).catch(error => {
-    //         console.log("Error", error);
-    //     });
-    // };
+    $scope.update = function () {
+        $scope.product.status = true;
+        $scope.product.categoryId = $scope.product.category.id;
+        $http.put(`http://localhost:8000/api/admin/products/${$scope.product.id}`, $scope.product).then(resp => {
+            alert("Cập nhật sản phẩm thành công!");
+            $scope.products.push(resp.data);
+            $scope.product = {};
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    };
     
+
+   
     $scope.initialize();
 
 });
