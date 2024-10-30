@@ -50,7 +50,13 @@ app.controller("sell", function ($scope, $http) {
         return total;
     };
     
-    
+    $scope.isAccountEmpty = function() {
+        return !$scope.account || Object.keys($scope.account).length === 0;
+    };
+
+    $scope.deleteAcc = function() {
+        $scope.account = {};
+    };
 
 
 
