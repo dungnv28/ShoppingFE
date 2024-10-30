@@ -30,6 +30,10 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/order/order.html",
       controller: "order",
     })
+    .when("/sell", {
+      templateUrl: "/views/sell/sell.html",
+      controller: "sell",
+    })
     //Authenticate
     .when("/login", {
       templateUrl: "/views/authenticate/login.html",
