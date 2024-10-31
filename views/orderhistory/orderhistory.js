@@ -11,9 +11,9 @@ app.controller("orderhistory", function ($scope, $http, $location, authService) 
                 $scope.account = resp.data;
                 $http.get("http://localhost:8000/api/client/orders/byaccid/" + $scope.account.id).then(resp => {
                     $scope.orders = resp.data;
-                    $scope.viewSingleOrder($scope.orders[0]);
-                    $scope.viewOrderDetail($scope.orders[0].id);
-                    $scope.orderDate = $scope.extractDateFromCode($scope.orders[0].code)
+                    $scope.viewSingleOrder($scope.orders[$scope.orders.length - 1]);
+                    $scope.viewOrderDetail($scope.orders[$scope.orders.length - 1].id);
+                    $scope.orderDate = $scope.extractDateFromCode($scope.orders[$scope.orders.length - 1].code)
                 }).catch(error => {
                     console.log("Error", error);
                 })

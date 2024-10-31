@@ -7,7 +7,6 @@ app.controller("sell", function ($scope, $http,authService,$location) {
     $scope.order = {};
     $scope.form = { vanglai: false };
 
-     // khách vãng lai , check nếu là true thì đơn hàng sẽ là khách vãng lại => clear data của $scope.account
     $scope.initialize = function () {
         if (authService.getToken()) {
             $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername()).then(resp => {
@@ -87,7 +86,9 @@ app.controller("sell", function ($scope, $http,authService,$location) {
         }
         // console.log($scope.order.account)
         $scope.order.code = $scope.generateCode($scope.order.account.username); 
-        $http.post("http://localhost:8000/api/client/orders", $scope.order)
+        const confirmUpdate = confirm("Xác nhận đơn hàng ?");
+        if(confirmUpdate){
+            $http.post("http://localhost:8000/api/client/orders", $scope.order)
             .then(resp => {
                 alert("Đơn hàng đã được tạo thành công!", resp.data);
                 const orderId = resp.data.id;
@@ -108,6 +109,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
             .catch(error => {
                 console.log("Lỗi khi tạo đơn hàng", error);
             });
+        }
     };
 
     $scope.generateCode = function(username) {
