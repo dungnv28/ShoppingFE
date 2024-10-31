@@ -1,19 +1,26 @@
-app.controller("orderhistory", function ($scope, $http, $location, $filter) {
+app.controller("orderhistory", function ($scope, $http, $location, authService) {
     $scope.orders = [];
     $scope.orderDetails = [];
     $scope.viewOrder = {};
     $scope.orderDate = "";
-    $scope.searchTerm = ''; 
-
+    $scope.searchTerm = '';
+    $scope.account = {};
     $scope.initialize = function () {
-        $http.get("http://localhost:8000/api/client/orders").then(resp => {
-            $scope.orders = resp.data;
-            $scope.viewSingleOrder($scope.orders[0]);
-            $scope.viewOrderDetail($scope.orders[0].id);
-            $scope.orderDate = $scope.extractDateFromCode($scope.orders[0].code)
-        }).catch(error => {
-            console.log("Error", error);
-        })
+        if (authService.getToken()) {
+            $http.get("http://localhost:8000/api/client/accounts/" + authService.getUsername()).then(resp => {
+                $scope.account = resp.data;
+                $http.get("http://localhost:8000/api/client/orders/byaccid/" + $scope.account.id).then(resp => {
+                    $scope.orders = resp.data;
+                    $scope.viewSingleOrder($scope.orders[0]);
+                    $scope.viewOrderDetail($scope.orders[0].id);
+                    $scope.orderDate = $scope.extractDateFromCode($scope.orders[0].code)
+                }).catch(error => {
+                    console.log("Error", error);
+                })
+            })
+        } else {
+            $location.path('/login');
+        }
     }
 
 
@@ -24,7 +31,7 @@ app.controller("orderhistory", function ($scope, $http, $location, $filter) {
     }
 
     $scope.viewOrderDetail = function (id) {
-        $http.get("http://localhost:8000/api/client/order-details/getbyorderid/"+id).then(resp => {
+        $http.get("http://localhost:8000/api/client/order-details/getbyorderid/" + id).then(resp => {
             $scope.orderDetails = resp.data;
             console.log($scope.orderDetails)
         }).catch(error => {
@@ -33,7 +40,7 @@ app.controller("orderhistory", function ($scope, $http, $location, $filter) {
     }
 
 
-    $scope.extractDateFromCode = function(code) {
+    $scope.extractDateFromCode = function (code) {
         const timestampPart = code.slice(6, 19);
         const timestamp = parseInt(timestampPart, 10);
         const date = new Date(timestamp);
@@ -47,7 +54,7 @@ app.controller("orderhistory", function ($scope, $http, $location, $filter) {
 
 
     $scope.initialize();
-    
+
     $scope.isCollapsed = true;
-    
+
 });

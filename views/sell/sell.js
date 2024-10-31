@@ -72,42 +72,42 @@ app.controller("sell", function ($scope, $http,authService,$location) {
     $scope.sold = function () {
         $scope.order.amount = $scope.TotalPrice();
         $scope.order.status = 2;
-        if (Object.keys($scope.account).length === 0 && !$scope.form.vanglai) { 
+        if ($scope.listItems.length == 0) { 
+            alert("Vui lòng chọn sản phẩm!");
+            return;
+        }
+        else if (Object.keys($scope.account).length === 0 && !$scope.form.vanglai) { 
             alert("Vui lòng chọn khách hàng!");
+            return;
         }
         else if($scope.form.vanglai){
             $scope.order.account = $scope.acc
         }else {
             $scope.order.account = $scope.account
         }
-        console.log($scope.order.account)
-
-        // $scope.order.account = $scope.account; // cho thêm if else nếu là khách vãng lai
-        // $scope.order.code = $scope.generateCode(authService.getUsername()); //code ở dạng auto gen phía back-end
-        // $http.post("http://localhost:8000/api/client/orders", $scope.order)
-        //     .then(resp => {
-        //         console.log("Đơn hàng đã được tạo thành công!", resp.data);
-        //         const orderId = resp.data.id;
-        //         const createOrderDetailPromises = $scope.carts.map(cart => {
-        //             const orderDetail = {
-        //                 order: { id: orderId },
-        //                 product: { id: cart.product.id },
-        //             };
-        //             return $http.post("http://localhost:8000/api/client/order-details", orderDetail);
-        //         });
-        //         return Promise.all(createOrderDetailPromises);
-        //     })
-        //     .then(responses => {
-        //         console.log("Chi tiết đơn hàng đã được tạo thành công!", responses);
-        //         $scope.loading = false;
-        //         $('#checkout').modal('hide');
-        //         $scope.deleteCartsByAccount($scope.account.id);
-        //         $scope.carts = [];
-        //     })
-        //     .catch(error => {
-        //         console.log("Lỗi khi tạo đơn hàng", error);
-        //         $scope.loading = false;
-        //     });
+        // console.log($scope.order.account)
+        $scope.order.code = $scope.generateCode($scope.order.account.username); 
+        $http.post("http://localhost:8000/api/client/orders", $scope.order)
+            .then(resp => {
+                alert("Đơn hàng đã được tạo thành công!", resp.data);
+                const orderId = resp.data.id;
+                const createOrderDetailPromises = $scope.listItems.map(item => {
+                    const orderDetail = {
+                        order: { id: orderId },
+                        product: { id: item.id },
+                    };
+                    return $http.post("http://localhost:8000/api/client/order-details", orderDetail);
+                });
+                return Promise.all(createOrderDetailPromises);
+            })
+            .then(responses => {
+                $('#checkout').modal('hide');
+                $scope.account = {};
+                $scope.listItems = [];
+            })
+            .catch(error => {
+                console.log("Lỗi khi tạo đơn hàng", error);
+            });
     };
 
     $scope.generateCode = function(username) {

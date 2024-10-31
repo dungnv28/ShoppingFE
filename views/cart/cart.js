@@ -91,6 +91,15 @@ app.controller("cart", function ($scope, $http, $location, authService) {
         return generatedCode;
     };
 
+    $scope.checkAndOpenModal = function() {
+        if ($scope.carts.length > 0) {
+            var checkoutModal = new bootstrap.Modal(document.getElementById('checkout'));
+            checkoutModal.show();
+        } else {
+            alert("Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán!");
+        }
+    };
+    
 
     $scope.initialize();
 });

@@ -1,173 +1,175 @@
 <app-layout name="Home">
-    <section class="h-100 h-custom">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12">
-                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-                        <div class="card-body p-0">
-                            <div class="row g-0">
-                              <div class="col-lg-8">
-                                <div class="p-5 d-flex flex-column justify-content-between" style="min-height: 80vh;">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center mb-5">
-                                            <h1 class="fw-bold mb-0">Giỏ Hàng</h1>
-                                            <h6 class="mb-0 text-muted">{{carts.length}} sản phẩm</h6>
-                                        </div>
-                            
-                                        <hr class="my-4">
-                            
-                                        <div ng-if="carts.length > 0">
-                                            <div ng-repeat="it in carts"
-                                                class="row mb-4 d-flex justify-content-between align-items-center">
-                                                <div class="col-md-2 col-lg-2 col-xl-2">
-                                                    <img src="{{it.product.urlimage}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                                </div>
-                                                <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h6 class="text-muted">{{it.product.name}}</h6>
-                                                </div>
-                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">€ {{it.product.price}}</h6>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <a ng-click="deleteCart(it.id)" class="text-muted"><i style="color: red;" class="bi bi-trash3-fill"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div ng-if="carts.length === 0" class="text-center">
-                                            <p>Giỏ hàng của bạn đang trống.</p>
-                                        </div>
-                                    </div>
-                            
-                                    <div class="pt-5">
-                                        <h6 class="mb-0"><a href="#!" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Tiếp Tục Mua Sắm</a></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            
+  <section class="h-100 h-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-8">
+                  <div class="p-5 d-flex flex-column justify-content-between" style="min-height: 80vh;">
+                    <div>
+                      <div class="d-flex justify-content-between align-items-center mb-5">
+                        <h1 class="fw-bold mb-0">Giỏ Hàng</h1>
+                        <h6 class="mb-0 text-muted">{{carts.length}} sản phẩm</h6>
+                      </div>
 
-                                <!-- --------------------------------------------- -->
+                      <hr class="my-4">
 
-                                <div class="col-lg-4 bg-body-tertiary" style="background-color: #d2c9ff;">
-                                    <div class="p-5">
-                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Tổng</h3>
-                                        <hr class="my-4">
-
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <h5 class="text-uppercase">{{carts.length}} items</h5>
-                                            <h5>$ {{getTotalPrice()}}</h5>
-                                        </div>
-
-                                        <h5 class="text-uppercase mb-3">Mã Giảm Giá</h5>
-
-                                        <div class="mb-5">
-                                            <div data-mdb-input-init class="form-outline">
-                                                <input type="text" id="form3Examplea2"
-                                                    class="form-control form-control-lg" />
-                                                <label class="form-label" for="form3Examplea2">Enter your code</label>
-                                            </div>
-                                        </div>
-
-                                        <hr class="my-4">
-
-                                        <div class="d-flex justify-content-between mb-5">
-                                            <h5 class="text-uppercase">Tổng Tiền</h5>
-                                            <h5>$ {{getTotalPrice()}}</h5>
-                                        </div>
-
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init data-bs-toggle="modal" data-bs-target="#checkout"
-                                            class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Thanh
-                                            Toán</button>
-
-                                    </div>
-                                </div>
-                            </div>
+                      <div ng-if="carts.length > 0">
+                        <div ng-repeat="it in carts" class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <img src="{{it.product.urlimage}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-muted">{{it.product.name}}</h6>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <h6 class="mb-0">$ {{it.product.price}}</h6>
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a ng-click="deleteCart(it.id)" class="text-muted"><i style="color: red;"
+                                class="bi bi-trash3-fill"></i></a>
+                          </div>
                         </div>
+                      </div>
+                      <div ng-if="carts.length === 0" class="text-center">
+                        <p>Giỏ hàng của bạn đang trống.</p>
+                      </div>
                     </div>
+
+                    <div class="pt-5">
+                      <h6 class="mb-0"><a href="#!" class="text-body"><i
+                            class="fas fa-long-arrow-alt-left me-2"></i>Tiếp Tục Mua Sắm</a></h6>
+                    </div>
+                  </div>
                 </div>
+
+
+                <!-- --------------------------------------------- -->
+
+                <div class="col-lg-4 bg-body-tertiary" style="background-color: #d2c9ff;">
+                  <div class="p-5">
+                    <h3 class="fw-bold mb-5 mt-2 pt-1">Tổng</h3>
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-4">
+                      <h5 class="text-uppercase">{{carts.length}} items</h5>
+                      <h5>$ {{getTotalPrice()}}</h5>
+                    </div>
+
+                    <h5 class="text-uppercase mb-3">Mã Giảm Giá</h5>
+
+                    <div class="mb-5">
+                      <div data-mdb-input-init class="form-outline">
+                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Examplea2">Enter your code</label>
+                      </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-5">
+                      <h5 class="text-uppercase">Tổng Tiền</h5>
+                      <h5>$ {{getTotalPrice()}}</h5>
+                    </div>
+
+                    <button type="button" ng-click="checkAndOpenModal()" class="btn btn-dark btn-block btn-lg"
+                      data-mdb-ripple-init data-mdb-ripple-color="dark">
+                      Thanh Toán
+                    </button>
+
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    <!-- ---------modal--------- -->
-    <div class="modal fade" id="checkout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      </div>
+    </div>
+  </section>
+  <!-- ---------modal--------- -->
+  <div class="modal fade" id="checkout" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="viewBedRoomLabel">THANH TOÁN</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div id="carouselExample" class="carousel slide">
-              <div class="carousel-inner">
-                <section>
-                      <div class="d-flex flex-row align-items-center">
-                        <h4 class="text-uppercase mt-1">Online</h4>
-                        <span class="ms-2 me-3">Payment</span>
-                      </div>
-                    <div class="row">
-                      <div class="col-md-7 col-lg-7 col-xl-6 mb-4 mb-md-0">
-                        <h3 class="mb-0 text-success">Thông Tin Người Mua</h3>
-                        <br>
-                        <h4 class="mb-3">{{account.fullName}}</h4>
-                        <div>
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row mt-1">
-                              <h6>Số Điện Thoại</h6>
-                              <h6 class="fw-bold text-success ms-1">{{account.phoneNumber}}</h6>
-                            </div>
-                          </div>
-
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row mt-1">
-                              <h6>Email</h6>
-                              <h6 class="fw-bold text-success ms-1">{{account.email}}</h6>
-                            </div>
-                          </div>
-
-                          <div class="d-flex justify-content-between">
-                            <div class="d-flex flex-row mt-1">
-                              <h6>Địa Chỉ</h6>
-                              <h6 class="fw-bold text-success ms-1">{{account.address}}</h6>
-                            </div>
-                          </div>
-                         
-                          <hr />
-                          <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex flex-row mt-1">
-                              <h3>Thanh Toán QR</h3>
-                            </div>
-                          </div>
-                          <h6>
-                            Sử dụng mã QR dưới đây để thực hiện đơn hàng của bạn, nội dung thanh toán (username-phonenumber)
-                          </h6>
-                          <div class="d-flex flex-column mb-3">
-                            <div data-mdb-ripple-init class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                              <img src="/assets/images/qrNganHang.jpg" style="height: 380px; width: 340px;" alt="">
-                            </div>
-                          </div>
-                          
+          <h5 class="modal-title" id="viewBedRoomLabel">THANH TOÁN</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+              <section>
+                <div class="d-flex flex-row align-items-center">
+                  <h4 class="text-uppercase mt-1">Online</h4>
+                  <span class="ms-2 me-3">Payment</span>
+                </div>
+                <div class="row">
+                  <div class="col-md-7 col-lg-7 col-xl-6 mb-4 mb-md-0">
+                    <h3 class="mb-0 text-success">Thông Tin Người Mua</h3>
+                    <br>
+                    <h4 class="mb-3">{{account.fullName}}</h4>
+                    <div>
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row mt-1">
+                          <h6>Số Điện Thoại</h6>
+                          <h6 class="fw-bold text-success ms-1">{{account.phoneNumber}}</h6>
                         </div>
                       </div>
-                      <div class="col-md-5 col-lg-4 col-xl-4 offset-lg-1 offset-xl-2">
-                        <h4><span class="fw-bold">Tổng Tiền Thanh Toán</span></h4>
-                        <div class="p-3 bg-body-tertiary" style="max-height: 600px; overflow-y: auto;">
-                          <ul ng-repeat="it in carts" class="list-unstyled">
-                            <li class="d-flex justify-content-between mt-2">
-                              <span>{{it.product.name}}</span> <span>$ {{it.product.price}}</span>
-                            </li>
-                          </ul>
+
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row mt-1">
+                          <h6>Email</h6>
+                          <h6 class="fw-bold text-success ms-1">{{account.email}}</h6>
                         </div>
-                        <h3><span>Total </span> <span class="text-success">${{getTotalPrice()}}</span></h3>
                       </div>
-                      
+
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row mt-1">
+                          <h6>Địa Chỉ</h6>
+                          <h6 class="fw-bold text-success ms-1">{{account.address}}</h6>
+                        </div>
+                      </div>
+
+                      <hr />
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-row mt-1">
+                          <h3>Thanh Toán QR</h3>
+                        </div>
+                      </div>
+                      <h6>
+                        Sử dụng mã QR dưới đây để thực hiện đơn hàng của bạn, nội dung thanh toán (username-phonenumber)
+                      </h6>
+                      <div class="d-flex flex-column mb-3">
+                        <div data-mdb-ripple-init class="btn-group-vertical" role="group"
+                          aria-label="Vertical button group">
+                          <img src="/assets/images/qrNganHang.jpg" style="height: 380px; width: 340px;" alt="">
+                        </div>
+                      </div>
+
                     </div>
-                  </section>
-              </div>
+                  </div>
+                  <div class="col-md-5 col-lg-4 col-xl-4 offset-lg-1 offset-xl-2">
+                    <h4><span class="fw-bold">Tổng Tiền Thanh Toán</span></h4>
+                    <div class="p-3 bg-body-tertiary" style="max-height: 600px; overflow-y: auto;">
+                      <ul ng-repeat="it in carts" class="list-unstyled">
+                        <li class="d-flex justify-content-between mt-2">
+                          <span>{{it.product.name}}</span> <span>$ {{it.product.price}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <h3><span>Total </span> <span class="text-success">${{getTotalPrice()}}</span></h3>
+                  </div>
+
+                </div>
+              </section>
             </div>
           </div>
-          <div class="modal-footer">
-            <div ng-click="closeModal()" data-mdb-ripple-init class="btn btn-success btn-lg btn-block">Hoàn Tất</div>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <div ng-click="closeModal()" data-mdb-ripple-init class="btn btn-success btn-lg btn-block">Hoàn Tất</div>
+        </div>
 
 
       </div>
@@ -178,21 +180,21 @@
   <!-- --------------loading--------------- -->
   <div ng-show="loading" class="loader">
     <div class="loader-inner">
-        <div class="loader-line-wrap">
-            <div class="loader-line"></div>
-        </div>
-        <div class="loader-line-wrap">
-            <div class="loader-line"></div>
-        </div>
-        <div class="loader-line-wrap">
-            <div class="loader-line"></div>
-        </div>
-        <div class="loader-line-wrap">
-            <div class="loader-line"></div>
-        </div>
-        <div class="loader-line-wrap">
-            <div class="loader-line"></div>
-        </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
+      <div class="loader-line-wrap">
+        <div class="loader-line"></div>
+      </div>
     </div>
-</div>
+  </div>
 </app-layout>
