@@ -1,121 +1,156 @@
 <app-layout name="">
     <section class="h-100 h-custom">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12">
-                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
-                        <div class="card-body p-0">
-                            <div class="row g-0">
-                              <div class="col-lg-8">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
                                 <div class="p-5 d-flex flex-column justify-content-between" style="min-height: 80vh;">
                                     <div>
                                         <div class="row">
-                                            <label for=""><h3>Bán Hàng</h3></label>
+                                            <label for="">
+                                                <h3>Bán Hàng</h3>
+                                            </label>
                                             <div class="mb-12">
-                                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" ng-model="searchText" placeholder="Tìm sản phẩm..."/>
+                                                <input type="text" id="form3Examplea2"
+                                                    class="form-control form-control-lg" ng-model="searchText"
+                                                    placeholder="Tìm sản phẩm..." />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div ng-show="searchText && (products | filter:searchText).length">
                                                 <div style="max-height: 250px; overflow-y: auto; width: 100%;">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Ảnh</th>
-                                                            <th>Tên sản phẩm</th>
-                                                            <th>Đơn giá</th>
-                                                            <th>Số lượng</th>
-                                                            <th></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr ng-repeat="item in products | filter: { name: searchText } | limitTo: 10">
-                                                            <td><img src="{{item.urlimage}}" alt="Product Image" width="50" style="max-height: 50px; object-fit: contain;"></td>
-                                                            <td>{{item.name}}</td>
-                                                            <td>$ {{item.price}}</td>
-                                                            <td>{{item.quantity}}</td>
-                                                            <td><button class="btn btn-success" ng-click="addItem(item)">+</button></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Ảnh</th>
+                                                                <th>Tên sản phẩm</th>
+                                                                <th>Đơn giá</th>
+                                                                <th>Số lượng</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                ng-repeat="item in products | filter: { name: searchText } | limitTo: 10">
+                                                                <td><img src="{{item.urlimage}}" alt="Product Image"
+                                                                        width="50"
+                                                                        style="max-height: 50px; object-fit: contain;">
+                                                                </td>
+                                                                <td>{{item.name}}</td>
+                                                                <td>$ {{item.price}}</td>
+                                                                <td>{{item.quantity}}</td>
+                                                                <td><button class="btn btn-success"
+                                                                        ng-click="addItem(item)">+</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
-                                        </div>
-                            
+
                                         <hr class="my-4">
-                                        <div style="max-height: 600px; overflow-y: auto; overflow-x: hidden; width: 100%;">
+                                        <div
+                                            style="max-height: 600px; overflow-y: auto; overflow-x: hidden; width: 100%;">
                                             <div ng-if="listItems.length > 0">
                                                 <table class="table">
                                                     <tbody>
                                                         <tr ng-repeat="item in listItems| limitTo: 10">
-                                                            <td><img src="{{item.urlimage}}" alt="Product Image" width="50" style="max-height: 50px; object-fit: contain;"></td>
+                                                            <td><img src="{{item.urlimage}}" alt="Product Image"
+                                                                    width="50"
+                                                                    style="max-height: 50px; object-fit: contain;"></td>
                                                             <td>{{item.name}}</td>
                                                             <td>$ {{item.price}}</td>
-                                                            <td><a ng-click="deleteItem(item.id)" class="text-muted"><i style="color: red;" class="bi bi-trash3-fill"></i></a></td>
+                                                            <td><a ng-click="deleteItem(item.id)" class="text-muted"><i
+                                                                        style="color: red;"
+                                                                        class="bi bi-trash3-fill"></i></a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        
+
                                         <div ng-if="listItems.length === 0" class="text-center">
                                             <p>Danh sách mặt hàng đang trống.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
 
-                                <!-- --------------------------------------------- -->
 
-                                <div class="col-lg-4 bg-body-tertiary" style="background-color: #ebece2;">
-                                    <div class="p-5">
-                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Thông tin đơn đặt</h3>
-                                        <hr class="my-4">
+                            <!-- --------------------------------------------- -->
 
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <h5 class="text-uppercase">{{listItems.length}} items</h5>
-                                            
+                            <div class="col-lg-4 bg-body-tertiary" style="background-color: #ebece2;">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Thông tin đơn đặt</h3>
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">{{listItems.length}} items</h5>
+
+                                    </div>
+
+                                    <h5 class="text-uppercase mb-3">Khách Hàng</h5>
+
+                                    <div class="mb-5">
+                                        <div class="mb-12">
+                                            <!-- Thêm ng-disabled dựa trên form.status -->
+                                            <input type="text" id="dfa" class="form-control form-control-lg"
+                                                   ng-model="searchAcc" placeholder="Tìm kiếm khách hàng..."
+                                                   ng-disabled="form.vanglai" />
                                         </div>
-
-                                        <h5 class="text-uppercase mb-3">Khách Hàng</h5>
-
-                                        <div class="mb-5">
-                                            <div class="mb-12">
-                                                <input type="text" id="dfa" class="form-control form-control-lg" ng-model="searchAcc" placeholder="Tìm kiếm khách hàng..."/>
-                                            </div>
-                                            <div ng-show="searchAcc && (accounts | filter:searchAcc).length">
-                                                <div style="max-height: 250px; overflow-y: auto; width: 100%;">
+                                        
+                                        <!-- Danh sách kết quả tìm kiếm -->
+                                        <div ng-show="searchAcc && (accounts | filter:searchAcc).length && !form.status">
+                                            <div style="max-height: 250px; overflow-y: auto; width: 100%;">
                                                 <table class="table">
                                                     <tbody>
                                                         <tr ng-repeat="item in accounts | filter: searchAcc | limitTo: 10">
                                                             <td>{{item.fullName}}</td>
                                                             <td>{{item.phoneNumber}}</td>
-                                                            <td><button class="btn btn-success" ng-click="addAccount(item)">+</button></td>
+                                                            <td>
+                                                                <button class="btn btn-success" ng-click="addAccount(item)">+</button>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        
+                                        <!-- Thông tin tài khoản đã chọn -->
                                         <div ng-if="!isAccountEmpty()">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
                                                         <td>{{account.fullName}}</td>
                                                         <td>{{account.phoneNumber}}</td>
-                                                        <td><a ng-click="deleteAcc(item.id)" class="text-muted"><i style="color: red;" class="bi bi-trash3-fill"></i></a></td>
+                                                        <td>
+                                                            <a ng-click="deleteAcc()" class="text-muted">
+                                                                <i style="color: red;" class="bi bi-trash3-fill"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
+                                    
                                         <hr class="my-4">
-
+                                        <label for="formrow-status-input">Khách Vãng Lai</label>
+                                        <div>
+                                            <input type="checkbox" id="formrow-status-input" switch="bool"
+                                                   ng-model="form.vanglai" />
+                                            <label for="formrow-status-input" data-on-label="On" data-off-label="Off"></label>
+                                        </div>
+                                    </div>
+                                    
+                                        <hr class="my-4">
                                         <div class="d-flex justify-content-between mb-5">
                                             <h5 class="text-uppercase">Tổng Tiền</h5>
                                             <h5>$ {{TotalPrice()}}</h5>
                                         </div>
 
-                                        <button type="button" data-mdb-button-init data-mdb-ripple-init data-bs-toggle="modal" data-bs-target="#checkout"
-                                            class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Hoàn Tất</button>
+                                        <button ng-click="sold()" type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Hoàn Tất</button>
 
                                     </div>
                                 </div>
@@ -123,6 +158,6 @@
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
     </section>
 </app-layout>
