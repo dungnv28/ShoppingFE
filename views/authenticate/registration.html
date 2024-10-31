@@ -1,0 +1,125 @@
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card overflow-hidden">
+                    <div class="bg-primary bg-soft">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-4">
+                                    <h5 class="text-primary">Đăng Ký Tài Khoản</h5>
+                                    <p>Shopping Cart</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="assets/images/profile-img.png" alt="" class="img-fluid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="auth-logo">
+                            <a href="#" class="auth-logo-light">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="assets/images/logo-light.svg" alt="" class="rounded-circle"
+                                            height="34" />
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="auth-logo-dark">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="assets/images/logo.svg" alt="" class="rounded-circle" height="34" />
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                            <form class="form-horizontal" name="registrationForm" novalidate>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Tên đăng nhập</label>
+                                            <input ng-model="accRegis.username" type="text" class="form-control" id="username" name="username" required>
+                                            <!-- Thông báo lỗi cho tên đăng nhập -->
+                                            <div ng-show="registrationForm.username.$touched && registrationForm.username.$error.required" class="text-danger">
+                                                Vui lòng nhập tên đăng nhập.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="fullName" class="form-label">Họ và tên</label>
+                                            <input ng-model="accRegis.fullName" type="text" class="form-control" id="fullName" name="fullName" required>
+                                            <div ng-show="registrationForm.fullName.$touched && registrationForm.fullName.$error.required" class="text-danger">
+                                                Vui lòng nhập họ và tên.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Mật khẩu</label>
+                                            <input ng-model="accRegis.password" type="password" class="form-control" id="password" name="password" required>
+                                            <div ng-show="registrationForm.password.$touched && registrationForm.password.$error.required" class="text-danger">
+                                                Vui lòng nhập mật khẩu.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input ng-model="accRegis.email" type="email" class="form-control" id="email" name="email" required>
+                                            <div ng-show="registrationForm.email.$touched && registrationForm.email.$error.required" class="text-danger">
+                                                Vui lòng nhập email.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="phoneNumber" class="form-label">SĐT</label>
+                                            <input ng-model="accRegis.phoneNumber" type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                                            <div ng-show="registrationForm.phoneNumber.$touched && registrationForm.phoneNumber.$error.required" class="text-danger">
+                                                Vui lòng nhập số điện thoại.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label">Địa Chỉ</label>
+                                            <input ng-model="accRegis.address" type="text" class="form-control" id="address" name="address" required>
+                                            <div ng-show="registrationForm.address.$touched && registrationForm.address.$error.required" class="text-danger">
+                                                Vui lòng nhập địa chỉ.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="mt-3 d-grid">
+                                    <button ng-click="registered()" class="btn btn-primary waves-effect waves-light" 
+                                        type="submit" ng-disabled="registrationForm.$invalid">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <div>
+                        <p>
+                            © 2024 Java1    
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end account-pages -->
+

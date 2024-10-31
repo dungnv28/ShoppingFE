@@ -39,8 +39,8 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/authenticate/login.html",
       controller: "loginCtrl",
     })
-    .when("/reset-password/:token", {
-      templateUrl: "/views/authenticate/resetPassword.html",
+    .when("/registration", {
+      templateUrl: "/views/authenticate/registration.html",
       controller: "loginCtrl",
     })
     .otherwise({

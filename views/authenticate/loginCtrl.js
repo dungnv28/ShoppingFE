@@ -5,9 +5,7 @@ app.controller("loginCtrl", function ($scope, $http, $routeParams, $location, $t
 	$scope.loading = false;
 	$scope.myEmail = {bookingCode:""}
 	$scope.Pass = { token: $routeParams.token }
-	$scope.initialize = function () {
-	}
-	$scope.initialize();
+	$scope.accRegis = {};
 
     $scope.handlerShowPassword = function () {
         $scope.isShowPassword = !$scope.isShowPassword;
@@ -28,7 +26,7 @@ app.controller("loginCtrl", function ($scope, $http, $routeParams, $location, $t
 				localStorage.setItem('tokenExpirationTime', Date.now() + (86400000)); // Thời gian hết hạn 24h
 				$scope.loading = false;
 				if (authService.hasRole('ADMIN')) {
-					$location.path('/');
+					$location.path('/order');
 				} else {
 					$location.path('/');
 				}
@@ -59,20 +57,16 @@ app.controller("loginCtrl", function ($scope, $http, $routeParams, $location, $t
 
 	}
 
-	$scope.resetPass = function () {
-		if ($scope.Pass.newPassword != $scope.repassword) {
-			alert("Password and confirm password doesn't match!")
-			return
-		}
-		var item = angular.copy($scope.Pass);
-		$http.post("http://localhost:8000/reset-password/done", item).then(resp => {
-			alert("Oke!")
-			$location.path("/")
-		}).catch(error => {
-			alert("Error changes password!")
-			console.log("Error", error)
-		})
-
+	$scope.registered = function () {
+		$scope.accRegis.status = true;
+		console.log($scope.accRegis)
+		$http.post("http://localhost:8000/api/client/accounts",$scope.accRegis).then(resp => {
+            alert("Thêm tài khoản thành công!")
+            $scope.accRegis = {};
+			$location.path('/login');
+        }).catch(error => {
+            console.log("Error", error);
+        });
 	}
 
 });
