@@ -48,14 +48,18 @@
             <tr>
                 <th style="width: 50px;">Ảnh</th>
                 <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
                 <th>Đơn giá</th>
+                <th>Tổng tiền</th>
             </tr>
         </thead>
         <tbody>
           <tr ng-repeat="item in orderDetails">
             <td><img src="{{item.product.urlimage}}" alt="Product Image" width="50" style="max-height: 50px; object-fit: contain;"></td>
             <td>{{item.product.name}}</td>
-            <td><b>$ {{item.product.price}}</b></td>
+            <td>{{item.amount}}</td>
+            <td>$ {{item.product.price}}</td>
+            <td><b>$ {{item.amount*item.product.price}}</b></td>
         </tr>
         </tbody>
     </table>

@@ -9,6 +9,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
                 $scope.account = resp.data;
                 $http.get("http://localhost:8000/api/client/carts/getbyaccount/" + $scope.account.id).then(resp => {
                     $scope.carts = resp.data;
+                    console.log($scope.carts)
                 }).catch(error => {
                     console.log("Error", error);
                 })
@@ -55,13 +56,14 @@ app.controller("cart", function ($scope, $http, $location, authService) {
                     const orderDetail = {
                         order: { id: orderId },
                         product: { id: cart.product.id },
+                        amount: cart.amount,
                     };
                     return $http.post("http://localhost:8000/api/client/order-details", orderDetail);
                 });
                 return Promise.all(createOrderDetailPromises);
             })
             .then(responses => {
-                console.log("Chi tiết đơn hàng đã được tạo thành công!", responses);
+                alert("Chi tiết đơn hàng đã được tạo thành công!", responses);
                 $scope.loading = false;
                 $('#checkout').modal('hide');
                 $scope.deleteCartsByAccount($scope.account.id);
@@ -77,7 +79,6 @@ app.controller("cart", function ($scope, $http, $location, authService) {
     $scope.deleteCartsByAccount = function (accountId) {
         return $http.delete("http://localhost:8000/api/client/carts/byaccountid/" + accountId)
             .then(resp => {
-                console.log("Đã xóa tất cả giỏ hàng cho tài khoản thành công!", resp.data);
             })
             .catch(error => {
                 console.log("Lỗi khi xóa giỏ hàng", error);

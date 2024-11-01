@@ -32,6 +32,10 @@ app.controller("sell", function ($scope, $http,authService,$location) {
         const exists = $scope.listItems.some(i => i.id === item.id);
         if (!exists) {
             $scope.listItems.push(item);
+            $scope.listItems = $scope.listItems.map(product => {
+                product.amount = 1;
+                return product;
+            });
         } else {
             alert("Sản phẩm này đã có trong danh sách!");
         }
@@ -53,10 +57,11 @@ app.controller("sell", function ($scope, $http,authService,$location) {
     $scope.TotalPrice = function() {
         let total = 0;
         $scope.listItems.forEach(item => {
-            total += item.price;
+            total += item.price * item.amount; 
         });
         return total;
     };
+    
     
     $scope.isAccountEmpty = function() {
         return !$scope.account || Object.keys($scope.account).length === 0;
@@ -96,6 +101,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
                     const orderDetail = {
                         order: { id: orderId },
                         product: { id: item.id },
+                        amount: item.amount,
                     };
                     return $http.post("http://localhost:8000/api/client/order-details", orderDetail);
                 });
