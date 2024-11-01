@@ -4,7 +4,7 @@ app.component("appLayout", {
   transclude: true,
   controller: function ($scope, $window, $location, authService, $http) {
 
-    $scope.isAdmin = true;
+    $scope.isAdmin = authService.hasRole('ADMIN');
     $scope.isLogin = false;
     $scope.nameUser = "Welcome!";
     $scope.checkinTime;

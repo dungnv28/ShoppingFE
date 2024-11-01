@@ -88,7 +88,7 @@
         <!-- Left Menu Start -->
         <ul class="metismenu list-unstyled" id="side-menu">
           <li class="menu-title">Menu</li>
-          <li>
+          <li ng-show="isAdmin">
             <a ng-href="/#!/sell" class="waves-effect">
               <i class="bi bi-bag-plus"></i>
               <span>Bán Hàng</span>
@@ -106,19 +106,19 @@
               <span>Đơn Đặt Của Tôi</span>
             </a>
           </li>
-          <li>
+          <li ng-show="isAdmin">
             <a ng-href="/#!/product" class="waves-effect">
               <i class="bi bi-archive"></i>
               <span>Sản Phẩm</span>
             </a>
           </li>
-          <li>
+          <li ng-show="isAdmin">
             <a ng-href="/#!/account" class="waves-effect">
               <i class="bi bi-file-earmark-person"></i>
               <span>Tài Khoản</span>
             </a>
           </li>
-          <li>
+          <li ng-show="isAdmin">
             <a ng-href="/#!/order" class="waves-effect">
               <i class="bi bi-boxes"></i>
               <span>Quản Lý Đơn Đặt</span>
