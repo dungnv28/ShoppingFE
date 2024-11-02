@@ -73,32 +73,57 @@ app.controller("sell", function ($scope, $http,authService,$location) {
 
 
     // ------------- order --------------
+    
     $scope.sold = function () {
         $scope.order.amount = $scope.TotalPrice();
         $scope.order.status = 2;
-        if ($scope.listItems.length == 0) { 
+        if ($scope.listItems.length === 0) {
             alert("Vui lòng chọn sản phẩm!");
             return;
         }
-        else if (Object.keys($scope.account).length === 0 && !$scope.form.vanglai) { 
+        if (Object.keys($scope.account).length === 0 && !$scope.form.vanglai) {
             alert("Vui lòng chọn khách hàng!");
             return;
         }
-        else if($scope.form.vanglai){
-            $scope.order.account = $scope.acc
-        }else {
-            $scope.order.account = $scope.account
-        }
-        // console.log($scope.order.account)
-        $scope.order.code = $scope.generateCode($scope.order.account.username); 
-        const confirmUpdate = confirm("Xác nhận đơn hàng ?");
-        if(confirmUpdate){
-            $http.post("http://localhost:8000/api/client/orders", $scope.order)
-            .then(resp => {
+        $scope.order.account = $scope.form.vanglai ? $scope.acc : $scope.account;
+        $scope.order.code = $scope.generateCode($scope.order.account.username);
+        const confirmUpdate = confirm("Xác nhận đơn hàng?");
+        if (!confirmUpdate) return;
+        const updatedProducts = $scope.listItems.map(function(item) {
+            return {
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity - item.amount, 
+                urlimage: item.urlimage,
+                description: item.description,
+                categoryId: item.category ? item.category.id : null,
+                status: true
+            };
+        });
+        $scope.updateProduct = function (product) {
+            return $http.put(`http://localhost:8000/api/admin/products/${product.id}`, product)
+                .then(resp => {
+                    console.log("Cập nhật sản phẩm thành công!", resp.data);
+                    return resp.data;
+                })
+                .catch(error => {
+                    console.error("Lỗi cập nhật sản phẩm:", error);
+                    throw error;
+                });
+        };
+        const updateQuantityPromises = updatedProducts.map(function(product) {
+            return $scope.updateProduct(product);
+        });
+        Promise.all(updateQuantityPromises)
+            .then(function(results) {
+                return $http.post("http://localhost:8000/api/client/orders", $scope.order);
+            })
+            .then(function(resp) {
                 alert("Đơn hàng đã được tạo thành công!", resp.data);
                 const orderId = resp.data.id;
-                const createOrderDetailPromises = $scope.listItems.map(item => {
-                    const orderDetail = {
+                const createOrderDetailPromises = $scope.listItems.map(function(item) {
+                    var orderDetail = {
                         order: { id: orderId },
                         product: { id: item.id },
                         amount: item.amount,
@@ -107,16 +132,17 @@ app.controller("sell", function ($scope, $http,authService,$location) {
                 });
                 return Promise.all(createOrderDetailPromises);
             })
-            .then(responses => {
+            .then(function() {
                 $('#checkout').modal('hide');
                 $scope.account = {};
                 $scope.listItems = [];
+                $scope.$apply();  // Buộc Angular cập nhật lại view nếu cần
             })
-            .catch(error => {
-                console.log("Lỗi khi tạo đơn hàng", error);
+            .catch(function(error) {
+                console.error("Lỗi khi tạo đơn hàng hoặc cập nhật sản phẩm", error);
             });
-        }
     };
+    
 
     $scope.generateCode = function(username) {
         var timestamp = Date.now(); 
