@@ -59,13 +59,18 @@
                                                         <tr ng-repeat="item in listItems| limitTo: 10">
                                                             <td><img src="{{item.urlimage}}" alt="Product Image"
                                                                     width="50"
-                                                                    style="max-height: 50px; object-fit: contain;"></td>
+                                                                    style="max-height: 50px; object-fit: contain;">
+                                                                    <div class="col-12" ng-if="item.quantity <= 0">
+                                                                        <p style="color: red; font-weight: bold;">Hết hàng</p>
+                                                                      </div>
+                                                                </td>
                                                             <td>{{item.name}}</td>
                                                             <td>$ {{item.price}}</td>
-                                                            <td><input style="width: 60px;" id="form1" name="quantity" ng-model="item.amount" type="number"></td>
+                                                            <td><input style="width: 60px;" id="form1" name="quantity" ng-model="item.amount" type="number" ng-change="checkItemQuantity(item)"></td>
                                                             <td><a ng-click="deleteItem(item.id)" class="text-muted"><i
                                                                         style="color: red;"
                                                                         class="bi bi-trash3-fill"></i></a></td>
+                                                                        <td></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

@@ -43,6 +43,12 @@ app.controller("cart", function ($scope, $http, $location, authService) {
 
     // ------------- order --------------
     $scope.closeModal = function () {
+        const availableItems = $scope.carts.filter(cartItem => cartItem.product.quantity > 0);
+    if (availableItems.length === 0) {
+        alert("Không có sản phẩm nào còn hàng để thanh toán.");
+        $scope.loading = false;
+        return;
+    }
         $scope.loading = true;
         $scope.order.amount = $scope.getTotalPrice();
         $scope.order.status = 0;
@@ -52,7 +58,7 @@ app.controller("cart", function ($scope, $http, $location, authService) {
             .then(resp => {
                 console.log("Đơn hàng đã được tạo thành công!", resp.data);
                 const orderId = resp.data.id;
-                const createOrderDetailPromises = $scope.carts.map(cart => {
+                const createOrderDetailPromises = availableItems.map(cart => {
                     const orderDetail = {
                         order: { id: orderId },
                         product: { id: cart.product.id },
@@ -100,6 +106,15 @@ app.controller("cart", function ($scope, $http, $location, authService) {
             alert("Vui lòng thêm sản phẩm vào giỏ hàng trước khi thanh toán!");
         }
     };
+
+    $scope.checkQuantity = function (cartItem) {
+        const maxQuantity = cartItem.product.quantity; 
+        if (cartItem.amount > maxQuantity) {
+            alert("Số lượng không đủ! Sản phẩm này chỉ còn " + maxQuantity + " cái.");
+            cartItem.amount = maxQuantity; 
+        }
+    };
+    
     
 
     $scope.initialize();

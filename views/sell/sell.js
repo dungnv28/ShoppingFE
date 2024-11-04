@@ -14,6 +14,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
             });
             $http.get("http://localhost:8000/api/admin/products").then(resp => {
                 $scope.products = resp.data;
+                
             }).catch(error => {
                 console.log("Error", error);
             })
@@ -34,6 +35,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
             $scope.listItems.push(item);
             $scope.listItems = $scope.listItems.map(product => {
                 product.amount = 1;
+                
                 return product;
             });
         } else {
@@ -75,6 +77,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
     // ------------- order --------------
     
     $scope.sold = function () {
+        const availableItems = $scope.listItems.filter(cartItem => cartItem.quantity > 0);
         $scope.order.amount = $scope.TotalPrice();
         $scope.order.status = 2;
         if ($scope.listItems.length === 0) {
@@ -89,7 +92,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
         $scope.order.code = $scope.generateCode($scope.order.account.username);
         const confirmUpdate = confirm("Xác nhận đơn hàng?");
         if (!confirmUpdate) return;
-        const updatedProducts = $scope.listItems.map(function(item) {
+        const updatedProducts = availableItems.map(function(item) {
             return {
                 id: item.id,
                 name: item.name,
@@ -122,7 +125,7 @@ app.controller("sell", function ($scope, $http,authService,$location) {
             .then(function(resp) {
                 alert("Đơn hàng đã được tạo thành công!", resp.data);
                 const orderId = resp.data.id;
-                const createOrderDetailPromises = $scope.listItems.map(function(item) {
+                const createOrderDetailPromises = availableItems.map(function(item) {
                     var orderDetail = {
                         order: { id: orderId },
                         product: { id: item.id },
@@ -151,6 +154,14 @@ app.controller("sell", function ($scope, $http,authService,$location) {
         return generatedCode;
     };
 
+    $scope.checkItemQuantity = function (item) {
+        const maxQuantity = item.quantity; // Số lượng sản phẩm có sẵn trong kho
+        if (item.amount > maxQuantity) {
+            alert("Số lượng không đủ! Sản phẩm này chỉ còn " + maxQuantity + " cái.");
+            item.amount = maxQuantity; // Giới hạn lại số lượng về tối đa có sẵn
+        }
+    };
+    
 
     $scope.initialize();
 });
