@@ -46,6 +46,84 @@ app.controller("order", function ($scope, $http) {
                 console.error('Có lỗi xảy ra khi cập nhật trạng thái:', error);
             });
     }
+    $scope.viewOrderDetail = function (id) {
+        return $http.get("http://localhost:8000/api/client/order-details/getbyorderid/" + id)
+            .then(resp => resp.data)
+            .catch(error => {
+                console.log("Error", error);
+                return [];
+            });
+    };
+
+    $scope.viewOrderDetail = function (id) {
+        return $http.get("http://localhost:8000/api/client/order-details/getbyorderid/" + id)
+            .then(resp => {
+                console.log("Order Details:", resp.data); // Kiểm tra cấu trúc của dữ liệu
+                return resp.data;
+            })
+            .catch(error => {
+                console.log("Error", error);
+                return [];
+            });
+    };
+
+    $scope.exportPDF = function(order) {
+        $scope.viewOrderDetail(order.id).then(orderDetails => {
+            const { jsPDF } = window.jspdf;
+
+            // Tạo danh sách chi tiết đơn hàng với các thuộc tính từ `product`
+            const orderDetailsList = orderDetails.length > 0 ? orderDetails.map(detail => `
+                <li>${detail.product.name || 'Tên không xác định'} - Số lượng: ${detail.amount || 0} - Giá: $${detail.product.price || 0}</li>
+            `).join('') : '<li>Không có chi tiết đơn hàng</li>';
+
+            // Tạo nội dung HTML cho chi tiết đơn hàng
+            const content = `
+                <div>
+                    <h2>Hóa đơn chi tiết</h2>
+                    <p><strong>Order ID:</strong> ${order.id}</p>
+                    <p><strong>Khách hàng:</strong> ${order.account.fullName}</p>
+                    <p><strong>Ngày đặt hàng:</strong> ${$scope.extractDateFromCode(order.code)}</p>
+                    <p><strong>Tổng tiền:</strong> $${order.amount}</p>
+                    <h3>Danh sách chi tiết đơn hàng</h3>
+                    <ul>
+                        ${orderDetailsList}
+                    </ul>
+                    <p><strong>Trạng thái:</strong> ${order.status}</p>
+                </div>
+            `;
+            document.getElementById('pdf-content').innerHTML = content;
+            document.getElementById('pdf-content').style.display = 'block';
+
+            // Sử dụng html2canvas để chuyển nội dung thành ảnh
+            html2canvas(document.getElementById('pdf-content')).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                const imgWidth = 190;
+                const pageHeight = 297;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+
+                pdf.save(`hoadon_${order.id}.pdf`);
+                document.getElementById('pdf-content').style.display = 'none';
+            });
+        });
+    };
+
+    $scope.viewOrderDetail = function (id) {
+        return $http.get("http://localhost:8000/api/client/order-details/getbyorderid/" + id)
+            .then(resp => {
+                console.log("Order Details:", resp.data); // Kiểm tra cấu trúc của dữ liệu
+                return resp.data;
+            })
+            .catch(error => {
+                console.log("Error", error);
+                return [];
+            });
+    };
     
     
     
