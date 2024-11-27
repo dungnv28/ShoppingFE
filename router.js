@@ -14,6 +14,10 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/orderhistory/orderhistory.html",
       controller: "orderhistory",
     })
+    .when("/category", {
+      templateUrl: "/views/category/category.html",
+      controller: "category",
+    })
     .when("/product", {
       templateUrl: "/views/product/product.html",
       controller: "product",

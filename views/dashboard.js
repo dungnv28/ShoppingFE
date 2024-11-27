@@ -4,7 +4,7 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
     $scope.cartProduct = {}
     $scope.filterPro = []
     $scope.account = {};
-
+    $scope.categories = [];
     $scope.initialize = function () {
         $scope.isLoading = true;
         // Load data products
@@ -15,6 +15,12 @@ app.controller("dashboard", function ($scope, $http,authService,$location) {
             console.log("Error", error);
         })
 
+        $http.get("http://localhost:8000/api/admin/categories").then(resp => {
+            $scope.categories = resp.data;
+            
+        }).catch(error => {
+            console.log("Error", error);
+        })
       
     }
 

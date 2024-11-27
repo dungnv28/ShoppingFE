@@ -117,3 +117,19 @@ margin-top: 0;
     margin: 0; /* Đảm bảo không có margin gây lệch */
 }
 
+
+  #carouselExampleControls {
+    width: 100%;
+    max-width: 100%; /* Giữ nguyên chiều ngang */
+  }
+
+  .carousel-inner {
+    height: 350px; /* Cố định chiều cao */
+  }
+
+  .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain; /* Đảm bảo ảnh luôn vừa vặn */
+  }
+
