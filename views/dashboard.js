@@ -1,4 +1,5 @@
 app.controller("dashboard", function ($scope, $http,authService,$location) {
+    $scope.nameUser = "Welcome !";
     $scope.products = [];
     $scope.viewPro = {};
     $scope.cartProduct = {}

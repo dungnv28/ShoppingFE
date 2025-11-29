@@ -8,14 +8,40 @@
                 <div class="card-body">
                     <form>
                         <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="username" class="form-label">Tên danh mục</label>
-                                    <input ng-model="cate.name" type="text" class="form-control" id="username">
+                                    <label for="password" class="form-label">Tên danh mục</label>
+                                    <div class="input-group">
+                                        <input ng-model="cate.name" type="text" class="form-control" id="username">
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="formrow-roomType-select" class="form-label">Danh mục cha</label>
+                                    <select ng-model="cate.parentId" class="form-select">
+
+                                        <!-- Option đặc biệt -->
+                                        <option value="">— Không có danh mục cha —</option>
+
+                                        <!-- Option phân cấp -->
+                                        <option ng-repeat="item in categories" ng-value="item.id"
+                                            ng-disabled="item.id == cate.id">
+
+                                            {{ ('— '.repeat(item.level)) + item.name }}
+                                        </option>
+
+                                    </select>
+
+
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
-                            <button ng-click="update()" class="btn btn-warning w-md waves-effect waves-light">Cập nhật</button>
+                            <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo
+                                mới</button>
+                            <button ng-click="update()" class="btn btn-warning w-md waves-effect waves-light">Cập
+                                nhật</button>
                         </div>
                     </form>
                 </div>
@@ -23,37 +49,49 @@
             </div>
             <!-- end card -->
         </div>
-      </div>
-  
-      <div class="row">
-          <div class="col-12">
-              <div class="card">
-                  <h5 class="card-header bg-transparent border-bottom text-uppercase">
-                      DANH SÁCH CÁC DANH MỤC
-                  </h5>
-                  <div class="card-body">
-                    
-                      <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
-                      ng-model="searchTerm" id="search-datatable-accounts">
-                      <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
-  
-                          <thead>
-                              <tr>
-                                  <th>STT</th>
-                                  <th>Tên danh mục</th>
-                                  <th></th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr ng-repeat="item in categories | filter:searchTerm">
-                                  <td>{{$index + 1}}</td>
-                                  <td>{{item.name}}</td>
-                                  <td><button class="btn btn-warning" ng-click="views(item)">View</button></td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-          </div>
-      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header bg-transparent border-bottom text-uppercase">
+                    DANH SÁCH CÁC DANH MỤC
+                </h5>
+                <div class="card-body">
+
+                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm" ng-model="searchTerm"
+                        id="search-datatable-accounts">
+                    <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
+
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên danh mục</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in categories | filter:searchTerm">
+                                <td>{{$index + 1}}</td>
+
+                                <!-- Thụt vào theo cấp độ -->
+                                <td>
+                                    <span ng-style="{'padding-left': (item.level * 20) + 'px'}">
+                                        <!-- Hiển thị dấu phân cấp -->
+                                        <span ng-if="item.level > 0">— </span>
+                                        {{item.name}}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-warning" ng-click="views(item)">Sửa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </app-layout>

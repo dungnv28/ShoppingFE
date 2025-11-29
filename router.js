@@ -3,7 +3,7 @@ app.config(function ($routeProvider, $httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
   $routeProvider
     .when("/", {
-      templateUrl: "/views/dashboard.html",
+      templateUrl: "/views/dashboard2.html",
       controller: "dashboard",
     })
     .when("/cart", {
