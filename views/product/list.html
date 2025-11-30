@@ -1,0 +1,55 @@
+<app-layout name="">
+    <!-- ================= PRODUCT LIST ================= -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header bg-transparent border-bottom text-uppercase fw-bold">
+                    Danh sách sản phẩm
+                </h5>
+                <div class="card-body">
+
+                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm..."
+                           ng-model="searchTerm">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="item in products | filter:searchTerm">
+                                <td>{{$index + 1}}</td>
+
+                                <td>
+                                    <img src="{{item.urlimage}}" width="50"
+                                         style="max-height: 50px; object-fit: contain;">
+                                </td>
+
+                                <td>{{item.name}}</td>
+                                <td>{{item.price | currency:"₫"}}</td>
+                                <td>{{item.quantity}}</td>
+
+                                <td>
+                                    <button class="btn btn-warning"
+                                            ng-click="views(item)">
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ================= END PRODUCT LIST ================= -->
+
+</app-layout>

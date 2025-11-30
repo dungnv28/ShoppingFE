@@ -14,9 +14,9 @@ app.controller("category", function ($scope, $http, $location, $filter) {
                 $scope.categories = buildTreeOrdered(list);
 
                 // B3: nếu đang tạo mới thì chọn mặc định danh mục cha
-                if (!$scope.cate.id && $scope.categories.length > 0) {
-                    $scope.cate.parentId = $scope.categories[0].id;
-                }
+                // if (!$scope.cate.id && $scope.categories.length > 0) {
+                //     $scope.cate.parentId = $scope.categories[0].id;
+                // }
 
             })
             .catch(error => {

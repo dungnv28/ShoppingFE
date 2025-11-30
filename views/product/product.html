@@ -1,110 +1,103 @@
 <app-layout name="">
-    <div class="row">
-      <div class="col-12">
-          <div class="card">
-              <h5 class="card-header bg-transparent border-bottom text-uppercase">
-                  TẠO SẢN PHẨM
-              </h5>
-              <div class="card-body">
-                  <form>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="username" class="form-label">Tên sản phẩm</label>
-                                  <input ng-model="product.name" type="text" class="form-control" id="username">
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="fullName" class="form-label">Giá</label>
-                                  <input ng-model="product.price" type="text" class="form-control" id="fullName">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="mb-3">
-                                  <label for="password" class="form-label">Mô tả</label>
-                                  <div class="input-group">
-                                      <input ng-model="product.description" type="text" class="form-control" id="password">
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Số lượng</label>
-                                <div class="input-group">
-                                    <input ng-model="product.quantity" type="text" class="form-control" id="password">
-                                </div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Đường dẫn ảnh</label>
-                                <div class="input-group">
-                                    <input ng-model="product.urlimage" type="text" class="form-control" id="password">
-                                </div>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="formrow-roomType-select" class="form-label">Loại hàng</label>
-                                <select ng-model="product.category.id" id="formrow-roomType-select" class="form-select">
-                                    <option ng-repeat= "item in categories" ng-value = "item.id">{{item.name}}</option>
-                                </select>
-                            </div>
-                          </div>
-                      </div>
-                      <div>
-                          <button ng-click="create()" class="btn btn-success w-md waves-effect waves-light">Tạo mới</button>
-                          <button ng-click="update()" class="btn btn-warning w-md waves-effect waves-light">Cập nhật</button>
-                      </div>
-                  </form>
-              </div>
-              <!-- end card body -->
-          </div>
-          <!-- end card -->
-      </div>
-    </div>
 
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <h5 class="card-header bg-transparent border-bottom text-uppercase">
-                    DANH SÁCH SẢN PHẨM
-                </h5>
+
+        <!-- ================= LEFT CONTENT ================= -->
+        <div class="col-md-8">
+
+            <!-- TÊN SẢN PHẨM -->
+            <div class="card mb-3">
                 <div class="card-body">
-                  
-                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm"
-                    ng-model="searchTerm" id="search-datatable-accounts">
-                    <table id="datatable-accounts" class="table table-bordered dt-responsive nowrap w-100">
-
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th style="width: 100px;">Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th style="width: 125px;">Đơn giá</th>
-                                <th>Số lượng</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in products | filter:searchTerm">
-                                <td>{{$index + 1}}</td>
-                                <td><img src="{{item.urlimage}}" alt="Product Image" width="50" style="max-height: 50px; object-fit: contain;"></td>
-                                <td>{{item.name}}</td>
-                                <td>$ {{item.price}}</td>
-                                <td>{{item.quantity}}</td>
-                                <td><button class="btn btn-warning" ng-click="views(item)">View</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <label class="form-label fw-bold">Tên sản phẩm</label>
+                    <input ng-model="product.name" type="text"
+                           class="form-control form-control-lg"
+                           placeholder="Nhập tên sản phẩm...">
                 </div>
             </div>
+
+            <!-- MÔ TẢ SẢN PHẨM -->
+            <div class="card mb-3">
+                <h5 class="card-header bg-transparent border-bottom fw-bold text-uppercase">
+                    Mô tả sản phẩm
+                </h5>
+                <div class="card-body">
+                    <textarea ng-model="product.description" class="form-control"
+                              rows="22" placeholder="Nhập mô tả sản phẩm..."></textarea>
+                </div>
+            </div>
+
         </div>
+        <!-- ============ END LEFT CONTENT ============ -->
+
+
+
+
+        <!-- ================= RIGHT SIDEBAR ================= -->
+        <div class="col-md-4">
+
+            <!-- NÚT TẠO & CẬP NHẬT -->
+            <div class="card mb-3">
+                <div class="card-body text-center">
+                    <button ng-click="create()" class="btn btn-success w-100 mb-2">
+                        Tạo mới
+                    </button>
+                    <button ng-click="update()" class="btn btn-warning w-100">
+                        Cập nhật
+                    </button>
+                </div>
+            </div>
+
+            <!-- GIÁ & SỐ LƯỢNG -->
+            <div class="card mb-3">
+                <h5 class="card-header fw-bold">Giá & Số lượng</h5>
+                <div class="card-body">
+
+                    <label class="form-label">Giá</label>
+                    <input ng-model="product.price" type="number" class="form-control"
+                           placeholder="Nhập giá">
+
+                    <label class="form-label mt-2">Số lượng</label>
+                    <input ng-model="product.quantity" type="number" class="form-control"
+                           placeholder="Nhập số lượng">
+
+                </div>
+            </div>
+
+            <!-- ẢNH SẢN PHẨM -->
+            <div class="card mb-3">
+                <h5 class="card-header fw-bold">Ảnh sản phẩm</h5>
+                <div class="card-body">
+
+                    <label>Đường dẫn ảnh</label>
+                    <input ng-model="product.urlimage" class="form-control"
+                           placeholder="https://...">
+
+                    <!-- Preview ảnh -->
+                    <div class="text-center mt-3" ng-if="product.urlimage">
+                        <img ng-src="{{product.urlimage}}"
+                             class="img-fluid"
+                             style="max-height: 200px; object-fit: contain;">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- LOẠI HÀNG -->
+            <div class="card mb-3">
+                <h5 class="card-header fw-bold">Loại hàng</h5>
+                <div class="card-body">
+                    <select ng-model="product.category.id" class="form-select">
+                        <option value="" disabled selected>Chọn loại hàng</option>
+                        <option ng-repeat="item in categories" ng-value="item.id">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <!-- ============ END SIDEBAR ============ -->
+
     </div>
-  </app-layout>
-  
+
+</app-layout>

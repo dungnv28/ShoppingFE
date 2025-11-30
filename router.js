@@ -22,6 +22,10 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/product/product.html",
       controller: "product",
     })
+    .when("/prolist", {
+      templateUrl: "/views/product/list.html",
+      controller: "product",
+    })
     .when("/category", {
       templateUrl: "/views/category/category.html",
       controller: "category",
@@ -46,6 +50,10 @@ app.config(function ($routeProvider, $httpProvider) {
     .when("/registration", {
       templateUrl: "/views/authenticate/registration.html",
       controller: "loginCtrl",
+    })
+    .when("/attribute", {
+      templateUrl: "/views/attribute/attribute.html",
+      controller: "attribute",
     })
     .otherwise({
       templateUrl: "/views/404.html",
