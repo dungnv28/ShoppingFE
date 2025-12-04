@@ -42,6 +42,10 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/sell/sell.html",
       controller: "sell",
     })
+     .when("/attribute-value", {
+      templateUrl: "/views/attributeValue/attributeValue.html",
+      controller: "attributeValue",
+    })
     //Authenticate
     .when("/login", {
       templateUrl: "/views/authenticate/login.html",

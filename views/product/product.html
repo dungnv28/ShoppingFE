@@ -9,9 +9,8 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <label class="form-label fw-bold">Tên sản phẩm</label>
-                    <input ng-model="product.name" type="text"
-                           class="form-control form-control-lg"
-                           placeholder="Nhập tên sản phẩm...">
+                    <input ng-model="product.name" type="text" class="form-control form-control-lg"
+                        placeholder="Nhập tên sản phẩm...">
                 </div>
             </div>
 
@@ -21,8 +20,8 @@
                     Mô tả sản phẩm
                 </h5>
                 <div class="card-body">
-                    <textarea ng-model="product.description" class="form-control"
-                              rows="22" placeholder="Nhập mô tả sản phẩm..."></textarea>
+                    <textarea ng-model="product.description" class="form-control" rows="22"
+                        placeholder="Nhập mô tả sản phẩm..."></textarea>
                 </div>
             </div>
 
@@ -53,12 +52,10 @@
                 <div class="card-body">
 
                     <label class="form-label">Giá</label>
-                    <input ng-model="product.price" type="number" class="form-control"
-                           placeholder="Nhập giá">
+                    <input ng-model="product.price" type="number" class="form-control" placeholder="Nhập giá">
 
                     <label class="form-label mt-2">Số lượng</label>
-                    <input ng-model="product.quantity" type="number" class="form-control"
-                           placeholder="Nhập số lượng">
+                    <input ng-model="product.quantity" type="number" class="form-control" placeholder="Nhập số lượng">
 
                 </div>
             </div>
@@ -69,14 +66,12 @@
                 <div class="card-body">
 
                     <label>Đường dẫn ảnh</label>
-                    <input ng-model="product.urlimage" class="form-control"
-                           placeholder="https://...">
+                    <input ng-model="product.urlimage" class="form-control" placeholder="https://...">
 
                     <!-- Preview ảnh -->
                     <div class="text-center mt-3" ng-if="product.urlimage">
-                        <img ng-src="{{product.urlimage}}"
-                             class="img-fluid"
-                             style="max-height: 200px; object-fit: contain;">
+                        <img ng-src="{{product.urlimage}}" class="img-fluid"
+                            style="max-height: 200px; object-fit: contain;">
                     </div>
 
                 </div>
@@ -84,10 +79,10 @@
 
             <!-- LOẠI HÀNG -->
             <div class="card mb-3">
-                <h5 class="card-header fw-bold">Loại hàng</h5>
+                <h5 class="card-header fw-bold">Danh mục</h5>
                 <div class="card-body">
                     <select ng-model="product.category.id" class="form-select">
-                        <option value="" disabled selected>Chọn loại hàng</option>
+                        <option value="" disabled selected>Chọn danh mục</option>
                         <option ng-repeat="item in categories" ng-value="item.id">
                             {{item.name}}
                         </option>
@@ -99,5 +94,114 @@
         <!-- ============ END SIDEBAR ============ -->
 
     </div>
+
+    <!-- THUỘC TÍNH SẢN PHẨM -->
+    <div class="card mb-3">
+        <h5 class="card-header fw-bold">Thuộc tính sản phẩm</h5>
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <!-- COL 6: CHỌN THUỘC TÍNH -->
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Chọn thuộc tính</label>
+                    <select ng-model="selectedAttribute" class="form-select" ng-change="onAttributeChange(selectedAttribute)">
+                        <option value="" disabled selected>-- Chọn thuộc tính --</option>
+                        <option ng-repeat="item in attributes" ng-value="item.id">
+                            {{item.name}}
+                        </option>
+                    </select>
+                </div>
+
+                <!-- COL 6: CHỌN GIÁ TRỊ -->
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Giá trị</label>
+                    <select ng-model="selectedValue" class="form-select" ng-disabled="!selectedAttribute"
+                        ng-options="v.id as v.value for v in filteredAttributeValues">
+                        <option value="" disabled selected>-- Chọn giá trị --</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- NÚT THÊM MỚI THUỘC TÍNH + GIÁ TRỊ (NẾU MUỐN) -->
+            <div class="row mt-3">
+                <div class="col-md-6 text-start">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddAttribute">
+                        Thêm thuộc tính mới
+                    </button>
+                </div>
+
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAddValue">
+                        Thêm giá trị thuộc tính mới
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- MODAL: Tạo Thuộc Tính Mới -->
+    <div class="modal fade" id="modalAddAttribute" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Tạo thuộc tính mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label class="form-label">Tên thuộc tính</label>
+                    <input ng-model="cate.name" type="text" class="form-control" placeholder="VD: Độ nhạy">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success" ng-click="createAttribute()">Tạo mới</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL: Tạo giá trị thuộc tính mới -->
+    <div class="modal fade" id="modalAddValue" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Tạo giá trị thuộc tính mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Giá trị</label>
+                        <input ng-model="attributeValue.value" type="text" class="form-control" placeholder="VD: Màu đỏ">
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label">Thuộc tính</label>
+                        <select ng-model="attributeValue.parentId" class="form-select">
+                            <option value="" disabled selected>-- Chọn thuộc tính --</option>
+                            <option ng-repeat="item in attributes" ng-value="item.id">
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-success" ng-click="createAttributeValue()">Tạo mới</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 </app-layout>
