@@ -1,4 +1,4 @@
-app.controller("product", function ($scope, $http, $location, $filter, $q) {
+app.controller("product", function ($scope, $http, $location, $filter, $q, $timeout) {
     $scope.searchTerm = '';
     $scope.products = [];
     $scope.categories = [];
@@ -20,6 +20,8 @@ app.controller("product", function ($scope, $http, $location, $filter, $q) {
         attribute: null,
         value: null
     };
+    $scope.isSubmitting = false;
+    $scope.successMessage = "";
 
     $scope.loadMediaLibrary = function () {
         $scope.mediaLoading = true;
@@ -107,18 +109,25 @@ app.controller("product", function ($scope, $http, $location, $filter, $q) {
             categoryId: $scope.product.category && $scope.product.category.id ? Number($scope.product.category.id) : null,
             brandId: $scope.product.brandId ? Number($scope.product.brandId) : null
         };
+        $scope.isSubmitting = true;
+        $scope.successMessage = "";
         $http.post("http://localhost:8000/api/admin/products", payload).then(resp => {
             const createdProduct = resp.data;
             return saveProductImages(createdProduct.id)
                 .then(() => saveProductAttributes(createdProduct.id))
                 .then(() => createdProduct);
         }).then(createdProduct => {
-            alert("Product created successfully!");
             $scope.products.push(createdProduct);
             resetProductForm();
+            $scope.isSubmitting = false;
+            $scope.successMessage = "Tạo sản phẩm thành công!";
+            $timeout(function () {
+                $scope.successMessage = "";
+            }, 4000);
         }).catch(error => {
             console.log("Error", error);
             alert("Unable to create product. Please try again!");
+            $scope.isSubmitting = false;
         });
     };
 
@@ -364,6 +373,7 @@ app.controller("product", function ($scope, $http, $location, $filter, $q) {
         $scope.selectedProductAttributes = [];
         $scope.productAttr.attribute = null;
         $scope.productAttr.value = null;
+        $scope.isSubmitting = false;
         updatePrimaryPreview();
     }
 
