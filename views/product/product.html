@@ -20,7 +20,7 @@
                     Mô tả sản phẩm
                 </h5>
                 <div class="card-body">
-                    <textarea ng-model="product.description" class="form-control" rows="22"
+                    <textarea ng-model="product.description" class="form-control" rows="39"
                         placeholder="Nhập mô tả sản phẩm..."></textarea>
                 </div>
             </div>
@@ -38,6 +38,19 @@
                     <button ng-click="update()" class="btn btn-warning w-100">
                         Cập nhật
                     </button>
+                </div>
+            </div>
+
+            <!-- LOẠI HÀNG -->
+            <div class="card mb-3">
+                <h5 class="card-header fw-bold">Danh mục</h5>
+                <div class="card-body">
+                    <select ng-model="product.category.id" class="form-select">
+                        <option value="" disabled selected>Chọn danh mục</option>
+                        <option ng-repeat="item in categories" ng-value="item.id">
+                            {{item.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
 
@@ -59,29 +72,58 @@
             <div class="card mb-3">
                 <h5 class="card-header fw-bold">Ảnh sản phẩm</h5>
                 <div class="card-body">
-
-                    <label>Đường dẫn ảnh</label>
-                    <input ng-model="product.urlimage" class="form-control" placeholder="https://...">
-
-                    <!-- Preview ảnh -->
-                    <div class="text-center mt-3" ng-if="product.urlimage">
-                        <img ng-src="{{product.urlimage}}" class="img-fluid"
-                            style="max-height: 200px; object-fit: contain;">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <div>
+                            <p class="mb-1 fw-semibold">Chọn ảnh từ thư viện</p>
+                            <small class="text-muted">Ảnh đầu tiên sẽ được dùng làm ảnh đại diện.</small>
+                        </div>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalSelectMedia" ng-click="openMediaModal()">
+                            <i class="bi bi-images me-1"></i> Chọn ảnh
+                        </button>
                     </div>
 
+                    <div class="row g-2 mt-3" ng-if="selectedProductImages.length">
+                        <div class="col-6" ng-repeat="img in selectedProductImages track by $index">
+                            <div class="position-relative border rounded overflow-hidden">
+                                <img ng-src="{{img.url}}" alt="Ảnh sản phẩm" class="w-100"
+                                    style="height: 130px; object-fit: cover;">
+                                <span class="badge bg-primary position-absolute top-0 start-0 m-2"
+                                    ng-if="$index === 0">Ảnh chính</span>
+                                <button type="button" class="btn btn-sm btn-light position-absolute bottom-0 start-0 m-2"
+                                    ng-if="$index > 0" ng-click="setPrimaryImage($index)">
+                                    Đặt làm chính
+                                </button>
+                                <button type="button"
+                                    class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle"
+                                    ng-click="removeSelectedImage($index)">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-muted fst-italic mt-3" ng-if="!selectedProductImages.length">
+                        Chưa chọn ảnh nào. Nhấn "Chọn ảnh" để mở thư viện media.
+                    </p>
                 </div>
             </div>
 
-            <!-- LOẠI HÀNG -->
+            <!-- HÃNG SẢN PHẨM -->
             <div class="card mb-3">
-                <h5 class="card-header fw-bold">Danh mục</h5>
+                <h5 class="card-header fw-bold">Hãng sản xuất</h5>
                 <div class="card-body">
-                    <select ng-model="product.category.id" class="form-select">
-                        <option value="" disabled selected>Chọn danh mục</option>
-                        <option ng-repeat="item in categories" ng-value="item.id">
-                            {{item.name}}
-                        </option>
-                    </select>
+                    <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                        <select ng-model="product.brandId" class="form-select">
+                            <option value="" disabled selected>Chọn hãng</option>
+                            <option ng-repeat="brand in brands" ng-value="brand.id">{{brand.name}}</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#modalAddBrand">
+                            <i class="bi bi-plus"></i> Thêm hãng
+                        </button>
+                    </div>
+                    <p class="text-muted mb-0" ng-if="!brands.length">Chưa có hãng nào. Thêm mới để sử dụng.</p>
                 </div>
             </div>
 
@@ -100,25 +142,55 @@
                 <!-- COL 6: CHỌN THUỘC TÍNH -->
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Chọn thuộc tính</label>
-                    <select ng-model="selectedAttribute" class="form-select" ng-change="onAttributeChange(selectedAttribute)">
-                        <option value="" disabled selected>-- Chọn thuộc tính --</option>
-                        <option ng-repeat="item in attributes" ng-value="item.id">
-                            {{item.name}}
-                        </option>
+                    <select ng-model="productAttr.attribute" class="form-select"
+                        ng-change="onAttributeChange(productAttr.attribute)"
+                        ng-options="item.id as item.name for item in attributes track by item.id">
+                        <option value="" disabled>-- Chọn thuộc tính --</option>
                     </select>
                 </div>
 
                 <!-- COL 6: CHỌN GIÁ TRỊ -->
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Giá trị</label>
-                    <select ng-model="selectedValue" class="form-select" ng-disabled="!selectedAttribute"
+                    <select ng-model="productAttr.value" class="form-select"
+                        ng-disabled="!productAttr.attribute"
                         ng-options="v.id as v.value for v in filteredAttributeValues">
-                        <option value="" disabled selected>-- Chọn giá trị --</option>
+                        <option value="" disabled>-- Chọn giá trị --</option>
                     </select>
+                </div>
+                <div class="col-12 text-end">
+                    <button type="button" class="btn btn-outline-primary" ng-click="addAttributeToProduct()">
+                        Thêm vào sản phẩm
+                    </button>
                 </div>
 
             </div>
 
+            <div class="table-responsive mt-3" ng-if="selectedProductAttributes.length">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">#</th>
+                            <th>Thuộc tính</th>
+                            <th>Giá trị</th>
+                            <th style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in selectedProductAttributes track by $index">
+                            <td>{{$index + 1}}</td>
+                            <td>{{item.attributeName}}</td>
+                            <td>{{item.valueName}}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                    ng-click="removeProductAttribute($index)">
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <!-- NÚT THÊM MỚI THUỘC TÍNH + GIÁ TRỊ (NẾU MUỐN) -->
             <div class="row mt-3">
                 <div class="col-md-6 text-start">
@@ -163,6 +235,27 @@
     </div>
 
 
+    <!-- MODAL: Tạo hãng sản xuất -->
+    <div class="modal fade" id="modalAddBrand" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Thêm hãng sản xuất</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Tên hãng</label>
+                    <input type="text" class="form-control" placeholder="VD: Samsung" ng-model="brandForm.name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" ng-click="createBrand()">Tạo hãng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- MODAL: Tạo giá trị thuộc tính mới -->
     <div class="modal fade" id="modalAddValue" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -194,6 +287,64 @@
                     <button type="button" class="btn btn-success" ng-click="createAttributeValue()">Tạo mới</button>
                 </div>
 
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Chọn ảnh từ thư viện -->
+    <div class="modal fade" id="modalSelectMedia" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Chọn ảnh sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-6 mb-2 mb-md-0">
+                            <input type="search" class="form-control" placeholder="Tìm kiếm ảnh..."
+                                ng-model="mediaSearchKeyword">
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <button class="btn btn-outline-secondary" type="button" ng-click="loadMediaLibrary()"
+                                ng-disabled="mediaLoading">
+                                <i class="bi bi-arrow-repeat me-1"></i> Làm mới
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center my-4" ng-if="mediaLoading">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Đang tải thư viện...</span>
+                        </div>
+                    </div>
+                    <div class="row g-3" style="max-height: 400px; overflow-y: auto;"
+                        ng-if="!mediaLoading && mediaImages.length">
+                        <div class="col-sm-6 col-md-4 col-lg-3"
+                            ng-repeat="media in mediaImages | filter:mediaFilter">
+                            <div class="border rounded position-relative overflow-hidden"
+                                ng-class="{'border-primary border-2': isMediaTempSelected(media)}"
+                                ng-click="toggleMediaTemp(media)" style="cursor: pointer;">
+                                <img ng-src="{{media.url}}" alt="{{media.name}}" class="w-100"
+                                    style="height: 140px; object-fit: cover;">
+                                <div class="position-absolute top-0 start-0 m-2 badge bg-success"
+                                    ng-if="isMediaTempSelected(media)">Đã chọn</div>
+                                <div class="p-2">
+                                    <h6 class="mb-1 text-truncate">{{media.name || media.key}}</h6>
+                                    <small class="text-muted">{{media.key}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-muted py-5" ng-if="!mediaLoading && !mediaImages.length">
+                        Chưa có ảnh nào trong thư viện.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" ng-click="confirmMediaSelection()">
+                        Hoàn tất
+                    </button>
+                </div>
             </div>
         </div>
     </div>
