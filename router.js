@@ -42,9 +42,9 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/sell/sell.html",
       controller: "sell",
     })
-     .when("/attribute-value", {
-      templateUrl: "/views/attributeValue/attributeValue.html",
-      controller: "attributeValue",
+    .when("/media", {
+      templateUrl: "/views/media/media.html",
+      controller: "media",
     })
     //Authenticate
     .when("/login", {
@@ -54,10 +54,6 @@ app.config(function ($routeProvider, $httpProvider) {
     .when("/registration", {
       templateUrl: "/views/authenticate/registration.html",
       controller: "loginCtrl",
-    })
-    .when("/attribute", {
-      templateUrl: "/views/attribute/attribute.html",
-      controller: "attribute",
     })
     .otherwise({
       templateUrl: "/views/404.html",
