@@ -3,6 +3,10 @@ app.controller("media", function ($scope, $http) {
 
     $scope.images = [];
     $scope.searchTerm = "";
+    $scope.searchKeyword = "";
+    $scope.searchFilters = {
+        keyword: ""
+    };
     $scope.isLoading = false;
     $scope.isUploading = false;
     $scope.selectedKeys = {};
@@ -230,9 +234,17 @@ app.controller("media", function ($scope, $http) {
         return `${(size / (1024 * 1024 * 1024)).toFixed(1)} GB`;
     };
 
+    $scope.applySearch = function () {
+        const keyword = ($scope.searchFilters.keyword != null
+            ? $scope.searchFilters.keyword
+            : $scope.searchKeyword || "").toString();
+        const trimmed = keyword.trim().toLowerCase();
+        $scope.searchTerm = trimmed;
+    };
+
     $scope.searchImages = function (item) {
         if (!$scope.searchTerm) return true;
-        const keyword = $scope.searchTerm.toLowerCase();
+        const keyword = $scope.searchTerm;
         return (item.name && item.name.toLowerCase().includes(keyword)) ||
             (item.key && item.key.toLowerCase().includes(keyword));
     };

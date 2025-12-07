@@ -7,7 +7,9 @@
             <div class="spinner-border text-light mb-3" role="status">
                 <span class="visually-hidden">Đang xử lý...</span>
             </div>
-            <p class="mb-0 fw-semibold">Đang tạo sản phẩm, vui lòng đợi...</p>
+            <p class="mb-0 fw-semibold">
+                {{isEditMode ? 'Đang cập nhật sản phẩm, vui lòng đợi...' : 'Đang tạo sản phẩm, vui lòng đợi...'}}
+            </p>
         </div>
     </div>
 
@@ -48,10 +50,12 @@
             <!-- NÚT TẠO & CẬP NHẬT -->
             <div class="card mb-3">
                 <div class="card-body text-center">
-                    <button ng-click="create()" class="btn btn-success w-100 mb-2" ng-disabled="isSubmitting">
+                    <button ng-if="!isEditMode" ng-click="create()" class="btn btn-success w-100 mb-2"
+                        ng-disabled="isSubmitting">
                         Đăng
                     </button>
-                    <button ng-click="update()" class="btn btn-warning w-100" ng-disabled="isSubmitting">
+                    <button ng-if="isEditMode" ng-click="update()" class="btn btn-warning w-100"
+                        ng-disabled="isSubmitting">
                         Cập nhật
                     </button>
                 </div>

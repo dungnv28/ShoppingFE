@@ -99,6 +99,30 @@ body {
   --bs-btn-disabled-border-color: #fff3cd;
   --bs-gradient: none;
 }
+
+.about-spotlight {
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.about-spotlight h2 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-spotlight p {
+  color: #444;
+  line-height: 1.7;
+}
+
+.about-spotlight img {
+  transition: all 0.3s ease;
+}
+
+.about-spotlight img:hover {
+  transform: scale(1.03);
+}
 .btn-outline-light {
   --bs-btn-color: #747474;
   --bs-btn-border-color: #EFEFEF;

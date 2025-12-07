@@ -19,12 +19,19 @@ app.config(function ($routeProvider, $httpProvider) {
       controller: "category",
     })
     .when("/product", {
+      redirectTo: "/product/create",
+    })
+    .when("/product/create", {
       templateUrl: "/views/product/product.html",
-      controller: "product",
+      controller: "productCreateCtrl",
+    })
+    .when("/product/edit/:id", {
+      templateUrl: "/views/product/product.html",
+      controller: "productEditCtrl",
     })
     .when("/prolist", {
       templateUrl: "/views/product/list.html",
-      controller: "product",
+      controller: "productListCtrl",
     })
     .when("/category", {
       templateUrl: "/views/category/category.html",

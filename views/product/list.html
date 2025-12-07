@@ -8,44 +8,138 @@
                 </h5>
                 <div class="card-body">
 
-                    <input class="form-control mb-3" type="search" placeholder="Tìm kiếm..."
-                           ng-model="searchTerm">
+                    <div class="row g-3 align-items-end mb-3">
+                        <div class="col-lg-4">
+                            <label class="form-label text-muted">Tìm kiếm</label>
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="Tìm theo tên, mô tả..."
+                                    ng-model="filters.search"
+                                    ng-keypress="$event.keyCode === 13 && applyFiltersManual()">
+                                <button type="button" class="btn btn-outline-primary"
+                                    ng-click="applyFiltersManual()">Tìm</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <label class="form-label text-muted">Danh mục</label>
+                            <select class="form-select" ng-model="filters.category">
+                                <option value="">Tất cả</option>
+                                <option ng-repeat="cate in categories" ng-value="cate">{{cate.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <label class="form-label text-muted">Hãng sản xuất</label>
+                            <select class="form-select" ng-model="filters.brand">
+                                <option value="">Tất cả</option>
+                                <option ng-repeat="brand in brands" ng-value="brand">{{brand.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-2 text-lg-end">
+                            <div class="d-grid gap-2 d-lg-block">
+                                <button type="button" class="btn btn-primary mb-2 mb-lg-0"
+                                    ng-click="applyFiltersManual()">
+                                    <i class="bi bi-funnel me-1"></i>Lọc
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary mb-2 mb-lg-0"
+                                    ng-click="toggleSelectionMode()">
+                                    <i class="bi bi-check2-square me-1"></i>
+                                    {{isProductSelectionMode ? 'Hủy chọn nhiều' : 'Chọn nhiều'}}
+                                </button>
+                                <button type="button" class="btn btn-danger"
+                                    ng-click="bulkDeleteProducts()" ng-disabled="!hasProductSelection() || isBulkDeleting">
+                                    <i class="bi bi-trash me-1"></i> Xóa đã chọn
+                                </button>
+                            </div>
+                            <small class="text-muted d-block mt-1" ng-if="hasProductSelection()">
+                                Đã chọn {{selectedProductCount()}} sản phẩm
+                            </small>
+                        </div>
+                    </div>
 
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>STT</th>
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Đơn giá</th>
-                                <th>Số lượng</th>
-                                <th></th>
-                            </tr>
-                        </thead>
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-center" style="width: 60px;">
+                                        <div class="form-check mb-0" ng-class="{'invisible': !isProductSelectionMode}">
+                                            <input class="form-check-input" type="checkbox"
+                                                ng-checked="isAllFilteredSelected()"
+                                                ng-click="toggleSelectAllProducts($event)">
+                                        </div>
+                                    </th>
+                                    <th style="width: 60px;">Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Danh mục</th>
+                                    <th style="width: 100px;"></th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            <tr ng-repeat="item in products | filter:searchTerm">
-                                <td>{{$index + 1}}</td>
+                            <tbody>
+                                <tr ng-repeat="item in pagedProducts track by item.id">
+                                    <td class="text-center">
+                                        <div class="form-check mb-0" ng-class="{'invisible': !isProductSelectionMode}">
+                                            <input class="form-check-input" type="checkbox"
+                                                ng-checked="isProductSelected(item.id)"
+                                                ng-click="toggleProductSelection(item, $event)">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center justify-content-center border rounded"
+                                            style="width: 50px; height: 50px; overflow: hidden;">
+                                            <img ng-if="item.thumbnailUrl || item.urlimage"
+                                                ng-src="{{item.thumbnailUrl || item.urlimage}}"
+                                                width="50" height="50" style="object-fit: cover;">
+                                            <span class="text-muted small" ng-if="!(item.thumbnailUrl || item.urlimage)">
+                                                N/A
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="fw-semibold">{{item.name}}</td>
+                                    <td>{{item.price | currency:"₫"}}</td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{(item.category && item.category.name) || item.categoryName || '—'}}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-primary" ng-click="editProduct(item)">
+                                            Sửa
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-if="!pagedProducts.length">
+                                    <td colspan="7" class="text-center text-muted py-4">
+                                        Không tìm thấy sản phẩm phù hợp.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                                <td>
-                                    <img src="{{item.urlimage}}" width="50"
-                                         style="max-height: 50px; object-fit: contain;">
-                                </td>
-
-                                <td>{{item.name}}</td>
-                                <td>{{item.price | currency:"₫"}}</td>
-                                <td>{{item.quantity}}</td>
-
-                                <td>
-                                    <button class="btn btn-warning"
-                                            ng-click="views(item)">
-                                        View
+                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mt-3"
+                        ng-if="filteredProducts.length">
+                        <div class="mb-2 mb-md-0">
+                            <label class="me-2 text-muted">Hiển thị</label>
+                            <select class="form-select d-inline-block w-auto" ng-model="pageSize"
+                                ng-options="size as size for size in [5,10,20,50]" ng-change="setPageSize(pageSize)">
+                            </select>
+                            <span class="ms-2 text-muted">sản phẩm / trang</span>
+                        </div>
+                        <nav aria-label="Pagination" ng-if="pageRange().length > 1">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item" ng-class="{disabled: currentPage === 1}">
+                                    <button class="page-link" type="button" ng-click="prevPage()">&laquo;</button>
+                                </li>
+                                <li class="page-item" ng-repeat="page in pageRange()"
+                                    ng-class="{active: page === currentPage}">
+                                    <button class="page-link" type="button" ng-click="goToPage(page)">
+                                        {{page}}
                                     </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
+                                </li>
+                                <li class="page-item" ng-class="{disabled: currentPage === pageRange().length}">
+                                    <button class="page-link" type="button" ng-click="nextPage()">&raquo;</button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
