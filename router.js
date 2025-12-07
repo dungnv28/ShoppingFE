@@ -6,10 +6,6 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: "/views/dashboard2.html",
       controller: "dashboard",
     })
-    .when("/cart", {
-      templateUrl: "/views/cart/cart.html",
-      controller: "cart",
-    })
     .when("/orderhistory", {
       templateUrl: "/views/orderhistory/orderhistory.html",
       controller: "orderhistory",

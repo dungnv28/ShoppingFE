@@ -41,69 +41,91 @@
     </div>
   </div> -->
   <!-- --------- Show nhanh rỏ hàng ------------ -->
-  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart" style="width: 900px;">
+  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
+    aria-labelledby="My Cart" style="width: 900px;">
     <div class="offcanvas-header justify-content-between">
       <h5 class="mb-0">Giỏ hàng</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
-      <div class="card border-0">
-        <div class="row g-0">
+    <div class="offcanvas-body" ng-if="isLogin">
+      <div class="card border-0 h-100 w-100">
+        <div class="row g-0 h-100">
           <div class="col-lg-8 border-end">
-            <div class="p-4">
+            <div class="p-4 h-100 d-flex flex-column">
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="fw-bold mb-0">Sản phẩm trong giỏ</h5>
-                <span class="badge bg-primary rounded-pill">3 sản phẩm</span>
+                <span class="badge bg-primary rounded-pill">{{getCartCount()}} sản phẩm</span>
               </div>
-              <div class="list-group list-group-flush">
-                <div class="list-group-item px-0 py-3 d-flex align-items-center">
-                  <img src="images/product-thumb-1.png" class="rounded-3 me-3" width="64" alt="">
+              <div class="text-center text-muted py-5" ng-if="cartLoading">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <p class="mb-0">Đang tải giỏ hàng...</p>
+              </div>
+              <div class="list-group list-group-flush flex-grow-1"
+                ng-if="!cartLoading && cartItems.length">
+                <div class="list-group-item px-0 py-3 d-flex align-items-center"
+                  ng-repeat="item in cartItems track by item.id">
+                  <img ng-src="{{resolveCartImage(item)}}" class="rounded-3 me-3" width="64" alt="Ảnh sản phẩm" />
                   <div class="flex-grow-1">
-                    <h6 class="mb-1">Growers cider</h6>
-                    <small class="text-muted">Mã SP: MS001</small>
+                    <h6 class="mb-1">{{item.product.name}}</h6>
+                    <small class="text-muted">Mã SP: {{item.product.code || ('MS' + item.product.id)}}</small>
+                    <div class="d-flex align-items-center mt-2">
+                      <input type="number" class="form-control form-control-sm me-3" min="1"
+                        ng-model="item.amount" ng-change="checkCartQuantity(item)">
+                      <button class="btn btn-sm btn-link text-danger p-0" type="button"
+                        ng-click="removeCartItem(item)">
+                        Xóa
+                      </button>
+                    </div>
                   </div>
-                  <span class="fw-semibold">$12</span>
+                  <span class="fw-semibold">${{item.product.price}}</span>
                 </div>
-                <div class="list-group-item px-0 py-3 d-flex align-items-center">
-                  <img src="images/product-thumb-2.png" class="rounded-3 me-3" width="64" alt="">
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">Fresh grapes</h6>
-                    <small class="text-muted">Mã SP: MS002</small>
-                  </div>
-                  <span class="fw-semibold">$8</span>
-                </div>
-                <div class="list-group-item px-0 py-3 d-flex align-items-center">
-                  <img src="images/product-thumb-3.png" class="rounded-3 me-3" width="64" alt="">
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">Heinz tomato ketchup</h6>
-                    <small class="text-muted">Mã SP: MS003</small>
-                  </div>
-                  <span class="fw-semibold">$5</span>
-                </div>
+              </div>
+              <div class="text-center text-muted py-5" ng-if="!cartLoading && !cartItems.length">
+                <p class="mb-1">Giỏ hàng của bạn đang trống.</p>
+                <small>Hãy thêm sản phẩm để thanh toán nhanh.</small>
               </div>
             </div>
           </div>
           <div class="col-lg-4 bg-light">
-            <div class="p-4">
+            <div class="p-4 h-100 d-flex flex-column">
               <h5 class="fw-bold">Tổng kết</h5>
+              <div class="alert alert-success py-2" ng-if="cartNotice">
+                {{cartNotice}}
+              </div>
+              <div class="alert alert-danger py-2" ng-if="cartError">
+                {{cartError}}
+              </div>
               <div class="d-flex justify-content-between mt-3">
                 <span>Tạm tính</span>
-                <span>$25</span>
+                <span>${{getCartTotal()}}</span>
               </div>
-              <div class="d-flex justify-content-between"> 
+              <div class="d-flex justify-content-between">
                 <span>Giảm giá</span>
-                <span>$5</span>
+                <span>$0</span>
               </div>
               <hr>
               <div class="d-flex justify-content-between align-items-center">
                 <span class="fw-semibold">Tổng cộng</span>
-                <span class="fw-bold fs-5 text-primary">$20</span>
+                <span class="fw-bold fs-5 text-primary">${{getCartTotal()}}</span>
               </div>
-              <button class="btn btn-primary w-100 mt-4">Thanh toán</button>
+              <button class="btn btn-primary w-100 mt-4" ng-click="openCheckoutModal()"
+                ng-disabled="cartProcessing || cartLoading || !cartItems.length">
+                <span ng-if="!cartProcessing">Thanh toán</span>
+                <span ng-if="cartProcessing" class="d-inline-flex align-items-center justify-content-center">
+                  <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                  Đang xử lý...
+                </span>
+              </button>
               <small class="text-muted d-block mt-2">Phí vận chuyển được tính ở bước tiếp theo.</small>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="offcanvas-body d-flex align-items-center justify-content-center" ng-if="!isLogin">
+      <div class="text-center">
+        <p class="mb-3">Vui lòng đăng nhập để xem giỏ hàng.</p>
+        <a ng-href="/#!/login" class="btn btn-primary">Đăng nhập</a>
       </div>
     </div>
   </div>
@@ -147,9 +169,9 @@
         <div
           class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
           <ul class="d-flex justify-content-end list-unstyled m-0">
-            <li class="d-lg-none">
-              <a href="#" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+            <li class="d-lg-none" ng-if="isLogin">
+              <a href="javascript:void(0)" class="rounded-circle bg-light p-2 mx-1" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" ng-click="prepareCart($event)">
                 <svg width="24" height="24" viewBox="0 0 24 24">
                   <use xlink:href="#cart"></use>
                 </svg>
@@ -166,10 +188,12 @@
           </ul>
 
           <div class="cart text-end d-none d-lg-block dropdown">
-            <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button"
-              data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-              <span class="fs-6 text-muted dropdown-toggle">Giỏ Hàng</span>
+            <button ng-if="isLogin" class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button"
+              data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"
+              ng-click="prepareCart($event)">
+              <span class="fs-6 text-muted dropdown-toggle">Giỏ Hàng ({{getCartCount()}})</span>
             </button>
+            <a ng-if="!isLogin" ng-href="/#!/login" class="btn btn-outline-primary btn-sm">Đăng nhập để xem giỏ hàng</a>
           </div>
 
           <div class="cart text-end d-none d-lg-block dropdown">
@@ -369,7 +393,7 @@
                     <div class="product-item h-100">
                       <figure>
                         <a href="javascript:void(0)" title="{{item.name}}">
-                          <img ng-src="{{item.urlimage || '/assets/images/placeholder.png'}}" class="tab-image" alt="{{item.name}}">
+                          <img ng-src="{{item.thumbnailUrl || item.urlimage || '/assets/images/placeholder.png'}}" class="tab-image" alt="{{item.name}}">
                         </a>
                       </figure>
                       <h3 class="text-truncate">{{item.name}}</h3>
@@ -525,6 +549,60 @@
 
     </div>
   </section>
+
+  <!-- --------- Checkout Modal ------------ -->
+  <div class="modal fade" id="cartCheckoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thanh toán</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            ng-disabled="cartProcessing"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <h5 class="text-success fw-bold mb-3">Thông tin người mua</h5>
+              <p class="mb-1"><strong>Họ tên:</strong> {{account.fullName || nameUser}}</p>
+              <p class="mb-1"><strong>Số điện thoại:</strong> {{account.phoneNumber || 'Chưa cập nhật'}}</p>
+              <p class="mb-1"><strong>Email:</strong> {{account.email || 'Chưa cập nhật'}}</p>
+              <p class="mb-3"><strong>Địa chỉ:</strong> {{account.address || 'Chưa cập nhật'}}</p>
+              <hr>
+              <h6 class="fw-bold mb-2">Thanh toán QR</h6>
+              <p class="small text-muted">Sử dụng mã QR dưới đây để hoàn tất thanh toán. Nội dung:
+                {{nameUser}} - {{account.phoneNumber || 'N/A'}}</p>
+              <img src="/assets/images/qrNganHang.jpg" class="img-fluid rounded-3" alt="QR thanh toán">
+            </div>
+            <div class="col-lg-5">
+              <h5 class="fw-bold">Chi tiết đơn hàng</h5>
+              <div class="bg-body-tertiary rounded-3 p-3 mb-3" style="max-height: 320px; overflow-y: auto;">
+                <div class="d-flex justify-content-between py-2 border-bottom small"
+                  ng-repeat="it in cartItems track by it.id">
+                  <span>{{it.product.name}}</span>
+                  <span>${{it.product.price}}</span>
+                </div>
+                <p class="text-center text-muted my-3" ng-if="!cartItems.length">Giỏ hàng trống.</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-semibold">Tổng cộng</span>
+                <span class="fw-bold text-primary fs-4">${{getCartTotal()}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="performCheckout()" ng-disabled="cartProcessing">
+            <span ng-if="!cartProcessing">Hoàn tất</span>
+            <span ng-if="cartProcessing" class="d-inline-flex align-items-center">
+              <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              Đang xử lý...
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="py-5 bg-dark text-light mt-5">
     <div class="container">
