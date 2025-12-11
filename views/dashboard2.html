@@ -3,43 +3,11 @@
   <link rel="stylesheet" href="/assets/css/dashboard/bootstrap5.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/dashboard/vendor.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/dashboard/style.css">
-  <style>
-    .main-menu {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    .main-menu .navbar-nav.menu-list {
-      width: auto;
-      justify-content: center !important;
-      text-align: center;
-      margin: 0 auto !important;
-    }
-    .main-menu .navbar-nav.menu-list .nav-item {
-      flex: 0 0 auto;
-      padding: 0 0.75rem;
-    }
-    .main-menu .offcanvas-body {
-      width: 100% !important;
-      display: flex !important;
-      justify-content: center !important;
-      padding: 0 !important;
-    }
-    @media (max-width: 991.98px) {
-      .main-menu .navbar-nav.menu-list {
-        flex-direction: column;
-      }
-    }
-  </style>
+  
 </head>
 
 <body>
-  <!-- --------- Hiệu ứng load trang ------------ -->
-
-  <!-- <div class="preloader-wrapper">
-    <div class="preloader">
-    </div>
-  </div> -->
+  
   <!-- --------- Show nhanh rỏ hàng ------------ -->
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
     aria-labelledby="My Cart" style="width: 900px;">
@@ -193,7 +161,7 @@
               ng-click="prepareCart($event)">
               <span class="fs-6 text-muted dropdown-toggle">Giỏ Hàng ({{getCartCount()}})</span>
             </button>
-            <a ng-if="!isLogin" ng-href="/#!/login" class="btn btn-outline-primary btn-sm">Đăng nhập để xem giỏ hàng</a>
+            <a ng-if="!isLogin" ng-href="/#!/login" class="btn btn-outline-primary btn-sm">Giỏ hàng</a>
           </div>
 
           <div class="cart text-end d-none d-lg-block dropdown">

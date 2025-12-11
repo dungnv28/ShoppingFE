@@ -1,4 +1,29 @@
-
+.main-menu {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .main-menu .navbar-nav.menu-list {
+      width: auto;
+      justify-content: center !important;
+      text-align: center;
+      margin: 0 auto !important;
+    }
+    .main-menu .navbar-nav.menu-list .nav-item {
+      flex: 0 0 auto;
+      padding: 0 0.75rem;
+    }
+    .main-menu .offcanvas-body {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      padding: 0 !important;
+    }
+    @media (max-width: 991.98px) {
+      .main-menu .navbar-nav.menu-list {
+        flex-direction: column;
+      }
+    }
 :root {
     /* widths for rows and containers
      */

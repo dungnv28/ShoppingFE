@@ -5,6 +5,32 @@ app.config(function ($routeProvider, $httpProvider) {
     .when("/", {
       templateUrl: "/views/dashboard2.html",
       controller: "dashboard",
+      pageId: "home",
+    })
+    .when("/products", {
+      templateUrl: "/views/dashboard2.html",
+      controller: "dashboard",
+      pageId: "products",
+    })
+    .when("/about", {
+      templateUrl: "/views/dashboard2.html",
+      controller: "dashboard",
+      pageId: "about",
+    })
+    .when("/news", {
+      templateUrl: "/views/dashboard2.html",
+      controller: "dashboard",
+      pageId: "news",
+    })
+    .when("/contact", {
+      templateUrl: "/views/dashboard2.html",
+      controller: "dashboard",
+      pageId: "contact",
+    })
+    .when("/career", {
+      templateUrl: "/views/dashboard2.html",
+      controller: "dashboard",
+      pageId: "career",
     })
     .when("/orderhistory", {
       templateUrl: "/views/orderhistory/orderhistory.html",
