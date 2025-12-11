@@ -240,25 +240,31 @@
 
               <div class="offcanvas-body d-flex justify-content-center">
 
-                <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0 text-uppercase w-100 justify-content-center text-center"
+                <ul
+                  class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0 text-uppercase w-100 justify-content-center text-center"
                   style="justify-content: center !important;">
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Trang chủ</a>
+                    <a ng-href="/#!/" class="nav-link" ng-class="{'fw-bold text-primary': pageSection === 'home'}">Trang chủ</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Sản phẩm</a>
+                    <a ng-href="/#!/products" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'products'}">Sản phẩm</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Giới thiệu</a>
+                    <a ng-href="/#!/about" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'about'}">Giới thiệu</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Tin tức</a>
+                    <a ng-href="/#!/news" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'news'}">Tin tức</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Liên hệ</a>
+                    <a ng-href="/#!/contact" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'contact'}">Liên hệ</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Tuyển dụng</a>
+                    <a ng-href="/#!/career" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'career'}">Tuyển dụng</a>
                   </li>
                 </ul>
 
@@ -272,283 +278,8 @@
   <!-- --------- Menu bar ------------ -->
 
 
-  <section class="py-3"
-    style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
+    <div ng-include="pageTemplate"></div>
 
-          <div class="banner-blocks">
-
-            <div class="banner-ad large bg-info block-1">
-
-              <div class="swiper main-swiper">
-                <div class="swiper-wrapper">
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories my-3">100% natural</div>
-                        <h3 class="display-4">Fresh Smoothie & Summer Juice</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#"
-                          class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="images/product-thumb-1.png" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories mb-3 pb-3">100% natural</div>
-                        <h3 class="banner-title">Fresh Smoothie & Summer Juice</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
-                          Collection</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="images/product-thumb-1.png" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="swiper-slide">
-                    <div class="row banner-content p-5">
-                      <div class="content-wrapper col-md-7">
-                        <div class="categories mb-3 pb-3">100% natural</div>
-                        <h3 class="banner-title">Heinz Tomato Ketchup</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">Shop
-                          Collection</a>
-                      </div>
-                      <div class="img-wrapper col-md-5">
-                        <img src="images/product-thumb-2.png" class="img-fluid">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="swiper-pagination"></div>
-
-              </div>
-            </div>
-
-            <div class="banner-ad bg-success-subtle block-2"
-              style="background:url('images/ad-image-1.png') no-repeat;background-position: right bottom">
-              <div class="row banner-content p-5">
-
-                <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">20% off</div>
-                  <h3 class="banner-title">Fruits & Vegetables</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
-                      <use xlink:href="#arrow-right"></use>
-                    </svg></a>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="banner-ad bg-danger block-3"
-              style="background:url('images/ad-image-2.png') no-repeat;background-position: right bottom">
-              <div class="row banner-content p-5">
-
-                <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">15% off</div>
-                  <h3 class="item-title">Baked Products</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
-                      <use xlink:href="#arrow-right"></use>
-                    </svg></a>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-          <!-- / Banner Blocks -->
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-5">
-    <div class="container-fluid">
-
-      <div class="row">
-        <div class="col-md-12">
-
-          <div class="bootstrap-tabs product-tabs">
-            <div class="tabs-header d-flex justify-content-between border-bottom my-5">
-              <h3>Trending Products</h3>
-            </div>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-
-                <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
-                  <div class="col" ng-repeat="item in products | limitTo:10 track by item.id">
-                    <div class="product-item h-100">
-                      <figure>
-                        <a href="javascript:void(0)" title="{{item.name}}">
-                          <img ng-src="{{item.thumbnailUrl || item.urlimage || '/assets/images/placeholder.png'}}" class="tab-image" alt="{{item.name}}">
-                        </a>
-                      </figure>
-                      <h3 class="text-truncate">{{item.name}}</h3>
-                      <span class="qty" ng-if="item.category && item.category.name">{{item.category.name}}</span>
-                      <span class="price d-block">{{item.price | currency:'₫'}}</span>
-                      <div class="d-flex align-items-center justify-content-between mt-2 gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-primary flex-grow-1" ng-click="addToCart(item)">
-                          Thêm vào giỏ
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewProduct" ng-click="viewProduct(item)">
-                          Xem
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-<!-- section coppy từ bên ngoài -->
-<section class="about-spotlight py-5">
-  <div class="container-fluid">
-    <div class="row align-items-center">
-
-      <!-- Text block -->
-      <div class="col-lg-8">
-        <h2 class="fw-bold mb-3">Spotlight</h2>
-        <h4 class="fw-semibold text-primary mb-3">DỊCH TẢ LỢN CHÂU PHI: PHÁT HIỆN VÀ CHẨN ĐOÁN</h4>
-        <p>
-          Dịch tả lợn châu Phi (ASF – African Swine Fever) là một bệnh truyền nhiễm do virus gây ra, ảnh hưởng đến lợn ở
-          mọi lứa tuổi và gây sốt xuất huyết. Bệnh có thể biểu hiện ở nhiều thể khác nhau, từ thể quá cấp, cấp tính, bán
-          cấp, mạn tính cho đến thể không điển hình.
-          Thể cấp tính thường dễ nhận biết nhất, với tỷ lệ chết có thể lên tới 100%. Lợn nhà và lợn rừng có thể bị nhiễm
-          bệnh qua nhiều con đường khác nhau.
-        </p>
-        <p>
-          Châu Âu chiếm 67% số ổ dịch được báo cáo thông qua thông báo khẩn và báo cáo theo dõi (theo dữ liệu của OIE
-          giai đoạn 2016–2020). Tuy nhiên, khu vực chịu thiệt hại nặng nề nhất về số lượng động vật bị mất là châu Á
-          (6.733.791 con lợn bị tiêu hủy), chiếm 82% tổng số lợn bị mất trên toàn cầu. Sự khác biệt đáng kể giữa các khu
-          vực được ghi nhận ở cấp độ khu vực: các nước châu Phi ghi nhận dịch chủ yếu ở lợn nhà; châu Á chủ yếu ở lợn
-          nhà; còn châu Âu chủ yếu ở lợn rừng. Những dữ liệu này phản ánh sự khác biệt rõ rệt về tình hình dịch tễ học
-          giữa các khu vực. Hiện chưa có thuốc điều trị hoặc vắc xin phòng bệnh này.
-        </p>
-        <p>
-          Vì hiện chưa có vắc xin chống lại ASF, việc chẩn đoán chính xác là yếu tố then chốt. Phương pháp chẩn đoán
-          thích hợp bao gồm phát hiện và định danh các kháng nguyên đặc hiệu của virus ASFV hoặc DNA
-          và kháng thể nhằm thu thập thông tin cần thiết phục vụ cho công tác kiểm soát và chương trình tiêu
-          diệt mầm bệnh.
-        </p>
-        <a href="https://baesan.vn/san-pham/kit-test-nhanh-phat-hien-khang-nguyen-asfv-dich-ta-lon-chau-phi/"
-          class="btn btn-primary rounded-pill px-4 py-2 mt-2 fw-semibold">Tìm Hiểu Thêm</a>
-      </div>
-
-      <!-- Image block -->
-      <div class="col-lg-4 text-center">
-        <img src="https://baesan.vn/wp-content/uploads/2025/11/pic1.jpg" alt="ASF Transmission Diagram"
-          class="img-fluid rounded-3 shadow-sm">
-        <p class="small text-muted mt-2 fst-italic">Nguồn: FAO, 2017</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <section class="py-5">
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-md-6">
-          <div class="banner-ad bg-danger mb-3"
-            style="background: url('images/ad-image-3.png');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
-
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Luxa Dark Chocolate</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
-
-            </div>
-
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="banner-ad bg-info"
-            style="background: url('images/ad-image-4.png');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
-
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Creamy Muffins</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
-
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section class="py-5">
-    <div class="container-fluid">
-
-      <div class="bg-secondary py-5 my-5 rounded-5"
-        style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
-        <div class="container my-5">
-          <div class="row">
-            <div class="col-md-6 p-5">
-              <div class="section-header">
-                <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first
-                  purchase</h2>
-              </div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst amet, metus, sit massa posuere
-                maecenas. At tellus ut nunc amet vel egestas.</p>
-            </div>
-            <div class="col-md-6 p-5">
-              <form>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Name">
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">Email</label>
-                  <input type="email" class="form-control form-control-lg" name="email" id="email"
-                    placeholder="abc@mail.com">
-                </div>
-                <div class="form-check form-check-inline mb-3">
-                  <label class="form-check-label" for="subscribe">
-                    <input class="form-check-input" type="checkbox" id="subscribe" value="subscribe">
-                    Subscribe to the newsletter</label>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-dark btn-lg">Submit</button>
-                </div>
-              </form>
-
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- --------- Checkout Modal ------------ -->
   <div class="modal fade" id="cartCheckoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -620,9 +351,9 @@
         <div class="col-sm-4 col-lg-2">
           <h6 class="text-uppercase fw-bold mb-3 text-light">Thông tin</h6>
           <ul class="list-unstyled small">
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Giới thiệu</a></li>
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Tin tức</a></li>
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Tuyển dụng</a></li>
+            <li><a ng-href="/#!/about" class="text-white-50 text-decoration-none">Giới thiệu</a></li>
+            <li><a ng-href="/#!/news" class="text-white-50 text-decoration-none">Tin tức</a></li>
+            <li><a ng-href="/#!/career" class="text-white-50 text-decoration-none">Tuyển dụng</a></li>
           </ul>
         </div>
         <div class="col-sm-4 col-lg-3">

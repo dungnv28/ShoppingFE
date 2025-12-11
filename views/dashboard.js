@@ -5,7 +5,8 @@ app.controller("dashboard", function (
   $location,
   cartService,
   $timeout,
-  $q
+  $q,
+  $route
 ) {
   $scope.nameUser = "Welcome !";
   $scope.isLogin = false;
@@ -18,9 +19,29 @@ app.controller("dashboard", function (
   $scope.cartItems = [];
   $scope.cartLoading = false;
   $scope.cartProcessing = false;
-  $scope.cartNotice = "";
-  $scope.cartError = "";
-  const CHECKOUT_MODAL_ID = "cartCheckoutModal";
+$scope.cartNotice = "";
+$scope.cartError = "";
+$scope.selectedCategoryFilter = null;
+const CHECKOUT_MODAL_ID = "cartCheckoutModal";
+const PAGE_TEMPLATES = {
+  home: "/views/dashboard/pages/home.html",
+  products: "/views/dashboard/pages/products.html",
+  about: "/views/dashboard/pages/about.html",
+  news: "/views/dashboard/pages/news.html",
+  contact: "/views/dashboard/pages/contact.html",
+  career: "/views/dashboard/pages/career.html",
+};
+$scope.pageTemplate = PAGE_TEMPLATES.home;
+
+function updatePageSection() {
+  const page =
+    ($route.current && $route.current.pageId) || "home";
+  $scope.pageSection = page;
+  $scope.pageTemplate = PAGE_TEMPLATES[page] || PAGE_TEMPLATES.home;
+}
+
+$scope.$on("$routeChangeSuccess", updatePageSection);
+updatePageSection();
 
   $scope.initialize = function () {
     $scope.isLoading = true;
