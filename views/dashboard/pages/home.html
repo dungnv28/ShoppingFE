@@ -1,5 +1,5 @@
 <section class="baesan-banner py-4">
-  <div class="container-fluid">
+  <div class="container">
     <div class="row gx-3">
 
       <!-- Banner chính bên trái -->
@@ -68,7 +68,7 @@
 </section>
 
   <section class="py-5">
-    <div class="container-fluid">
+    <div class="container">
 
       <div class="row">
         <div class="col-md-12">
@@ -86,7 +86,7 @@
                     <div class="product-item h-100">
                       <figure>
                         <a href="javascript:void(0)" title="{{item.name}}">
-                          <img ng-src="{{item.thumbnailUrl || item.urlimage || '/assets/images/placeholder.png'}}" class="tab-image" alt="{{item.name}}">
+                          <img ng-src="{{item.thumbnailUrl || item.urlimage || ''}}" class="tab-image" alt="{{item.name}}">
                         </a>
                       </figure>
                       <h3 class="text-truncate">{{item.name}}</h3>
@@ -117,7 +117,7 @@
 
 <!-- section coppy từ bên ngoài -->
 <section class="about-spotlight py-5">
-  <div class="container-fluid">
+  <div class="container">
     <div class="row align-items-center">
 
       <!-- Text block -->
@@ -160,86 +160,45 @@
   </div>
 </section>
 
-  <section class="py-5">
-    <div class="container-fluid">
-      <div class="row">
-
-        <div class="col-md-6">
-          <div class="banner-ad bg-danger mb-3"
-            style="background: url('images/ad-image-3.png');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
-
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Luxa Dark Chocolate</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
-
-            </div>
-
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="banner-ad bg-info"
-            style="background: url('images/ad-image-4.png');background-repeat: no-repeat;background-position: right bottom;">
-            <div class="banner-content p-5">
-
-              <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
-              <h3 class="banner-title">Creamy Muffins</h3>
-              <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
-              <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
-
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <section class="py-5">
-    <div class="container-fluid">
-
+    <div class="container">
       <div class="bg-secondary py-5 my-5 rounded-5"
         style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
-        <div class="container my-5">
-          <div class="row">
-            <div class="col-md-6 p-5">
-              <div class="section-header">
-                <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first
-                  purchase</h2>
-              </div>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dictumst amet, metus, sit massa posuere
-                maecenas. At tellus ut nunc amet vel egestas.</p>
+        <div class="row align-items-center">
+          <div class="col-md-6 p-5">
+            <div class="section-header">
+              <h2 class="section-title display-5 text-uppercase">Nhận <span class="text-primary">ưu đãi 25%</span> cho đơn hàng đầu tiên</h2>
             </div>
-            <div class="col-md-6 p-5">
-              <form>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Name</label>
-                  <input type="text" class="form-control form-control-lg" name="name" id="name" placeholder="Name">
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">Email</label>
-                  <input type="email" class="form-control form-control-lg" name="email" id="email"
-                    placeholder="abc@mail.com">
-                </div>
-                <div class="form-check form-check-inline mb-3">
-                  <label class="form-check-label" for="subscribe">
-                    <input class="form-check-input" type="checkbox" id="subscribe" value="subscribe">
-                    Subscribe to the newsletter</label>
-                </div>
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-dark btn-lg">Submit</button>
-                </div>
-              </form>
-
-            </div>
-
+            <p class="mb-0">Để lại thông tin để nhận tư vấn thiết bị mới nhất, demo dùng thử và chính sách giá ưu đãi dành riêng cho bệnh viện/phòng lab của bạn.</p>
           </div>
-
+          <div class="col-md-6 p-5">
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="lead-name" class="form-label">Họ tên</label>
+                  <input type="text" class="form-control form-control-lg" id="lead-name" placeholder="">
+                </div>
+                <div class="col-md-6">
+                  <label for="lead-email" class="form-label">Email</label>
+                  <input type="email" class="form-control form-control-lg" id="lead-email" placeholder="">
+                </div>
+                <div class="col-12">
+                  <label for="lead-topic" class="form-label">Nhu cầu</label>
+                  <input type="text" class="form-control form-control-lg" id="lead-topic" placeholder="">
+                </div>
+                <div class="col-12 form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="lead-subscribe">
+                  <label class="form-check-label" for="lead-subscribe">Đăng ký nhận tin khuyến mãi và cập nhật sản phẩm</label>
+                </div>
+                <div class="col-12 d-grid gap-2">
+                  <button type="submit" class="btn btn-dark btn-lg">Gửi thông tin</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-
     </div>
   </section>
 

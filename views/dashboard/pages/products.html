@@ -1,47 +1,121 @@
 
     <section class="py-5 bg-light">
-      <div class="container-fluid">
-        <div class="row align-items-center mb-4 gy-3">
-          <div class="col-lg-6">
-            <p class="text-uppercase text-primary mb-1">Danh mục</p>
-            <h3 class="fw-bold mb-0">Khám phá toàn bộ sản phẩm</h3>
-          </div>
-          <div class="col-lg-6 text-lg-end">
-            <div class="btn-group flex-wrap" role="group">
-              <button class="btn btn-outline-primary btn-sm"
-                ng-class="{'btn-primary text-white': !selectedCategoryFilter}"
-                ng-click="filterPro = products; selectedCategoryFilter = null">Tất cả</button>
-              <button class="btn btn-outline-primary btn-sm"
-                ng-repeat="cate in categories track by cate.id"
-                ng-class="{'btn-primary text-white': selectedCategoryFilter === cate.id}"
-                ng-click="selectedCategoryFilter = cate.id; filterProducts(cate.id)">
-                {{cate.name}}
-              </button>
-            </div>
-          </div>
-        </div>
+      <div class="container">
         <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3" ng-repeat="item in filterPro track by item.id">
-            <div class="border rounded-3 h-100 p-3 d-flex flex-column">
-              <img class="img-fluid rounded mb-3"
-                ng-src="{{item.thumbnailUrl || item.urlimage || '/assets/images/placeholder.png'}}"
-                alt="{{item.name}}">
-              <h5 class="fw-semibold">{{item.name}}</h5>
-              <p class="text-muted small mb-1" ng-if="item.category">{{item.category.name}}</p>
-              <p class="text-primary fw-bold fs-5 mb-4">{{item.price | currency:'₫'}}</p>
-              <div class="mt-auto d-flex gap-2">
-                <button class="btn btn-outline-primary flex-grow-1" ng-click="addToCart(item)">Thêm vào giỏ</button>
-                <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewProduct"
-                  ng-click="viewProduct(item)">
-                  <i class="bi bi-eye"></i>
-                </button>
+          <div class="col-lg-3">
+            <div class="card border-0 shadow-sm position-sticky" style="top: 100px;">
+              <div class="card-body">
+                <h5 class="fw-bold mb-3">Danh mục</h5>
+                <ul class="list-unstyled product-sidebar">
+                  <li>
+                    <a href="javascript:void(0)" class="d-block py-2 px-2 rounded"
+                      ng-class="{'active': selectedCategoryFilter === null}"
+                      ng-click="selectCategory(null)">
+                      Tất cả sản phẩm
+                    </a>
+                  </li>
+                  <li ng-repeat="cate in categoriesTree track by cate.id" ng-include="'category-node-tpl'"></li>
+                </ul>
+                <hr class="my-3">
+                <h5 class="fw-bold mb-2">Thuộc tính</h5>
+                <ul class="list-unstyled product-sidebar">
+                  <li ng-repeat="attr in attributes track by attr.id"
+                    ng-class="{'has-children': attributeValuesByAttr[attr.id] && attributeValuesByAttr[attr.id].length}">
+                    <a href="javascript:void(0)" class="d-block py-2 px-2 rounded">
+                      {{attr.name}}
+                    </a>
+                    <ul class="list-unstyled sub-menu" ng-if="attributeValuesByAttr[attr.id] && attributeValuesByAttr[attr.id].length">
+                      <li ng-repeat="val in attributeValuesByAttr[attr.id]">
+                        <a href="javascript:void(0)" class="d-block py-1 px-3"
+                          ng-class="{'active': selectedAttributeValue === val.id}"
+                          ng-click="selectAttributeValue(val.id)">
+                          {{val.value || val.name}}
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <hr class="my-3">
+                <h5 class="fw-bold mb-2">Hãng</h5>
+                <ul class="list-unstyled product-sidebar">
+                  <li>
+                    <a href="javascript:void(0)" class="d-block py-2 px-2 rounded"
+                      ng-class="{'active': selectedBrandFilter === null}"
+                      ng-click="selectBrand(null)">
+                      Tất cả hãng
+                    </a>
+                  </li>
+                  <li ng-repeat="brand in brands track by brand.id">
+                    <a href="javascript:void(0)" class="d-block py-2 px-2 rounded"
+                      ng-class="{'active': selectedBrandFilter === brand.id}"
+                      ng-click="selectBrand(brand.id)">
+                      {{brand.name}}
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="col-12 text-center py-5" ng-if="!filterPro.length">
-            <p class="text-muted mb-0">Không tìm thấy sản phẩm nào cho bộ lọc hiện tại.</p>
+
+          <div class="col-lg-9">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+              <div>
+                <p class="text-uppercase text-primary mb-1">Sản phẩm</p>
+                <h3 class="fw-bold mb-0">Khám phá thiết bị</h3>
+              </div>
+              <div class="d-flex flex-wrap gap-2 align-items-center ms-auto">
+                <div class="text-muted small">
+                  Hiển thị {{pagedProducts.length}} / {{filterPro.length}} sản phẩm
+                </div>
+              </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+              <div class="col" ng-repeat="item in pagedProducts track by item.id">
+                <div class="border rounded-3 h-100 p-2 d-flex flex-column">
+                  <img class="img-fluid rounded mb-2"
+                    ng-src="{{item.thumbnailUrl || item.urlimage || ''}}"
+                    alt="{{item.name}}">
+                  <h6 class="fw-semibold text-truncate" title="{{item.name}}">{{item.name}}</h6>
+                  <p class="text-muted small mb-1" ng-if="item.category">{{item.category.name}}</p>
+                  <p class="text-primary fw-bold mb-3">{{item.price | currency:'₫'}}</p>
+                  <div class="mt-auto d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm flex-grow-1" ng-click="addToCart(item)">Thêm vào giỏ</button>
+                    <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#viewProduct"
+                      ng-click="viewProduct(item)">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 text-center py-5" ng-if="!pagedProducts.length">
+                <p class="text-muted mb-0">Không tìm thấy sản phẩm nào.</p>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <button class="btn btn-outline-secondary btn-sm" ng-click="goToProductPage(currentProductPage - 1)"
+                ng-disabled="currentProductPage === 1">← Trang trước</button>
+              <div class="small text-muted">Trang {{currentProductPage}} / {{totalProductPages}}</div>
+              <button class="btn btn-outline-secondary btn-sm" ng-click="goToProductPage(currentProductPage + 1)"
+                ng-disabled="currentProductPage === totalProductPages">Trang tiếp →</button>
+            </div>
           </div>
         </div>
       </div>
     </section>
   
+<script type="text/ng-template" id="category-node-tpl">
+  <div ng-if="cate" style="display: contents;">
+    <li ng-class="{'has-children': hasChildren(cate)}">
+      <a href="javascript:void(0)" class="d-block py-2 px-2 rounded"
+        ng-class="{'active': selectedCategoryFilter === cate.id}"
+        ng-click="selectCategory(cate.id)">
+        {{cate.name}}
+      </a>
+      <ul class="list-unstyled sub-menu" ng-if="hasChildren(cate)">
+        <li ng-repeat="cate in cate.children track by cate.id" ng-include="'category-node-tpl'"></li>
+      </ul>
+    </li>
+  </div>
+</script>
