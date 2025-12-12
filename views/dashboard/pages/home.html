@@ -1,0 +1,205 @@
+<section class="baesan-banner py-4">
+  <div class="container">
+    <div class="row gx-3">
+
+      <!-- Banner chính bên trái -->
+      <div class="col-md-8">
+        <div class="banner-main swiper">
+          <div class="swiper-wrapper">
+
+
+            <!-- Slide 1 -->
+            <div class="swiper-slide"
+              style="background:url('https://baesan.vn/wp-content/uploads/2025/11/slide-01-scaled-1-scaled.webp') center center/cover no-repeat;">
+              <div class="banner-text">
+                <h6 class="text-warning fw-semibold mb-3">THIẾT BỊ</h6>
+                <h2 class="fw-bold text-dark mb-3">Tủ An Toàn Sinh Học Cấp II</h2>
+                <p class="text-muted mb-4">Đảm bảo an toàn tối đa cho người dùng và mẫu thử trong môi trường phòng thí
+                  nghiệm, bệnh viện và viện nghiên cứu.</p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide"
+              style="background:url('https://baesan.vn/wp-content/uploads/2025/11/side-01-1-scaled.jpg') center center/cover no-repeat;">
+              <div class="banner-text">
+                <h6 class="text-warning fw-semibold mb-3">KIT TEST NHANH</h6>
+                <h2 class="fw-bold text-dark mb-3">Kit Test Nhanh Kháng Nguyên</h2>
+                <p class="text-muted mb-4">Phát hiện nhanh trong 10 phút, định tính kháng nguyên Dịch tả lợn châu Phi
+                  (ASFV) từ mẫu huyết thanh, thuận tiện tại hiện trường.</p>
+              </div>
+            </div>
+
+
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide"
+              style="background:url('https://baesan.vn/wp-content/uploads/2025/11/slide-02-scaled.jpg') center center/cover no-repeat;">
+              <div class="banner-text">
+                <h6 class="text-warning fw-semibold mb-3">DỊCH VỤ</h6>
+                <h2 class="fw-bold text-dark mb-3">Setup Phòng Thí Nghiệm Trọn Gói</h2>
+                <p class="text-muted mb-4">Từ thiết kế – thi công – lắp đặt thiết bị và bàn ghế – hệ thống khí & điện –
+                  đào tạo vận hành. Đội ngũ kỹ thuật giàu kinh nghiệm, giúp bạn xây dựng phòng thí nghiệm theo tiêu
+                  chuẩn: an toàn – hiệu quả – thoải mái.</p>
+              </div>
+            </div>
+
+          </div>
+          <!-- Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <!-- Hai banner nhỏ bên phải -->
+      <div class="col-md-4">
+
+        <!-- Banner nhỏ 1 -->
+        <div class="banner-side p-4 mb-3 rounded-4"
+          style="cursor:pointer; background:#e8f3e8 url('https://baesan.vn/wp-content/uploads/2025/11/side-01.jpg') right bottom/cover no-repeat;">
+        </div>
+
+        <!-- Banner nhỏ 2 -->
+        <div class="banner-side p-4 rounded-4"
+          style="cursor:pointer; background:#f8eae9 url('https://baesan.vn/wp-content/uploads/2025/11/side-02.jpg') right bottom/cover no-repeat;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="py-5">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="bootstrap-tabs product-tabs">
+            <div class="tabs-header d-flex justify-content-between border-bottom my-5">
+              <h3>Trending Products</h3>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+
+                <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+                  <div class="col" ng-repeat="item in products | limitTo:10 track by item.id">
+                    <div class="product-item h-100">
+                      <figure>
+                        <a href="javascript:void(0)" title="{{item.name}}">
+                          <img ng-src="{{item.thumbnailUrl || item.urlimage || ''}}" class="tab-image" alt="{{item.name}}">
+                        </a>
+                      </figure>
+                      <h3 class="text-truncate">{{item.name}}</h3>
+                      <span class="qty" ng-if="item.category && item.category.name">{{item.category.name}}</span>
+                      <span class="price d-block">{{item.price | currency:'₫'}}</span>
+                      <div class="d-flex align-items-center justify-content-between mt-2 gap-2">
+                        <button type="button" class="btn btn-sm btn-outline-primary flex-grow-1" ng-click="addToCart(item)">
+                          Thêm vào giỏ
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#viewProduct" ng-click="viewProduct(item)">
+                          Xem
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- section coppy từ bên ngoài -->
+<section class="about-spotlight py-5">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Text block -->
+      <div class="col-lg-8">
+        <h2 class="fw-bold mb-3">Spotlight</h2>
+        <h4 class="fw-semibold text-primary mb-3">DỊCH TẢ LỢN CHÂU PHI: PHÁT HIỆN VÀ CHẨN ĐOÁN</h4>
+        <p>
+          Dịch tả lợn châu Phi (ASF – African Swine Fever) là một bệnh truyền nhiễm do virus gây ra, ảnh hưởng đến lợn ở
+          mọi lứa tuổi và gây sốt xuất huyết. Bệnh có thể biểu hiện ở nhiều thể khác nhau, từ thể quá cấp, cấp tính, bán
+          cấp, mạn tính cho đến thể không điển hình.
+          Thể cấp tính thường dễ nhận biết nhất, với tỷ lệ chết có thể lên tới 100%. Lợn nhà và lợn rừng có thể bị nhiễm
+          bệnh qua nhiều con đường khác nhau.
+        </p>
+        <p>
+          Châu Âu chiếm 67% số ổ dịch được báo cáo thông qua thông báo khẩn và báo cáo theo dõi (theo dữ liệu của OIE
+          giai đoạn 2016–2020). Tuy nhiên, khu vực chịu thiệt hại nặng nề nhất về số lượng động vật bị mất là châu Á
+          (6.733.791 con lợn bị tiêu hủy), chiếm 82% tổng số lợn bị mất trên toàn cầu. Sự khác biệt đáng kể giữa các khu
+          vực được ghi nhận ở cấp độ khu vực: các nước châu Phi ghi nhận dịch chủ yếu ở lợn nhà; châu Á chủ yếu ở lợn
+          nhà; còn châu Âu chủ yếu ở lợn rừng. Những dữ liệu này phản ánh sự khác biệt rõ rệt về tình hình dịch tễ học
+          giữa các khu vực. Hiện chưa có thuốc điều trị hoặc vắc xin phòng bệnh này.
+        </p>
+        <p>
+          Vì hiện chưa có vắc xin chống lại ASF, việc chẩn đoán chính xác là yếu tố then chốt. Phương pháp chẩn đoán
+          thích hợp bao gồm phát hiện và định danh các kháng nguyên đặc hiệu của virus ASFV hoặc DNA
+          và kháng thể nhằm thu thập thông tin cần thiết phục vụ cho công tác kiểm soát và chương trình tiêu
+          diệt mầm bệnh.
+        </p>
+        <a href="https://baesan.vn/san-pham/kit-test-nhanh-phat-hien-khang-nguyen-asfv-dich-ta-lon-chau-phi/"
+          class="btn btn-primary rounded-pill px-4 py-2 mt-2 fw-semibold">Tìm Hiểu Thêm</a>
+      </div>
+
+      <!-- Image block -->
+      <div class="col-lg-4 text-center">
+        <img src="https://baesan.vn/wp-content/uploads/2025/11/pic1.jpg" alt="ASF Transmission Diagram"
+          class="img-fluid rounded-3 shadow-sm">
+        <p class="small text-muted mt-2 fst-italic">Nguồn: FAO, 2017</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <section class="py-5">
+    <div class="container">
+      <div class="bg-secondary py-5 my-5 rounded-5"
+        style="background: url('images/bg-leaves-img-pattern.png') no-repeat;">
+        <div class="row align-items-center">
+          <div class="col-md-6 p-5">
+            <div class="section-header">
+              <h2 class="section-title display-5 text-uppercase">Nhận <span class="text-primary">ưu đãi 25%</span> cho đơn hàng đầu tiên</h2>
+            </div>
+            <p class="mb-0">Để lại thông tin để nhận tư vấn thiết bị mới nhất, demo dùng thử và chính sách giá ưu đãi dành riêng cho bệnh viện/phòng lab của bạn.</p>
+          </div>
+          <div class="col-md-6 p-5">
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="lead-name" class="form-label">Họ tên</label>
+                  <input type="text" class="form-control form-control-lg" id="lead-name" placeholder="">
+                </div>
+                <div class="col-md-6">
+                  <label for="lead-email" class="form-label">Email</label>
+                  <input type="email" class="form-control form-control-lg" id="lead-email" placeholder="">
+                </div>
+                <div class="col-12">
+                  <label for="lead-topic" class="form-label">Nhu cầu</label>
+                  <input type="text" class="form-control form-control-lg" id="lead-topic" placeholder="">
+                </div>
+                <div class="col-12 form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="lead-subscribe">
+                  <label class="form-check-label" for="lead-subscribe">Đăng ký nhận tin khuyến mãi và cập nhật sản phẩm</label>
+                </div>
+                <div class="col-12 d-grid gap-2">
+                  <button type="submit" class="btn btn-dark btn-lg">Gửi thông tin</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  

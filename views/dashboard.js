@@ -5,22 +5,39 @@ app.controller("dashboard", function (
   $location,
   cartService,
   $timeout,
-  $q
+  $q,
+  $route,
+  dashboardProductService
 ) {
   $scope.nameUser = "Welcome !";
   $scope.isLogin = false;
-  $scope.products = [];
-  $scope.viewPro = {};
   $scope.cartProduct = {};
-  $scope.filterPro = [];
   $scope.account = {};
-  $scope.categories = [];
   $scope.cartItems = [];
   $scope.cartLoading = false;
   $scope.cartProcessing = false;
   $scope.cartNotice = "";
   $scope.cartError = "";
   const CHECKOUT_MODAL_ID = "cartCheckoutModal";
+  const PAGE_TEMPLATES = {
+    home: "/views/dashboard/pages/home.html",
+    products: "/views/dashboard/pages/products.html",
+    about: "/views/dashboard/pages/about.html",
+    news: "/views/dashboard/pages/news.html",
+    contact: "/views/dashboard/pages/contact.html",
+    career: "/views/dashboard/pages/career.html",
+  };
+  $scope.pageTemplate = PAGE_TEMPLATES.home;
+  dashboardProductService.bootstrapScope($scope);
+
+  function updatePageSection() {
+    const page = ($route.current && $route.current.pageId) || "home";
+    $scope.pageSection = page;
+    $scope.pageTemplate = PAGE_TEMPLATES[page] || PAGE_TEMPLATES.home;
+  }
+
+  $scope.$on("$routeChangeSuccess", updatePageSection);
+  updatePageSection();
 
   $scope.initialize = function () {
     $scope.isLoading = true;
@@ -29,23 +46,11 @@ app.controller("dashboard", function (
       $scope.nameUser = authService.getUsername();
       $scope.loadCart();
     }
-    $http
-      .get("http://localhost:8000/api/admin/products")
-      .then((resp) => {
-        const list = Array.isArray(resp.data) ? resp.data : [];
-        $scope.products = list;
-        $scope.filterPro = list;
-        return loadImagesForProducts($scope.products);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-
-    $http
-      .get("http://localhost:8000/api/admin/categories")
-      .then((resp) => {
-        $scope.categories = resp.data;
-      })
+    dashboardProductService
+      .loadProducts($scope)
+      .then(() => dashboardProductService.loadTaxonomies($scope))
+      .then(() => dashboardProductService.loadAttributes($scope))
+      .then(() => dashboardProductService.loadBrands($scope))
       .catch((error) => {
         console.log("Error", error);
       });
@@ -56,9 +61,8 @@ app.controller("dashboard", function (
   };
 
   $scope.filterProducts = function (id) {
-    $scope.filterPro = $scope.products.filter(
-      (product) => product.category.id == id
-    );
+    $scope.selectedCategoryFilter = id;
+    dashboardProductService.applyProductFilters($scope);
   };
 
   $scope.logout = function () {
@@ -141,6 +145,36 @@ app.controller("dashboard", function (
   $scope.resolveCartImage = function (item) {
     if (!item) return null;
     return resolveProductImageUrl(item.product);
+  };
+
+  $scope.hasChildren = function (cate) {
+    return cate && Array.isArray(cate.children) && cate.children.length > 0;
+  };
+
+  $scope.goToProductPage = function (page) {
+    if (!page || page < 1 || page > $scope.totalProductPages) return;
+    $scope.currentProductPage = page;
+    dashboardProductService.refreshProductPagination($scope);
+  };
+
+  $scope.selectCategory = function (id) {
+    $scope.selectedCategoryFilter = id;
+    if (id === null) {
+      $scope.selectedAttributeValue = null;
+    }
+    dashboardProductService.applyProductFilters($scope);
+  };
+
+  $scope.selectAttributeValue = function (valId) {
+    $scope.selectedAttributeValue =
+      $scope.selectedAttributeValue === valId ? null : valId;
+    dashboardProductService.applyProductFilters($scope);
+  };
+
+  $scope.selectBrand = function (brandId) {
+    $scope.selectedBrandFilter =
+      $scope.selectedBrandFilter === brandId ? null : brandId;
+    dashboardProductService.applyProductFilters($scope);
   };
 
   $scope.checkCartQuantity = function (cartItem) {
@@ -300,16 +334,6 @@ app.controller("dashboard", function (
         });
     });
     return Promise.all(requests);
-  }
-
-  function decorateProduct(product) {
-    if (!product) return product;
-    const thumb = resolveProductImageUrl(product);
-    if (thumb) {
-      product.thumbnailUrl = thumb;
-      product.urlimage = thumb;
-    }
-    return product;
   }
 
   function resolveProductImageUrl(product) {

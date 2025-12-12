@@ -3,15 +3,14 @@
   <link rel="stylesheet" href="/assets/css/dashboard/bootstrap5.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/dashboard/vendor.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/dashboard/style.css">
+<<<<<<< HEAD
+=======
+  
+>>>>>>> ee573a92f700d3d9bf6cf6c0e1cb3d12cce2c662
 </head>
 
 <body>
-  <!-- --------- Hiệu ứng load trang ------------ -->
-
-  <!-- <div class="preloader-wrapper">
-    <div class="preloader">
-    </div>
-  </div> -->
+  
   <!-- --------- Show nhanh rỏ hàng ------------ -->
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart"
     aria-labelledby="My Cart" style="width: 900px;">
@@ -165,7 +164,7 @@
               ng-click="prepareCart($event)">
               <span class="fs-6 text-muted dropdown-toggle">Giỏ Hàng ({{getCartCount()}})</span>
             </button>
-            <a ng-if="!isLogin" ng-href="/#!/login" class="btn btn-outline-primary btn-sm">Đăng nhập để xem giỏ hàng</a>
+            <a ng-if="!isLogin" ng-href="/#!/login" class="btn btn-outline-primary btn-sm">Giỏ hàng</a>
           </div>
 
           <div class="cart text-end d-none d-lg-block dropdown">
@@ -212,25 +211,31 @@
 
               <div class="offcanvas-body d-flex justify-content-center">
 
-                <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0 text-uppercase w-100 justify-content-center text-center"
+                <ul
+                  class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0 text-uppercase w-100 justify-content-center text-center"
                   style="justify-content: center !important;">
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Trang chủ</a>
+                    <a ng-href="/#!/" class="nav-link" ng-class="{'fw-bold text-primary': pageSection === 'home'}">Trang chủ</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Sản phẩm</a>
+                    <a ng-href="/#!/products" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'products'}">Sản phẩm</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Giới thiệu</a>
+                    <a ng-href="/#!/about" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'about'}">Giới thiệu</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Tin tức</a>
+                    <a ng-href="/#!/news" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'news'}">Tin tức</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Liên hệ</a>
+                    <a ng-href="/#!/contact" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'contact'}">Liên hệ</a>
                   </li>
                   <li class="nav-item">
-                    <a href="javascript:void(0)" class="nav-link">Tuyển dụng</a>
+                    <a ng-href="/#!/career" class="nav-link"
+                      ng-class="{'fw-bold text-primary': pageSection === 'career'}">Tuyển dụng</a>
                   </li>
                 </ul>
 
@@ -244,12 +249,9 @@
   <!-- --------- Menu bar ------------ -->
 
 
-  <section class="py-3"
-    style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
+    <div ng-include="pageTemplate"></div>
 
+<<<<<<< HEAD
           <div class="banner-blocks">
 
             <div class="banner-ad large bg-info block-1">
@@ -485,6 +487,8 @@
 
     </div>
   </section>
+=======
+>>>>>>> ee573a92f700d3d9bf6cf6c0e1cb3d12cce2c662
 
   <!-- --------- Checkout Modal ------------ -->
   <div class="modal fade" id="cartCheckoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -556,9 +560,9 @@
         <div class="col-sm-4 col-lg-2">
           <h6 class="text-uppercase fw-bold mb-3 text-light">Thông tin</h6>
           <ul class="list-unstyled small">
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Giới thiệu</a></li>
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Tin tức</a></li>
-            <li><a href="javascript:void(0)" class="text-white-50 text-decoration-none">Tuyển dụng</a></li>
+            <li><a ng-href="/#!/about" class="text-white-50 text-decoration-none">Giới thiệu</a></li>
+            <li><a ng-href="/#!/news" class="text-white-50 text-decoration-none">Tin tức</a></li>
+            <li><a ng-href="/#!/career" class="text-white-50 text-decoration-none">Tuyển dụng</a></li>
           </ul>
         </div>
         <div class="col-sm-4 col-lg-3">
